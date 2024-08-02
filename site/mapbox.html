@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Guides</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.5.1/mapbox-gl.js"></script>
+    <script src='https://unpkg.com/maplibre-gl@4.5.0/dist/maplibre-gl.js'></script>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="map"></div>
+    <script>
+        mapboxgl.accessToken = 'pk.eyJ1IjoibWFyeml5ZWhiYXNoaXJpIiwiYSI6ImNqemF3cWJpOTAwb3kzZ3FteWs4dDlwbGUifQ.ppmyMgjSFrkMCGQI5wC-UQ';
+        mapboxgl.setRTLTextPlugin(
+            'https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-rtl-text/v0.3.0/mapbox-gl-rtl-text.js',
+            null,
+            true // Lazy load the plugin
+        )
+        const map = new mapboxgl.Map({
+            container: 'map', // container ID
+            style: {
+                'version': 8,
+                "glyphs": "https://stage.routaa.ir/routaa/fonts/{fontstack}/{range}.pbf",
+                "sprite": "https://static.routaa.com/map-helm/files/docs/cartography-theme/allhq/sprite626227367",
+                'sources': {
+                    'raster-tiles': {
+                        'type': 'raster',
+                        'tiles': ['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],
+                        'tileSize': 256,
+                        'attribution':
+                            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    },
+                    'custom_tiles': {
+                        'type': 'vector',
+                        "format": "pbf",
+                        "scheme": "xyz",
+                        "tiles": [
+                            'http://localhost:8090/geoserver/viuna/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=viuna:viuna_gr&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}'
+                            // 'http://localhost:8090/geoserver/viuna/gwc/service/wmts?REQUEST=GetTile&SERVICE=WMTS&VERSION=1.0.0&LAYER=viuna:province&STYLE=&TILEMATRIX=EPSG:900913:{z}&TILEMATRIXSET=EPSG:900913&FORMAT=application/vnd.mapbox-vector-tile&TILECOL={x}&TILEROW={y}'
+                        ],
+                        "vector_layers": [
+
+                            {
+                                "id": "province",
+                                "fields": {},
+                                "source": "province",
+                                "maxzoom": 22,
+                                "minzoom": 5,
+                                "description": "",
+                                "source_name": "province"
+                            },
+                            {
+                                "id": "unit",
+                                "fields": {},
+                                "source": "unit",
+                                "maxzoom": 22,
+                                "minzoom": 5,
+                                "description": "",
+                                "source_name": "unit"
+                            }
+
+
+                        ]
+
+
+
+
+                    }
+                },
+
+                'layers': [
+                    {
+                        'id': 'simple-tiles',
+                        'type': 'raster',
+                        'source': 'raster-tiles',
+                        'minzoom': 0,
+                        'maxzoom': 22
+                    },
+                    {
+                        id: 'province_fill',
+                        type: 'fill',
+                        'source-layer': 'custom_tiles',
+                        layout: {
+                            visibility: 'visible'
+                        },
+                        paint: {
+                            'fill-color': 'rgba(200, 221, 152,0.5)',
+                            "fill-outline-color": "rgb(183, 133, 133)"
+                        },
+                        source: "custom_tiles",
+                        "source-layer": "province"
+                    },
+                    {
+                        "id": "province-label",
+                        "type": "symbol",
+                        "filter": [
+                            "==",
+                            [
+
+                                "get",
+                                "type"
+
+                            ],
+                           3
+                        ],
+                        "paint": {
+                            "text-color": "#0a0605",
+                            "text-halo-color": "#fff",
+                            "text-halo-width": 1.5
+                        },
+                        "layout": {
+                            "icon-size": 0.5,
+                            "text-font": [
+                                "IRANYekanWebFnMedium"
+                            ],
+                            "text-size": {
+                                "stops": [
+                                    [
+                                        5,
+                                        10
+                                    ],
+                                    [
+                                        10.5,
+                                        14
+                                    ]
+                                ]
+                            },
+                            "text-field": "{name}",
+                            "text-anchor": "center",
+                            "text-offset": [
+                                0,
+                                2
+                            ],
+                            "icon-image": "camera.png",
+                            "symbol-placement": "point",
+                            "text-allow-overlap": false
+                        },
+                        "source": "custom_tiles",
+                        "maxzoom": 18,
+                        "minzoom": 5,
+                        "source-layer": "unit"
+                    },
+
+
+                ]
+            },
+            center: [52, 36], // starting position
+            zoom: 2 // starting zoom
+        });
+
+
+    </script>
+
+</body>
+
+</html>
