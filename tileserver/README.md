@@ -1,6 +1,6 @@
 # tile server
 > 1. requirement node v10+
-> 2. 
+> 2. just up compose
 ## Project Struncture
 <pre>
 data      # base directory <br> 
