@@ -1,0 +1,10 @@
+version: "3.9"
+services:
+  tileserver:
+    image: maptiler/tileserver-gl
+    container_name: tileserver
+    ports:
+      - "9090:8080"
+    volumes:
+      - ./:/data
+    restart: unless-stopped

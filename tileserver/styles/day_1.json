@@ -1,0 +1,107 @@
+{
+  "id": "day_1",
+  "name": "day_1",
+  "draft": false,
+  "owner": "viuna",
+  "glyphs": "{fontstack}/{range}.pbf",
+  "version": 8.0,
+  "modified": 0.0,
+  "created": 0.0,
+  "transition": {
+    "delay": 300.0,
+    "duration": 300.0
+  },
+  "sprite": "sprite",
+  "layers": [
+    {
+      "id": "province-fill",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#ece1cb",
+        "fill-outline-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          "hsl(0, 47%, 77%)",
+          7,
+          "hsl(0, 26%, 62%)"
+        ],
+        "fill-opacity": 0.8
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "place_level"
+        ],
+        "province"
+      ],
+      "source": "province",
+      "maxzoom": 22.1,
+      "minzoom": 1.0,
+      "source-layer": "province"
+    },
+        {
+      "id": "custom-province-label",
+      "type": "symbol",
+      "paint": {
+        "text-color": "#630303",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 1.0
+      },
+      "filter": [
+        "==",
+        [
+          "string",
+          [
+            "get",
+            "place_level"
+          ]
+        ],
+        "state"
+      ],
+      "layout": {
+        "text-font": [
+          "IRANYekanWebFnMedium"
+        ],
+        "text-size": {
+          "stops": [
+            [
+              3,
+              9.5
+            ],
+            [
+              5,
+              10
+            ],
+            [
+              18,
+              11
+            ]
+          ]
+        },
+        "text-field": "{name}",
+        "text-anchor": "center",
+        "text-max-width": 8,
+        "symbol-placement": "point",
+        "text-allow-overlap": true
+      },
+      "source": "province",
+      "maxzoom": 18.0,
+      "minzoom": 3.0,
+      "source-layer": "province_point"
+    }
+  ],
+  "sources": {
+    "province": {
+      "url": "mbtiles://{province}",
+      "type": "vector",
+      "maxzoom": 18
+    }
+  }
+}
