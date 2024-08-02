@@ -1,0 +1,45 @@
+{
+  "options": {
+    "paths": {
+      "root": "",
+      "styles": "styles",
+      "fonts": "fonts",
+      "sprites": "sprites",
+      "mbtiles": "tiles"
+    },
+    "domains": [
+      "localhost:9090",
+      "127.0.0.1:9090"
+    ],
+    "formatQuality": {
+      "jpeg": 80,
+      "webp": 90
+    },
+    "maxScaleFactor": 3,
+    "maxSize": 2048,
+    "pbfAlias": "pbf",
+    "serveAllFonts": false,
+    "serveAllStyles": false,
+    "serveStaticMaps": true,
+    "allowRemoteMarkerIcons": true,
+    "tileMargin": 0
+  },
+  "styles": {
+    "day_1": {
+      "style": "day_1.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    }
+  },
+  "data": {
+    "province": {
+      "mbtiles": "province.mbtile"
+    }
+  }
+}
