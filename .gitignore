@@ -2,3 +2,4 @@ geoserver_data
 additional_libs
 fonts
 .idea
+*.pbf
