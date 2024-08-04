@@ -3,3 +3,4 @@ additional_libs
 fonts
 .idea
 *.pbf
+venv
