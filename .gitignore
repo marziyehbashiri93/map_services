@@ -4,3 +4,6 @@ fonts
 .idea
 *.pbf
 venv
+/tileserver/styles/routaa_day_silivan.json
+/tileserver/styles/routaa_province.json
+output
