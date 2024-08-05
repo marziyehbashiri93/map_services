@@ -120,6 +120,9 @@ local station_table = osm2pgsql.define_area_table('station', {
 function osm2pgsql.process_way(object)
     if object.tags.public_transport == 'station'  then
         station_table:insert({
+
+
+
             name = object.tags.name,
             geom = object:as_polygon(),
             type = object.tags.public_transport,
