@@ -8,7 +8,6 @@ services:
         - GEOSERVER_VERSION=2.25.3
         - CORS_ENABLED=true
         - CORS_ALLOWED_METHODS=GET
-    restart: unless-stopped
     ports:
       - "8090:8080"
     network_mode: "bridge"
@@ -26,5 +25,4 @@ services:
       interval: 1m
       retries: 3
       timeout: 20s
-
-
+    restart: unless-stopped
