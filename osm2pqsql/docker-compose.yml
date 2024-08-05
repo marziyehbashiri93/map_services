@@ -3,8 +3,6 @@ services:
   osm2pgsl:
     image: iboates/osm2pgsql:latest
     container_name: osm2pgsl
-    ports:
-      - "9090:8080"
     volumes:
-      - /srv/osm2pgsql:/data
+      - ${PWD}:/usr/local/share/osm2pgsql/file/
     restart: unless-stopped
