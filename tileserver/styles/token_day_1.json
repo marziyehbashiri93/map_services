@@ -10183,11 +10183,6 @@
     }
   ],
   "sources": {
-    "province": {
-      "url": "mbtiles://{province}",
-      "type": "vector",
-      "maxzoom": 18
-    },
     "static_road": {
       "url": "mbtiles://{static_road}",
       "type": "vector",

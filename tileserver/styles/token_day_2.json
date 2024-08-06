@@ -1,0 +1,217 @@
+{
+  "id": "day_1",
+  "name": "day_1",
+  "draft": false,
+  "owner": "viuna",
+  "glyphs": "{fontstack}/{range}.pbf",
+  "version": 8.0,
+  "modified": 0.0,
+  "created": 0.0,
+  "transition": {
+    "delay": 300.0,
+    "duration": 300.0
+  },
+  "sprite": "sprite",
+  "layers": [
+    {
+      "id": "land",
+      "type": "background",
+      "layout": {},
+      "minzoom": 0,
+      "paint": {
+        "background-color": "-background-color-"
+      }
+    },
+    {
+      "id": "province-fill",
+      "type": "fill",
+      "paint": {
+        "fill-color": "#ece1cb",
+        "fill-outline-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          3,
+          "hsl(0, 47%, 77%)",
+          7,
+          "hsl(0, 26%, 62%)"
+        ],
+        "fill-opacity": 0.8
+      },
+      "filter": [
+        "==",
+        [
+          "get",
+          "place_level"
+        ],
+        "province"
+      ],
+      "source": "province",
+      "maxzoom": 22.1,
+      "minzoom": 1.0,
+      "source-layer": "province"
+    },
+    {
+      "id": "tunnel-major-link-case",
+      "type": "line",
+      "source": "static_road",
+      "source-layer": "road_major",
+      "minzoom": 2,
+      "filter": [
+        "all",
+        [
+          "==",
+          [
+            "get",
+            "tunnel"
+          ],
+          "yes"
+        ],
+        [
+          "match",
+          [
+            "get",
+            "highway"
+          ],
+          [
+            "motorway_link",
+            "trunk_link"
+          ],
+          true,
+          false
+        ]
+      ],
+      "paint": {
+        "line-width": 2,
+        "line-color": "-tunnel-major-link-case-",
+        "line-gap-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          12,
+          0.8,
+          18,
+          20,
+          22,
+          200
+        ],
+        "line-dasharray": [
+          3,
+          3
+        ]
+      }
+    },
+    {
+      "id": "road-minor-case",
+      "type": "line",
+      "source": "composite",
+      "source-layer": "road",
+      "minzoom": 13,
+      "filter": [
+        "match",
+        [
+          "get",
+          "highway"
+        ],
+        [
+          "track"
+        ],
+        true,
+        "service",
+        [
+          "step",
+          [
+            "zoom"
+          ],
+          false,
+          14,
+          true
+        ],
+        false
+      ],
+      "layout": {
+        "line-cap": [
+          "step",
+          [
+            "zoom"
+          ],
+          "butt",
+          14,
+          "round"
+        ],
+        "line-join": [
+          "step",
+          [
+            "zoom"
+          ],
+          "miter",
+          14,
+          "round"
+        ]
+      },
+      "paint": {
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          0.8,
+          22,
+          2
+        ],
+        "line-color": [
+          "match",
+          [
+            "get",
+            "class"
+          ],
+          "track",
+          "hsl(35, 80%, 48%)",
+          "hsl(60, 10%, 70%)"
+        ],
+        "line-gap-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.5
+          ],
+          [
+            "zoom"
+          ],
+          14,
+          1,
+          18,
+          10,
+          22,
+          100
+        ]
+      }
+    }
+  ],
+  "sources": {
+    "province": {
+      "url": "mbtiles://{province}",
+      "type": "vector",
+      "maxzoom": 18
+    },
+    "static_road": {
+      "url": "mbtiles://{static_road}",
+      "type": "vector",
+      "maxzoom": 18
+    }
+  }
+}
