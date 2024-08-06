@@ -6,5 +6,5 @@ services:
     ports:
       - "9090:8080"
     volumes:
-      - ./:/data
+      - /srv/tileserver:/data
     restart: unless-stopped
