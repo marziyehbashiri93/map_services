@@ -9129,19 +9129,19 @@
           "stops": [
             [
               15.0,
-              0.2
+              0.005
             ],
             [
               17.0,
-              0.25
+              0.01
             ],
             [
               18.0,
-              0.4
+              0.02
             ]
           ]
         },
-        "icon-image": "arrow1.png",
+        "icon-image": "right-long-solid.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9221,19 +9221,19 @@
           "stops": [
             [
               15.0,
-              0.2
+              0.005
             ],
             [
               17.0,
-              0.25
+              0.01
             ],
             [
               18.0,
-              0.4
+              0.02
             ]
           ]
         },
-        "icon-image": "arrow1.png",
+        "icon-image": "right-long-solid.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9317,19 +9317,19 @@
           "stops": [
             [
               15.0,
-              0.2
+              0.005
             ],
             [
               17.0,
-              0.25
+              0.01
             ],
             [
               18.0,
-              0.4
+              0.02
             ]
           ]
         },
-        "icon-image": "arrow.png",
+        "icon-image": "right-long-solid.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9620,15 +9620,15 @@
           "stops": [
             [
               10,
-              0.4
+              0.01
             ],
             [
               16,
-              0.8
+              0.02
             ],
             [
               22,
-              1.2
+              0.06
             ]
           ]
         },
