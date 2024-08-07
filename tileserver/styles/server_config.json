@@ -1,0 +1,157 @@
+{
+  "glyphs": "http://localhost:9090/fonts/{fontstack}/{range}.pbf",
+  "sprite": "http://localhost:9090/styles/day_1/sprite",
+  "sources": {
+    "static_road": {
+      "name": "roads",
+      "type": "vector",
+      "tiles": [
+        "http://127.0.0.1:9090/data/static_road/{z}/{x}/{y}.pbf"
+      ],
+      "format": "pbf",
+      "scheme": "xyz",
+      "maxzoom": 18,
+      "tilejson": "2.2.0",
+      "attribution": "Viuna Attribution",
+      "mapbox_logo": false,
+      "vector_layers": [
+        {
+          "id": "road_major",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_major"
+        },
+        {
+          "id": "road_intermediate",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_intermediate"
+        },
+        {
+          "id": "road_minor",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_minor"
+        },
+        {
+          "id": "road_footway",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_footway"
+        },
+        {
+          "id": "road_other",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_other"
+        },
+        {
+          "id": "road_block",
+          "fields": {},
+          "source": "static-road",
+          "description": "",
+          "source_name": "road_block"
+        }
+      ]
+    },
+    "static_complication": {
+      "name": "complication",
+      "attribution": "Viuna Attribution",
+      "type": "vector",
+      "tiles": [
+        "http://127.0.0.1:9090/data/static_complication/{z}/{x}/{y}.pbf"
+      ],
+      "format": "pbf",
+      "scheme": "xyz",
+      "maxzoom": 18,
+      "tilejson": "2.2.0",
+      "mapbox_logo": false,
+      "vector_layers": [
+        {
+          "id": "complication",
+          "fields": {},
+          "source": "static_complication",
+          "description": "",
+          "source_name": "complication"
+        },
+        {
+          "id": "station",
+          "fields": {},
+          "source": "static_complication",
+          "description": "",
+          "source_name": "station"
+        }
+      ]
+    },
+    "static_admin_division": {
+      "name": "admin division",
+      "attribution": "Viuna Attribution",
+      "type": "vector",
+      "tiles": [
+        "http://127.0.0.1:9090/data/static_admin_division/{z}/{x}/{y}.pbf"
+      ],
+      "format": "pbf",
+      "scheme": "xyz",
+      "maxzoom": 18,
+      "tilejson": "2.2.0",
+      "mapbox_logo": false,
+      "vector_layers": [
+        {
+          "id": "admin_divisions_polygon",
+          "fields": {},
+          "source": "static_admin_division",
+          "description": "",
+          "source_name": "admin_divisions_polygon"
+        },
+        {
+          "id": "admin_divisions_point_major",
+          "fields": {},
+          "source": "static_admin_division",
+          "description": "",
+          "source_name": "admin_divisions_point_major"
+        },
+        {
+          "id": "admin_divisions_point_minor",
+          "fields": {},
+          "source": "static_admin_division",
+          "description": "",
+          "source_name": "admin_divisions_point_minor"
+        }
+      ]
+    },
+    "static_landuse": {
+      "name": "landuse",
+      "type": "vector",
+      "attribution": "Viuna Attribution",
+      "tiles": [
+        "http://127.0.0.1:9090/data/static_landuse/{z}/{x}/{y}.pbf"
+      ],
+      "format": "pbf",
+      "scheme": "xyz",
+      "maxzoom": 18,
+      "tilejson": "2.2.0",
+      "mapbox_logo": false,
+      "vector_layers": [
+        {
+          "id": "landuse",
+          "fields": {},
+          "source": "static_landuse",
+          "description": "",
+          "source_name": "landuse"
+        },
+        {
+          "id": "river",
+          "fields": {},
+          "source": "static_landuse",
+          "description": "",
+          "source_name": "river"
+        }
+      ]
+    }
+  }
+}

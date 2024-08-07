@@ -33,6 +33,9 @@
     },
     "static_admin_division": {
       "mbtiles": "static_admin_division.mbtile"
+    },
+    "static_landuse": {
+      "mbtiles": "static_landuse.mbtile"
     }
   },
   "styles": {

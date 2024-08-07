@@ -1,7 +1,7 @@
 import json
 
 file_name = 'token_day_1.json'
-server_source_file = 'server_source.json'
+server_source_file = 'server_config.json'
 token_file = 'token.json'
 converted_style_file = file_name.replace('token_', '')
 converted_to_server_style_file = file_name.replace('token_', 'server_')
@@ -30,14 +30,16 @@ for layer in data['layers']:
             elif type(v) != list and v in key_token:
                 paint[k] = token[v]
 
-
-
-
 with open(converted_style_file, 'w') as f:
     f.write(json.dumps(data))
 
-
-data["source"] = server_source
+data["sources"] = server_source["sources"]
+data["sprite"] = server_source["sprite"]
+data["glyphs"] = server_source["glyphs"]
 
 with open(converted_to_server_style_file, 'w') as f:
     f.write(json.dumps(data))
+
+js_file = '/home/bashiri/drive_f/git/viuna/map_services/site/index.js'
+with open(js_file, 'w') as f:
+    f.write("const theme=" + json.dumps(data))
