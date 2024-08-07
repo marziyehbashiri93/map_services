@@ -40,6 +40,6 @@ data["glyphs"] = server_source["glyphs"]
 with open(converted_to_server_style_file, 'w') as f:
     f.write(json.dumps(data))
 
-js_file = '/home/bashiri/drive_f/git/viuna/map_services/site/index.js'
+js_file = '/home/marziyeh/Desktop/viouna/map_services/site/index.js'
 with open(js_file, 'w') as f:
     f.write("const theme=" + json.dumps(data))
