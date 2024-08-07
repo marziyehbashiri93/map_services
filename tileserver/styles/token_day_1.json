@@ -40,6 +40,237 @@
       "source-layer": "admin_divisions_polygon"
     },
     {
+      "id": "landuse-green-1",
+      "type": "fill",
+      "paint": {
+        "fill-color": "_landuse_green_color_",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          4.0,
+          0.3,
+          4.5,
+          1.0
+        ]
+      },
+      "filter": [
+        "in",
+        [
+          "get",
+          "landuse_type"
+        ],
+        [
+          "literal",
+          [
+            "wood",
+            "forest",
+            "resevior"
+          ]
+        ]
+      ],
+      "source": "static_landuse",
+      "maxzoom": 22.1,
+      "minzoom": 4.0,
+      "source-layer": "landuse"
+    },
+    {
+      "id": "landuse-water-1",
+      "type": "fill",
+      "paint": {
+        "fill-color": "_landuse_water_color_",
+        "fill-opacity":[
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          7.0,
+          0.3,
+          8.0,
+          0.5,
+          22.0,
+          0.5
+        ]
+      },
+      "filter": [
+        "match",
+        [
+          "get",
+          "landuse_type"
+        ],
+        [
+          "sea",
+          "bay",
+          "lake"
+        ],
+        true,
+        false
+      ],
+      "source": "static_landuse",
+      "maxzoom": 22.1,
+      "minzoom": 4.5,
+      "source-layer": "landuse"
+    },
+    {
+      "id": "landuse-green-2",
+      "type": "fill",
+      "paint": {
+        "fill-color": "_landuse_green_color_",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6.0,
+          0.3,
+          6.5,
+          1.0
+        ]
+      },
+      "filter": [
+        "in",
+        [
+          "get",
+          "landuse_type"
+        ],
+        [
+          "literal",
+          [
+            "playground",
+            "park",
+            "garden",
+            "fitness_station",
+            "dog_park",
+            "vineyard",
+            "orchard",
+            "farmland",
+            "recreation_ground"
+          ]
+        ]
+      ],
+      "source": "static_landuse",
+      "maxzoom": 22.1,
+      "minzoom": 12.0,
+      "source-layer": "landuse"
+    },
+    {
+      "id": "landuse-water-2",
+      "type": "fill",
+      "paint": {
+        "fill-color": "_landuse_water_color_",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          7.0,
+          0.3,
+          8.0,
+          0.5,
+          22.0,
+          0.5
+        ]
+      },
+      "filter": [
+        "in",
+        [
+          "get",
+          "landuse_type"
+        ],
+        [
+          "literal",
+          [
+            "river",
+            "stream",
+            "oxbow",
+            "stream_pool",
+            "canal",
+            "ditch",
+            "agoon",
+            "reservoir",
+            "fountain",
+            "water"
+          ]
+        ]
+      ],
+      "source": "static_landuse",
+      "maxzoom": 22.1,
+      "minzoom": 6.5,
+      "source-layer": "landuse"
+    },
+    {
+      "id": "river-stroke",
+      "type": "line",
+      "paint": {
+        "line-color": "_river_color_",
+        "line-width": {
+          "base": 1.0,
+          "stops": [
+            [
+              6.0,
+              0.4
+            ],
+            [
+              10.0,
+              1.0
+            ],
+            [
+              12.0,
+              2.0
+            ],
+            [
+              14.0,
+              5.0
+            ],
+            [
+              16.0,
+              8.0
+            ],
+            [
+              18.0,
+              10.0
+            ]
+          ]
+        },
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          7.0,
+          0.3,
+          8.0,
+          0.5,
+          22.0,
+          0.5
+        ]
+      },
+      "layout": {
+        "line-cap": "round",
+        "line-join": "round"
+      },
+      "source": "static_landuse",
+      "maxzoom": 22.1,
+      "minzoom": 7.0,
+      "source-layer": "river"
+    },
+    {
       "id": "road-other-stroke",
       "type": "line",
       "paint": {
@@ -9645,7 +9876,7 @@
       "id": "province-label",
       "type": "symbol",
       "paint": {
-        "text-color": "#252525",
+        "text-color": "_admin_major_label_color_",
         "text-opacity": [
           "step",
           [
@@ -9748,7 +9979,7 @@
       "id": "capitals-label",
       "type": "symbol",
       "paint": {
-        "text-color": "#252525",
+        "text-color": "_admin_major_label_color",
         "text-halo-color": "#FFFFFF",
         "text-halo-width": 1.5
       },
@@ -9910,7 +10141,7 @@
       "id": "cities-label",
       "type": "symbol",
       "paint": {
-        "text-color": "#606060",
+        "text-color": "_admin_major_label_color",
         "text-halo-color": "#FFFFFF",
         "text-halo-width": 1.1
       },
@@ -10112,11 +10343,6 @@
       "minzoom": 12.0,
       "source-layer": "admin_divisions_point_minor"
     },
-
-
-
-
-
     {
       "id": "province_outline",
       "type": "line",
@@ -10195,6 +10421,11 @@
     },
     "static_admin_division": {
       "url": "mbtiles://{static_admin_division}",
+      "type": "vector",
+      "maxzoom": 18
+    },
+    "static_landuse": {
+      "url": "mbtiles://{static_landuse}",
       "type": "vector",
       "maxzoom": 18
     }
