@@ -8,3 +8,5 @@ venv
 /tileserver/styles/routaa_province.json
 output
 *.mbtile
+icon
+*.svg
