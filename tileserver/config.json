@@ -25,11 +25,14 @@
     "tileMargin": 0
   },
   "data": {
-    "province": {
-      "mbtiles": "province.mbtile"
-    },
     "static_road": {
       "mbtiles": "static_road.mbtile"
+    },
+    "static_complication": {
+      "mbtiles": "static_complication.mbtile"
+    },
+    "static_admin_division": {
+      "mbtiles": "static_admin_division.mbtile"
     }
   },
   "styles": {
