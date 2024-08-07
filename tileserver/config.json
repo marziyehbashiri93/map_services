@@ -25,9 +25,6 @@
     "tileMargin": 0
   },
   "data": {
-    "province": {
-      "mbtiles": "province.mbtile"
-    },
     "static_road": {
       "mbtiles": "static_road.mbtile"
     },
