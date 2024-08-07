@@ -9863,7 +9863,7 @@
             ]
           ]
         },
-        "icon-image": "camera.png",
+        "icon-image": "icon/camera.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
@@ -9939,7 +9939,7 @@
             "name"
           ],
           "\u062a\u0647\u0631\u0627\u0646",
-          "center province.png",
+          "icon/dot-circle-solid (1).png",
           ""
         ],
         "text-field": "{name}",
@@ -10015,8 +10015,8 @@
             "name"
           ],
           "\u062a\u0647\u0631\u0627\u0646",
-          "center province.png",
-          "center city.png"
+          "icon/dot-circle-solid (1).png",
+          "icon/dot-circle-solid (1).png"
         ],
         "text-field": "{name}",
         "text-anchor": "center",
