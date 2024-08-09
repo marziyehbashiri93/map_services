@@ -42,29 +42,32 @@
 
 
 
---local landuse_table = osm2pgsql.define_area_table('landuse', {
---    { column = 'name', type = 'text' },
---    { column = 'landuse_type', type = 'text', not_null = true },
---    { column = 'geom', type = 'polygon' },},
---    { schema = 'public' })
---function osm2pgsql.process_way(object)
---    landuse_filter = { 'cemetery', 'forest', 'farmland', 'meadow', 'orchard', 'vineyard', 'recreation_ground',
---                       'allotments', 'flowerbed', 'grass', ' greenfield', 'plant_nursery', 'industrial', 'military' }
---    leisure_filter = { 'dog_park', 'fitness_station', 'garden', 'park', 'playground', 'golf_course',
---                       'miniature_golf', 'stadium' }
---    natural_filter = { 'wood', 'scrub', 'heath', 'grassland', 'fell', 'tundra', 'glacier', 'water', 'wetland', 'bay',
---                       'cape', 'strait', 'beach', 'coastline', 'reef', 'spring', 'hot_spring', 'geyser' }
---
---    if object.tags.landuse or object.tags.leisure or object.tags.water then
---        local landuse_type = object.tags.landuse or object.tags.leisure or object.tags.water
---        landuse_table:insert({
---            name = object.tags.name,
---            geom = object:as_polygon(),
---            landuse_type = landuse_type,
---        })
---    end
---end
+local landuse_table = osm2pgsql.define_area_table('landuse', {
+    { column = 'name', type = 'text' },
+    { column = 'landuse_type', type = 'text', not_null = true },
+    { column = 'geom', type = 'polygon' }, },
+        { schema = 'public' })
+function osm2pgsql.process_way(object)
+    landuse_filter = { 'cemetery', 'forest', 'farmland', 'meadow', 'orchard', 'vineyard', 'recreation_ground',
+                       'allotments', 'flowerbed', 'grass', ' greenfield', 'plant_nursery', 'industrial', 'military' }
+    leisure_filter = { 'dog_park', 'fitness_station', 'garden', 'park', 'playground', 'golf_course',
+                       'miniature_golf', 'stadium' }
+    natural_filter = { 'wood', 'scrub', 'heath', 'grassland', 'fell', 'tundra', 'glacier', 'water', 'wetland', 'bay',
+                       'cape', 'strait', 'beach', 'coastline', 'reef', 'spring', 'hot_spring', 'geyser' }
 
+    if object.tags.landuse == 'residential' then
+        return
+    end
+    if object.tags.landuse or object.tags.leisure or object.tags.water or object.tags.natural then
+        local landuse_type = object.tags.landuse or object.tags.leisure or object.tags.water or object.tags.natural
+
+        landuse_table:insert({
+            name = object.tags.name,
+            geom = object:as_polygon(),
+            landuse_type = landuse_type,
+        })
+    end
+end
 
 local admin_divisions_polygon_table = osm2pgsql.define_area_table('admin_divisions_polygon', {
     { column = 'name', type = 'text' },
