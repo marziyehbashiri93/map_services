@@ -1,15 +1,15 @@
 import json
 import pathlib
-import xml.etree.ElementTree as ET
+import os
 
 
 class StyleConvertor:
 
     def __init__(self):
-        self.base_dir = pathlib.Path.cwd()
-        self.token_dir = self.base_dir.joinpath('base/token')
-        self.style_dir = self.base_dir.joinpath('base/style')
-        self.sever_config_file = self.base_dir.joinpath('base/server/config.json')
+        self.base_dir = pathlib.PosixPath(os.path.abspath(__file__)).parent
+        self.token_dir = self.base_dir.joinpath('token')
+        self.style_dir = self.base_dir.joinpath('style')
+        self.sever_config_file = self.base_dir.joinpath('server/config.json')
 
     @staticmethod
     def open_json_file(path):
@@ -48,13 +48,13 @@ class StyleConvertor:
         data["glyphs"] = server_config["glyphs"]
 
     def write_index_js(self, name, data):
-        path = self.base_dir.parent.parent.joinpath(f'site/{name}.js')
+        path = self.base_dir.parent.parent.parent.joinpath(f'site/{name}.js')
         with open(path, 'w') as f:
             f.write("const theme=" + json.dumps(data))
 
     def write_html(self, name):
-        base_html = self.base_dir.parent.parent.joinpath(f'site/base.html')
-        new_html = self.base_dir.parent.parent.joinpath(f'site/{name}.html')
+        base_html = self.base_dir.parent.parent.parent.joinpath(f'site/base.html')
+        new_html = self.base_dir.parent.parent.parent.joinpath(f'site/{name}.html')
 
         with open(base_html, 'r') as f:
             html_data = f.read()
@@ -69,9 +69,9 @@ class StyleConvertor:
             style_data = self.open_json_file(self.style_dir.joinpath(token_path.name))
             self.token_replacer(style_data, token_data)
             server_config_data = self.open_json_file(self.sever_config_file)
-            self.write_json_to_file(self.base_dir.joinpath(token_path.name), style_data)
+            self.write_json_to_file(self.base_dir.parent.joinpath(token_path.name), style_data)
             self.create_server_style(server_config_data, style_data)
-            self.write_json_to_file(self.base_dir.joinpath('server' + token_path.name), style_data)
+            self.write_json_to_file(self.base_dir.parent.joinpath('server_' + token_path.name), style_data)
             self.write_index_js(token_path.name, style_data)
             self.write_html(token_path.name)
 

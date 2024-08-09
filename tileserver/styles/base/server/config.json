@@ -85,6 +85,13 @@
           "source": "static_complication",
           "description": "",
           "source_name": "station"
+        },
+        {
+          "id": "label_object",
+          "fields": {},
+          "source": "static_complication",
+          "description": "",
+          "source_name": "a_label_object"
         }
       ]
     },
@@ -121,6 +128,20 @@
           "source": "static_admin_division",
           "description": "",
           "source_name": "admin_divisions_point_minor"
+        },
+        {
+          "id": "sea",
+          "fields": {},
+          "source": "static_admin_division",
+          "description": "",
+          "source_name": "sea"
+        },
+        {
+          "id": "province",
+          "fields": {},
+          "source": "static_admin_division",
+          "description": "",
+          "source_name": "province"
         }
       ]
     },
