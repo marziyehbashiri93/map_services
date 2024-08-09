@@ -10273,54 +10273,42 @@
       },
       "source": "static_admin_division",
       "maxzoom": 10.5,
-      "minzoom": 5,
+      "minzoom": 6,
       "source-layer": "admin_divisions_point_major"
     },
     {
-      "id": "province-label",
+      "id": "capitals-label2",
       "type": "symbol",
       "paint": {
         "text-color": "_admin_major_label_color_",
         "text-halo-color": "#FFFFFF",
         "text-halo-width": 1.5
       },
-      "filter": [
-        "==",
-        [
-          "get",
-          "label_type"
-        ],
-        "province"
-      ],
       "layout": {
+                "text-max-width": 6.0,
         "text-font": [
           "IRANYekanWebFnMedium"
         ],
         "text-size": {
           "stops": [
             [
-              4.0,
-              9.5
-            ],
-            [
-              4.5,
+              1.0,
               10.0
             ],
             [
-              5.0,
-              11.0
+              6,
+              12.0
             ]
           ]
         },
         "text-field": "{name}",
         "text-anchor": "center",
         "symbol-placement": "point",
-        "text-max-width": 8.0,
         "text-allow-overlap": true
       },
       "source": "static_complication",
-      "maxzoom": 5,
-      "minzoom": 1.0,
+      "maxzoom": 6,
+      "minzoom": 1,
       "source-layer": "label_object"
     },
     {
