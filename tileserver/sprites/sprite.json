@@ -1,14 +1,14 @@
 {
-"icon/camera.png": {
+"icon/photo-camera-svgrepo-com.png": {
 "x": 0,
 "y": 0,
-"width": 512,
-"height": 448,
+"width": 800,
+"height": 642,
 "pixelRatio": 1,
 "visible": true
 },
-"right-long-solid.png": {
-"x": 512,
+"icon/right-long-solid.png": {
+"x": 800,
 "y": 0,
 "width": 512,
 "height": 320,
@@ -16,10 +16,18 @@
 "visible": true
 },
 "icon/dot-circle-solid (1).png": {
-"x": 1024,
+"x": 1312,
 "y": 0,
 "width": 496,
 "height": 496,
+"pixelRatio": 1,
+"visible": true
+},
+"icon/arrow-right-solid.png": {
+"x": 800,
+"y": 320,
+"width": 448,
+"height": 386,
 "pixelRatio": 1,
 "visible": true
 }

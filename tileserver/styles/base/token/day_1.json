@@ -1,7 +1,6 @@
 {
   "_background_color_": "#F5F5F2",
-  "_province_outline_":"#15130b",
-  "_city_color_":"#EFEFEA",
+
   "_road_other_stroke_": "#d8d8cd",
   "_road_other_color_": "#FFF",
   "_road_footway_color_": "#FFF",
@@ -21,15 +20,19 @@
   "_road_minor_stroke_": "#d8d8cd",
   "_road_minor_color_": "#FFF",
   "_road_minor_tunnel_color_": "#FFF",
-  "_road_label_color_": "#252525",
+  "_road_label_color_": "#303030",
   "_road_label_halo_color_": "#FFF",
-  "_admin_major_label_color_": "#4c767f",
-  "_complication_color_":"#4e5561",
-  "_landuse_green_color_":"#bae5ce",
-  "_landuse_water_color_":"#82d4d7",
-  "_river_color_":"#82d4d7",
-  "_admin_major_label_color":"#314d53"
+  "_road_arrow_image_": "icon/arrow-right-solid.png",
 
+  "_admin_major_label_color_": "#314d53",
+  "_admin_minor_label_color_": "#314d53",
+  "_province_outline_": "#15130b",
+  "_city_color_": "#EFEFEA",
 
+  "_complication_color_": "#403E5C",
+  "_landuse_green_color_": "#bae5ce",
+  "_landuse_water_color_": "#82d4d7",
+  "_station_color_": "#403E5C",
 
+  "_river_color_": "#82d4d7"
 }

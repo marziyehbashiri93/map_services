@@ -40,9 +40,12 @@
         container: 'map', // container ID
         style: theme,
         center: [51.393428, 35.726271], // starting position
-        zoom: 5 // starting zoom
+        zoom: 5// starting zoom
     });
-
+    map.on('zoom', () => {
+        const currentZoom = map.getZoom();
+        console.log(currentZoom)
+    });
 
 </script>
 

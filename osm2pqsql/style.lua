@@ -1,4 +1,5 @@
------------------------------- road ----------------------------------
+--
+--
 --local road_table = osm2pgsql.define_way_table('road', {
 --    { column = 'name', type = 'text' },
 --    { column = 'highway', type = 'text', not_null = true },
@@ -7,52 +8,7 @@
 --    { column = 'bridge', type = 'text' },
 --    { column = 'tunnel', type = 'text' },
 --    { column = 'geom', type = 'linestring' },
---},{ schema = 'public' }
---
---)
-local river_table = osm2pgsql.define_way_table('river', {
-    { column = 'name', type = 'text' },
-    { column = 'geom', type = 'linestring' },
-},{ schema = 'public' }
-
-)
---
---local admin_divisions_point_table = osm2pgsql.define_node_table('admin_divisions_point', {
---    { column = 'name', type = 'text' },
---    { column = 'place_level', type = 'text', not_null = true },
---    { column = 'capital', },
---    { column = 'geom', type = 'point' },
---},
---        { schema = 'public' }
---)
---local landuse_table = osm2pgsql.define_area_table('landuse', {
---    { column = 'name', type = 'text' },
---    { column = 'landuse_type', type = 'text', not_null = true },
---    { column = 'geom', type = 'polygon' },},
---    { schema = 'public' })
---
---local admin_divisions_polygon_table = osm2pgsql.define_area_table('admin_divisions_polygon', {
---    { column = 'name', type = 'text' },
---    { column = 'place_level', type = 'text', not_null = true },
---    { column = 'geom', type = 'multipolygon' },
---},
---        { schema = 'public' }
---)
---local complication_table = osm2pgsql.define_node_table('complication', {
---    { column = 'name', type = 'text' },
---    { column = 'geom', type = 'point' },
---},
---        { schema = 'public' }
---)
---
---local station_table = osm2pgsql.define_area_table('station', {
---    { column = 'name', type = 'text' },
---    { column = 'type', type = 'text', not_null = true },
---    { column = 'geom', type = 'polygon' },
---},
---        { schema = 'public' }
---)
---
+--}, { schema = 'public' })
 --
 --function osm2pgsql.process_way(object)
 --    if object.tags.highway then
@@ -67,16 +23,30 @@ local river_table = osm2pgsql.define_way_table('river', {
 --        })
 --    end
 --end
-
-function osm2pgsql.process_way(object)
-    if object.tags.waterway=='river' then
-        river_table:insert({
-            name = object.tags.name,
-            geom = object:as_linestring(),
-        })
-    end
-end
 --
+--
+----)
+--local river_table = osm2pgsql.define_way_table('river', {
+--    { column = 'name', type = 'text' },
+--    { column = 'geom', type = 'linestring' },
+--}, { schema = 'public' })
+--
+--function osm2pgsql.process_way(object)
+--    if object.tags.waterway == 'river' then
+--        river_table:insert({
+--            name = object.tags.name,
+--            geom = object:as_linestring(),
+--        })
+--    end
+--end
+
+
+
+--local landuse_table = osm2pgsql.define_area_table('landuse', {
+--    { column = 'name', type = 'text' },
+--    { column = 'landuse_type', type = 'text', not_null = true },
+--    { column = 'geom', type = 'polygon' },},
+--    { schema = 'public' })
 --function osm2pgsql.process_way(object)
 --    landuse_filter = { 'cemetery', 'forest', 'farmland', 'meadow', 'orchard', 'vineyard', 'recreation_ground',
 --                       'allotments', 'flowerbed', 'grass', ' greenfield', 'plant_nursery', 'industrial', 'military' }
@@ -94,25 +64,52 @@ end
 --        })
 --    end
 --end
---
---function osm2pgsql.process_relation(object)
---    admin_divisions_polygon_table:insert({
---        name = object.tags.name,
---        geom = object.as_multipolygon(),
---        place_level = object.tags.place,
---    })
---end
---
---function osm2pgsql.process_node(object)
---    admin_divisions_point_table:insert({
---        name = object.tags.name,
---        geom = object.as_point(),
---        place_level = object.tags.place,
---        capital = object.tags.capital,
---    })
---end
---
---
+
+
+local admin_divisions_polygon_table = osm2pgsql.define_area_table('admin_divisions_polygon', {
+    { column = 'name', type = 'text' },
+    { column = 'place_level', type = 'text', not_null = true },
+    { column = 'geom', type = 'multipolygon' },
+}, { schema = 'public' })
+
+function osm2pgsql.process_relation(object)
+    if object.tags.place == "city" or
+            object.tags.place == "town" or
+            object.tags.place == "village"
+    then
+        admin_divisions_polygon_table:insert({
+            name = object.tags.name,
+            geom = object.as_multipolygon(),
+            place_level = object.tags.place,
+        })
+    end
+end
+
+local admin_divisions_point_table = osm2pgsql.define_node_table('admin_divisions_point', {
+    { column = 'name', type = 'text', not_null = true },
+    { column = 'place_level', type = 'text', not_null = true },
+    { column = 'capital', },
+    { column = 'geom', type = 'point' },
+}, { schema = 'public' })
+
+function osm2pgsql.process_node(object)
+    admin_divisions_point_table:insert({
+        name = object.tags.name,
+        geom = object.as_point(),
+        place_level = object.tags.place,
+        capital = object.tags.capital,
+    })
+
+end
+
+
+
+--local complication_table = osm2pgsql.define_node_table('complication', {
+--    { column = 'name', type = 'text' },
+--    { column = 'geom', type = 'point' },
+--},
+--        { schema = 'public' }
+--)
 --function osm2pgsql.process_node(object)
 --    if object.tags.highway == 'speed_camera' then
 --        complication_table:insert({
@@ -123,6 +120,16 @@ end
 --
 --end
 --
+--
+
+
+--local station_table = osm2pgsql.define_area_table('station', {
+--    { column = 'name', type = 'text' },
+--    { column = 'type', type = 'text', not_null = true },
+--    { column = 'geom', type = 'polygon' },
+--},
+--        { schema = 'public' }
+--)
 --
 --function osm2pgsql.process_way(object)
 --    if object.tags.public_transport == 'station'  then
@@ -135,6 +142,3 @@ end
 --end
 --
 
---public_transport station
-
-------------------------------river------------------
