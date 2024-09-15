@@ -47,7 +47,7 @@ join_layer = {"static_road":["road_major","road_minor","road_intermediate","road
 
 [static_complication]
 layers = [
-         {
+                  {
          "table_name": "label_object",
          "mbtile_name": "label_object",
          "sql_query": "select * from \"static\".label_object",
@@ -55,23 +55,9 @@ layers = [
          "maxZoom": 18
          },
          {
-         "table_name": "violation_camera",
-         "mbtile_name": "violation_camera",
-         "sql_query": "select name,geom from \"static\".violation_camera",
-         "minZoom": 6,
-         "maxZoom": 18
-         },
-         {
-         "table_name": "police",
-         "mbtile_name": "police",
-         "sql_query": "select police_name,geom from \"static\".police",
-         "minZoom": 6,
-         "maxZoom": 18
-         },
-         {
-         "table_name": "complex_service",
-         "mbtile_name": "complex_service",
-         "sql_query": "select axis_name,geom from \"static\".complex_service",
+         "table_name": "complication",
+         "mbtile_name": "complication",
+         "sql_query": "",
          "minZoom": 6,
          "maxZoom": 18
          },
@@ -83,7 +69,7 @@ layers = [
          "maxZoom": 18
          }
          ]
-join_layer = {"static_complication":["label_object","station","violation_camera","police","complex_service"]}
+join_layer = {"static_complication":["label_object","station","complication"]}
 
 
 

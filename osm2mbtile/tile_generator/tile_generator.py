@@ -82,7 +82,8 @@ class MbTileGenerator:
         cmd = f'tippecanoe -z{self.layer_data["maxZoom"]} -Z{self.layer_data["minZoom"]}  --force -o {self.mbtile_path}' \
               f' --read-parallel --no-tile-size-limit --exclude last_edited_date  {self.ndgeojson_path} -s EPSG:3857 '
         if self.table_name.startswith('admin_') or self.table_name == 'poi' or self.table_name == 'label_object' \
-                or self.table_name == 'routaa_point' or self.table_name == 'public_transport' or self.table_name == 'complication':
+                or self.table_name == 'routaa_point' or self.table_name == 'public_transport' or self.table_name == 'complication' \
+                or self.table_name == 'violation_camera' or self.table_name == 'police' or self.table_name == 'complex_service':
             # set this parameter for show all point in zoom level 6
             # -B zoom or --base-zoom=zoom: Base zoom, the level at and above which all points are included in the tiles (default maxzoom).
             # If you use -Bg, it will guess a zoom level that will keep at most 50,000 features in the densest tile.
