@@ -9378,7 +9378,7 @@
             ]
           ]
         },
-        "icon-image": "icon/arrow-right-solid.png",
+        "icon-image": "new/mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9470,7 +9470,7 @@
             ]
           ]
         },
-        "icon-image": "icon/arrow-right-solid.png",
+        "icon-image": "new/mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9566,7 +9566,7 @@
             ]
           ]
         },
-        "icon-image": "icon/arrow-right-solid.png",
+        "icon-image": "new/mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9770,95 +9770,6 @@
       "source": "static_road",
       "minzoom": 12.3,
       "source-layer": "road_major"
-    },
-    {
-      "id": "complication_point",
-      "type": "circle",
-      "paint": {
-        "circle-blur": [
-          "step",
-          [
-            "zoom"
-          ],
-          0.0,
-          8,
-          0.4
-        ],
-        "circle-color": "_complication_color_",
-        "circle-radius": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          6,
-          1,
-          9,
-          3
-        ]
-      },
-      "source": "static_complication",
-      "source-layer": "complication",
-      "maxzoom": 10,
-      "minzoom": 8
-    },
-    {
-      "id": "complication-icon",
-      "type": "symbol",
-      "paint": {},
-      "layout": {
-        "icon-size": {
-          "stops": [
-            [
-              10,
-              0.02
-            ],
-            [
-              16,
-              0.04
-            ],
-            [
-              22,
-              0.05
-            ]
-          ]
-        },
-        "icon-image": "icon/photo-camera-svgrepo-com.png",
-        "icon-anchor": "bottom",
-        "symbol-placement": "point"
-      },
-      "source": "static_complication",
-      "source-layer": "complication",
-      "maxzoom": 22,
-      "minzoom": 10.01
-    },
-    {
-      "id": "station",
-      "type": "fill",
-      "paint": {
-        "fill-color": "_station_color_",
-        "fill-opacity": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          7.0,
-          0.3,
-          8.0,
-          0.5,
-          22.0,
-          0.5
-        ]
-      },
-      "source": "static_complication",
-      "maxzoom": 22.1,
-      "minzoom": 6.5,
-      "source-layer": "station"
     },
     {
       "id": "province_outline",
@@ -10245,8 +10156,8 @@
         false
       ],
       "layout": {
-        "icon-size": 0.01,
-        "icon-image": "icon/dot-circle-solid (1).png",
+        "icon-size": 0.025,
+        "icon-image": "new/carbon--circle-filled.png",
         "text-font": [
           "IRANYekanWebFnMedium"
         ],
@@ -10311,33 +10222,23 @@
       "minzoom": 1,
       "source-layer": "label_object"
     },
+
+
     {
-      "id": "station-label",
-      "type": "symbol",
+      "id": "violation_camera_point",
+      "type": "circle",
       "paint": {
-        "text-color": "#FFFFFF",
-        "text-halo-color": "#000",
-        "text-halo-width": 0.8
-      },
-      "layout": {
-        "text-font": [
-          "IRANYekanWebFnBlack"
+        "circle-blur": [
+          "step",
+          [
+            "zoom"
+          ],
+          0.0,
+          9,
+          0.4
         ],
-        "text-size": {
-          "stops": [
-            [
-              9.0,
-              8.5
-            ],
-            [
-              10.0,
-              10.5
-            ]
-          ]
-        },
-        "text-field": "{name}",
-        "text-anchor": "center",
-        "text-padding": [
+        "circle-color": "_violation_camera_circle_color_",
+        "circle-radius": [
           "interpolate",
           [
             "linear"
@@ -10345,17 +10246,178 @@
           [
             "zoom"
           ],
-          8.0,
-          1.0,
-          16.0,
-          100.0
-        ],
-        "text-max-width": 6.0
+          6,
+          1,
+          9,
+          3
+        ]
       },
       "source": "static_complication",
-      "minzoom": 9.5,
-      "source-layer": "station"
+      "source-layer": "violation_camera",
+      "minzoom": 8,
+      "maxzoom": 10
+    },
+    {
+      "id": "complex_service_point",
+      "type": "circle",
+      "paint": {
+        "circle-blur": [
+          "step",
+          [
+            "zoom"
+          ],
+          0.0,
+          9,
+          0.4
+        ],
+        "circle-color": "_complex_service_circle_color_",
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1,
+          9,
+          3
+        ]
+      },
+      "source": "static_complication",
+      "source-layer": "complex_service",
+      "minzoom": 8,
+      "maxzoom": 10
+    },
+    {
+      "id": "police_point",
+      "type": "circle",
+      "paint": {
+        "circle-blur": [
+          "step",
+          [
+            "zoom"
+          ],
+          0.0,
+          9,
+          0.4
+        ],
+        "circle-color": "_police_circle_color_",
+        "circle-radius": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          6,
+          1,
+          9,
+          3
+        ]
+      },
+      "source": "static_complication",
+      "source-layer": "police",
+      "minzoom": 8,
+      "maxzoom": 10
+    },
+    {
+      "id": "violation_camera-icon",
+      "type": "symbol",
+      "paint": {},
+      "layout": {
+        "icon-size": {
+          "stops": [
+            [
+              9,
+              0.04
+            ],
+            [
+              16,
+              0.06
+            ],
+            [
+              22,
+              0.07
+            ]
+          ]
+        },
+        "icon-image": "new/ic--baseline-linked-camera.png",
+        "icon-anchor": "bottom",
+        "symbol-placement": "point"
+      },
+      "source": "static_complication",
+      "source-layer": "violation_camera",
+      "minzoom": 10.01,
+      "maxzoom": 22
+    },
+    {
+      "id": "complex_service-icon",
+      "type": "symbol",
+      "paint": {},
+      "layout": {
+        "icon-size": {
+          "stops": [
+            [
+              9,
+              0.04
+            ],
+            [
+              16,
+              0.06
+            ],
+            [
+              22,
+              0.07
+            ]
+          ]
+        },
+        "icon-image": "new/ion--home.png",
+        "icon-anchor": "bottom",
+        "symbol-placement": "point"
+      },
+      "source": "static_complication",
+      "source-layer": "complex_service",
+      "minzoom": 10.01,
+      "maxzoom": 22
+    },
+    {
+      "id": "police-icon",
+      "type": "symbol",
+      "paint": {},
+      "layout": {
+        "icon-size": {
+          "stops": [
+            [
+              9,
+              0.04
+            ],
+            [
+              16,
+              0.06
+            ],
+            [
+              22,
+              0.07
+            ]
+          ]
+        },
+        "icon-image": "new/map--police.png",
+        "icon-anchor": "bottom",
+        "symbol-placement": "point"
+      },
+      "source": "static_complication",
+      "source-layer": "police",
+      "minzoom": 10.01,
+      "maxzoom": 22
     }
+
+
+
+
+
   ],
   "sources": {
     "static_road": {
