@@ -73,18 +73,25 @@
       "mapbox_logo": false,
       "vector_layers": [
         {
-          "id": "complication",
+          "id": "violation_camera",
           "fields": {},
           "source": "static_complication",
           "description": "",
-          "source_name": "complication"
+          "source_name": "violation_camera"
         },
         {
-          "id": "station",
+          "id": "police",
           "fields": {},
           "source": "static_complication",
           "description": "",
-          "source_name": "station"
+          "source_name": "police"
+        },
+        {
+          "id": "complex_service",
+          "fields": {},
+          "source": "static_complication",
+          "description": "",
+          "source_name": "complex_service"
         },
         {
           "id": "label_object",
