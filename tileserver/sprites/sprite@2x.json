@@ -1,25 +1,129 @@
 {
-"icon/camera.png": {
+"new/ph--dot-fill.png": {
 "x": 0,
 "y": 0,
-"width": 512,
-"height": 448,
+"width": 384,
+"height": 384,
 "pixelRatio": 1,
 "visible": true
 },
-"right-long-solid.png": {
-"x": 512,
+"new/mdi--camera-gopro.png": {
+"x": 384,
 "y": 0,
-"width": 512,
-"height": 320,
+"width": 856,
+"height": 600,
 "pixelRatio": 1,
 "visible": true
 },
-"icon/dot-circle-solid (1).png": {
-"x": 1024,
+"new/mingcute--arrow-right-fill.png": {
+"x": 1240,
 "y": 0,
-"width": 496,
-"height": 496,
+"width": 776,
+"height": 612,
+"pixelRatio": 1,
+"visible": true
+},
+"new/mdi--security-camera.png": {
+"x": 2016,
+"y": 0,
+"width": 856,
+"height": 684,
+"pixelRatio": 1,
+"visible": true
+},
+"new/material-symbols--photo-camera.png": {
+"x": 2872,
+"y": 0,
+"width": 856,
+"height": 768,
+"pixelRatio": 1,
+"visible": true
+},
+"new/solar--home-bold-duotone.png": {
+"x": 0,
+"y": 600,
+"width": 920,
+"height": 844,
+"pixelRatio": 1,
+"visible": true
+},
+"new/ic--baseline-linked-camera.png": {
+"x": 920,
+"y": 612,
+"width": 856,
+"height": 856,
+"pixelRatio": 1,
+"visible": true
+},
+"new/fluent--home-more-32-filled.png": {
+"x": 1776,
+"y": 684,
+"width": 832,
+"height": 864,
+"pixelRatio": 1,
+"visible": true
+},
+"new/f7--star-circle-fill.png": {
+"x": 2608,
+"y": 768,
+"width": 876,
+"height": 876,
+"pixelRatio": 1,
+"visible": true
+},
+"new/mage--star-circle-fill.png": {
+"x": 0,
+"y": 1444,
+"width": 876,
+"height": 876,
+"pixelRatio": 1,
+"visible": true
+},
+"new/carbon--circle-filled.png": {
+"x": 876,
+"y": 1468,
+"width": 896,
+"height": 896,
+"pixelRatio": 1,
+"visible": true
+},
+"new/material-symbols--home-and-garden-rounded.png": {
+"x": 1772,
+"y": 1644,
+"width": 922,
+"height": 876,
+"pixelRatio": 1,
+"visible": true
+},
+"new/ion--home.png": {
+"x": 2694,
+"y": 1644,
+"width": 960,
+"height": 896,
+"pixelRatio": 1,
+"visible": true
+},
+"new/map--police.png": {
+"x": 0,
+"y": 2320,
+"width": 860,
+"height": 984,
+"pixelRatio": 1,
+"visible": true
+},
+"new/fa-solid--dot-circle.png": {
+"x": 860,
+"y": 2520,
+"width": 992,
+"height": 992,
+"pixelRatio": 1,
+"visible": true
+},
+"new/vaadin--dot-circle.png": {
+"x": 1852,
+"y": 2540,
+"width": 1024,
+"height": 1024,
 "pixelRatio": 1,
 "visible": true
 }
