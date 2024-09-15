@@ -1,33 +1,129 @@
 {
-"icon/photo-camera-svgrepo-com.png": {
+"new/ph--dot-fill.png": {
 "x": 0,
 "y": 0,
-"width": 800,
-"height": 642,
+"width": 192,
+"height": 192,
 "pixelRatio": 1,
 "visible": true
 },
-"icon/right-long-solid.png": {
-"x": 800,
+"new/mdi--camera-gopro.png": {
+"x": 192,
 "y": 0,
-"width": 512,
-"height": 320,
+"width": 428,
+"height": 300,
 "pixelRatio": 1,
 "visible": true
 },
-"icon/dot-circle-solid (1).png": {
-"x": 1312,
+"new/mingcute--arrow-right-fill.png": {
+"x": 620,
 "y": 0,
+"width": 388,
+"height": 306,
+"pixelRatio": 1,
+"visible": true
+},
+"new/mdi--security-camera.png": {
+"x": 1008,
+"y": 0,
+"width": 428,
+"height": 342,
+"pixelRatio": 1,
+"visible": true
+},
+"new/material-symbols--photo-camera.png": {
+"x": 1436,
+"y": 0,
+"width": 428,
+"height": 384,
+"pixelRatio": 1,
+"visible": true
+},
+"new/solar--home-bold-duotone.png": {
+"x": 0,
+"y": 300,
+"width": 460,
+"height": 422,
+"pixelRatio": 1,
+"visible": true
+},
+"new/ic--baseline-linked-camera.png": {
+"x": 460,
+"y": 306,
+"width": 428,
+"height": 428,
+"pixelRatio": 1,
+"visible": true
+},
+"new/fluent--home-more-32-filled.png": {
+"x": 888,
+"y": 342,
+"width": 416,
+"height": 432,
+"pixelRatio": 1,
+"visible": true
+},
+"new/f7--star-circle-fill.png": {
+"x": 1304,
+"y": 384,
+"width": 438,
+"height": 438,
+"pixelRatio": 1,
+"visible": true
+},
+"new/mage--star-circle-fill.png": {
+"x": 0,
+"y": 722,
+"width": 438,
+"height": 438,
+"pixelRatio": 1,
+"visible": true
+},
+"new/carbon--circle-filled.png": {
+"x": 438,
+"y": 734,
+"width": 448,
+"height": 448,
+"pixelRatio": 1,
+"visible": true
+},
+"new/material-symbols--home-and-garden-rounded.png": {
+"x": 886,
+"y": 822,
+"width": 461,
+"height": 438,
+"pixelRatio": 1,
+"visible": true
+},
+"new/ion--home.png": {
+"x": 1347,
+"y": 822,
+"width": 480,
+"height": 448,
+"pixelRatio": 1,
+"visible": true
+},
+"new/map--police.png": {
+"x": 0,
+"y": 1160,
+"width": 430,
+"height": 492,
+"pixelRatio": 1,
+"visible": true
+},
+"new/fa-solid--dot-circle.png": {
+"x": 430,
+"y": 1260,
 "width": 496,
 "height": 496,
 "pixelRatio": 1,
 "visible": true
 },
-"icon/arrow-right-solid.png": {
-"x": 800,
-"y": 320,
-"width": 448,
-"height": 386,
+"new/vaadin--dot-circle.png": {
+"x": 926,
+"y": 1270,
+"width": 512,
+"height": 512,
 "pixelRatio": 1,
 "visible": true
 }
