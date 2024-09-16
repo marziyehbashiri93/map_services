@@ -7,105 +7,41 @@
 "pixelRatio": 1,
 "visible": true
 },
-"new/mdi--camera-gopro.png": {
-"x": 192,
-"y": 0,
-"width": 428,
-"height": 300,
-"pixelRatio": 1,
-"visible": true
-},
 "new/mingcute--arrow-right-fill.png": {
-"x": 620,
+"x": 192,
 "y": 0,
 "width": 388,
 "height": 306,
 "pixelRatio": 1,
 "visible": true
 },
-"new/mdi--security-camera.png": {
-"x": 1008,
-"y": 0,
-"width": 428,
-"height": 342,
-"pixelRatio": 1,
-"visible": true
-},
-"new/material-symbols--photo-camera.png": {
-"x": 1436,
-"y": 0,
-"width": 428,
-"height": 384,
-"pixelRatio": 1,
-"visible": true
-},
-"new/solar--home-bold-duotone.png": {
-"x": 0,
-"y": 300,
-"width": 460,
-"height": 422,
-"pixelRatio": 1,
-"visible": true
-},
 "new/ic--baseline-linked-camera.png": {
-"x": 460,
-"y": 306,
+"x": 580,
+"y": 0,
 "width": 428,
 "height": 428,
 "pixelRatio": 1,
 "visible": true
 },
-"new/fluent--home-more-32-filled.png": {
-"x": 888,
-"y": 342,
-"width": 416,
-"height": 432,
-"pixelRatio": 1,
-"visible": true
-},
-"new/f7--star-circle-fill.png": {
-"x": 1304,
-"y": 384,
-"width": 438,
-"height": 438,
-"pixelRatio": 1,
-"visible": true
-},
-"new/mage--star-circle-fill.png": {
-"x": 0,
-"y": 722,
-"width": 438,
-"height": 438,
-"pixelRatio": 1,
-"visible": true
-},
 "new/carbon--circle-filled.png": {
-"x": 438,
-"y": 734,
+"x": 1008,
+"y": 0,
 "width": 448,
 "height": 448,
 "pixelRatio": 1,
 "visible": true
 },
-"new/material-symbols--home-and-garden-rounded.png": {
-"x": 886,
-"y": 822,
-"width": 461,
-"height": 438,
-"pixelRatio": 1,
-"visible": true
-},
-"new/ion--home.png": {
-"x": 1347,
-"y": 822,
-"width": 480,
-"height": 448,
+"new/ri--map-pin-fill.png": {
+"x": 1456,
+"y": 0,
+"width": 384,
+"height": 464,
 "pixelRatio": 1,
 "visible": true
 },
 "new/map--police.png": {
 "x": 0,
-"y": 1160,
+"y": 306,
 "width": 430,
 "height": 492,
 "pixelRatio": 1,
@@ -113,16 +49,16 @@
 },
 "new/fa-solid--dot-circle.png": {
 "x": 430,
-"y": 1260,
+"y": 428,
 "width": 496,
 "height": 496,
 "pixelRatio": 1,
 "visible": true
 },
-"new/vaadin--dot-circle.png": {
+"new/teenyicons--pin-solid.png": {
 "x": 926,
-"y": 1270,
-"width": 512,
+"y": 448,
+"width": 444,
 "height": 512,
 "pixelRatio": 1,
 "visible": true
