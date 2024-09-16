@@ -10356,7 +10356,11 @@
     {
       "id": "complex_service-icon",
       "type": "symbol",
-      "paint": {},
+      "paint": {
+        "text-color": "_complex_service_circle_color_",
+        "text-halo-color": "#FFFFFF",
+        "text-halo-width": 1.5
+      },
       "layout": {
         "icon-size": {
           "stops": [
@@ -10374,8 +10378,30 @@
             ]
           ]
         },
-        "icon-image": "new/ion--home.png",
+        "icon-image": "new/ri--map-pin-fill.png",
         "icon-anchor": "bottom",
+        "text-max-width": 6.0,
+        "text-font": [
+          "IRANYekanWebFnMedium"
+        ],
+        "text-size": {
+          "stops": [
+            [
+              10,
+              10
+            ],
+            [
+              22,
+              12
+            ]
+          ]
+        },
+        "text-field": "{axis_name}",
+        "text-anchor": "center",
+        "text-offset": [
+          0.0,
+          2.0
+        ],
         "symbol-placement": "point"
       },
       "source": "static_complication",
@@ -10413,10 +10439,6 @@
       "minzoom": 10.01,
       "maxzoom": 22
     }
-
-
-
-
 
   ],
   "sources": {
