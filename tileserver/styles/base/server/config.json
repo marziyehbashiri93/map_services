@@ -98,7 +98,14 @@
           "fields": {},
           "source": "static_complication",
           "description": "",
-          "source_name": "a_label_object"
+          "source_name": "label_object"
+        },
+        {
+          "id": "station",
+          "fields": {},
+          "source": "static_complication",
+          "description": "",
+          "source_name": "station"
         }
       ]
     },

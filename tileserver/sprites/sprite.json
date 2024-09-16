@@ -39,25 +39,33 @@
 "pixelRatio": 1,
 "visible": true
 },
-"new/map--police.png": {
+"new/map--bus-station.png": {
 "x": 0,
 "y": 306,
+"width": 428,
+"height": 491,
+"pixelRatio": 1,
+"visible": true
+},
+"new/map--police.png": {
+"x": 428,
+"y": 428,
 "width": 430,
 "height": 492,
 "pixelRatio": 1,
 "visible": true
 },
 "new/fa-solid--dot-circle.png": {
-"x": 430,
-"y": 428,
+"x": 858,
+"y": 448,
 "width": 496,
 "height": 496,
 "pixelRatio": 1,
 "visible": true
 },
 "new/teenyicons--pin-solid.png": {
-"x": 926,
-"y": 448,
+"x": 1354,
+"y": 464,
 "width": 444,
 "height": 512,
 "pixelRatio": 1,
