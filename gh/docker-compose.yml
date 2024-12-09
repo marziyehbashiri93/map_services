@@ -1,0 +1,9 @@
+version: '1'
+services:
+  graphhopper:
+    image: graphhopper
+    container_name: graphhopper
+    volumes:
+      - ./data:/data
+    entrypoint: /bin/bash
+    command: -c "./graphhopper.sh FILE=/data/iran-latest.osm.pbf GRAPH=/data/iran-gh"
