@@ -1,0 +1,6 @@
+/gh/graphhopper/
+/tileserver/fonts/
+/tileserver/tiles/
+*.pbf
+/gh/data/logs/
+/gh/data/default-gh/
