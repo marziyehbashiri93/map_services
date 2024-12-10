@@ -58,17 +58,16 @@ done
 : "${ACTION:=server}"
 : "${GRAPH:=/data/default-gh}"
 : "${CONFIG:=config-example.yml}"
-: "${JAVA_OPTS:=-Xmx1g -Xms1g}"
+  : "${JAVA_OPTS:=-Xmx4g -Xms2g}"
 : "${JAR:=$(find . -type f -name "*.jar")}"
-
-if [ "$URL" != "" ]; then
-  wget -S -nv -O "${FILE:=data.pbf}" "$URL"
-fi
 
 # create the directories if needed
 mkdir -p $(dirname "${GRAPH}")
 
 echo "## Executing $ACTION. JAVA_OPTS=$JAVA_OPTS"
 
-exec "$JAVA" $JAVA_OPTS ${FILE:+-Ddw.graphhopper.datareader.file="$FILE"} -Ddw.graphhopper.graph.location="$GRAPH" \
-        $GH_WEB_OPTS -jar "$JAR" $ACTION $CONFIG
+exec "$JAVA" $JAVA_OPTS -Ddw.graphhopper.graph.location="$GRAPH" \
+      $GH_WEB_OPTS -jar "$JAR" $ACTION $CONFIG
+#exec java -jar graphhopper*.jar server config-example.yml
+
+
