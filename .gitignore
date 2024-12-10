@@ -4,3 +4,4 @@
 *.pbf
 /gh/data/logs/
 /gh/data/default-gh/
+.idea
