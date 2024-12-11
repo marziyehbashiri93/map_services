@@ -30,11 +30,12 @@
   "_city_color_": "#EFEFEA",
 
   "_police_circle_color_": "#023E8A",
-  "_violation_camera_circle_color_": "#EE9B00",
-  "_complex_service_circle_color_": "#006ba6",
+  "_violation_camera_circle_color_": "#B2B0AD",
+  "_complex_service_circle_color_": "#444444",
   "_landuse_green_color_": "#bae5ce",
   "_landuse_water_color_": "#82d4d7",
-  "_station_color_": "#b100e8",
+  "_station_color_": "#00B2FF",
+  "_station_font_color_": "#00005F",
 
   "_river_color_": "#82d4d7"
 }

@@ -164,7 +164,7 @@
       "type": "vector",
       "attribution": "Viuna Attribution",
       "tiles": [
-        "http://5.201.178.229:10580/data/static_landuse/{z}/{x}/{y}.pbf"
+        "http://172.30.4.175:9090/data/static_landuse/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",

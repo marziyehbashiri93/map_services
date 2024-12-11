@@ -1,72 +1,48 @@
 {
-"new/ph--dot-fill.png": {
-"x": 0,
-"y": 0,
-"width": 192,
-"height": 192,
-"pixelRatio": 1,
-"visible": true
-},
 "new/mingcute--arrow-right-fill.png": {
-"x": 192,
+"x": 0,
 "y": 0,
 "width": 388,
 "height": 306,
 "pixelRatio": 1,
 "visible": true
 },
-"new/ic--baseline-linked-camera.png": {
-"x": 580,
-"y": 0,
-"width": 428,
-"height": 428,
-"pixelRatio": 1,
-"visible": true
-},
 "new/carbon--circle-filled.png": {
-"x": 1008,
+"x": 388,
 "y": 0,
 "width": 448,
 "height": 448,
 "pixelRatio": 1,
 "visible": true
 },
-"new/ri--map-pin-fill.png": {
-"x": 1456,
+"new/security-camera_10752816.png": {
+"x": 836,
 "y": 0,
-"width": 384,
-"height": 464,
+"width": 318,
+"height": 462,
 "pixelRatio": 1,
 "visible": true
 },
-"new/map--bus-station.png": {
-"x": 0,
-"y": 306,
-"width": 428,
-"height": 491,
-"pixelRatio": 1,
-"visible": true
-},
-"new/map--police.png": {
-"x": 428,
-"y": 428,
-"width": 430,
-"height": 492,
-"pixelRatio": 1,
-"visible": true
-},
-"new/fa-solid--dot-circle.png": {
-"x": 858,
-"y": 448,
-"width": 496,
+"new/bus_14935377.png": {
+"x": 1154,
+"y": 0,
+"width": 491,
 "height": 496,
 "pixelRatio": 1,
 "visible": true
 },
-"new/teenyicons--pin-solid.png": {
-"x": 1354,
-"y": 464,
-"width": 444,
+"new/rest-area_1050947.png": {
+"x": 0,
+"y": 448,
+"width": 512,
+"height": 499,
+"pixelRatio": 1,
+"visible": true
+},
+"new/policeman_5600550.png": {
+"x": 512,
+"y": 462,
+"width": 462,
 "height": 512,
 "pixelRatio": 1,
 "visible": true
