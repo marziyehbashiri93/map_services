@@ -10224,6 +10224,19 @@
     },
 
     {
+      "id": "osm_station",
+      "type": "fill",
+      "paint": {
+        "fill-color": "_station_color_",
+        "fill-opacity": 0.2
+      },
+      "source": "static_complication",
+      "maxzoom": 22.1,
+      "minzoom": 6.5,
+      "source-layer": "osm_station"
+    },
+
+    {
       "id": "violation_camera_point",
       "type": "circle",
       "paint": {
@@ -10364,7 +10377,7 @@
           "stops": [
             [
               9,
-              0.04
+              0.05
             ],
             [
               16,
@@ -10376,7 +10389,7 @@
             ]
           ]
         },
-        "icon-image": "new/ic--baseline-linked-camera.png",
+        "icon-image": "new/security-camera_10752816.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
@@ -10398,11 +10411,7 @@
           "stops": [
             [
               9,
-              0.04
-            ],
-            [
-              16,
-              0.06
+              0.05
             ],
             [
               22,
@@ -10410,7 +10419,7 @@
             ]
           ]
         },
-        "icon-image": "new/ri--map-pin-fill.png",
+        "icon-image": "new/rest-area_1050947.png",
         "icon-anchor": "bottom",
         "text-max-width": 6.0,
         "text-font": [
@@ -10462,7 +10471,7 @@
             ]
           ]
         },
-        "icon-image": "new/map--police.png",
+        "icon-image": "new/policeman_5600550.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
@@ -10475,7 +10484,7 @@
       "id": "station-icon",
       "type": "symbol",
       "paint": {
-        "text-color": "_station_color_",
+        "text-color": "_station_font_color_",
         "text-halo-color": "#FFF",
         "text-halo-width": 0.8
       },
@@ -10496,7 +10505,7 @@
             ]
           ]
         },
-        "icon-image": "new/map--bus-station.png",
+        "icon-image": "new/bus_14935377.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point",
         "text-font": [
@@ -10532,7 +10541,7 @@
         "text-max-width": 6.0,
         "text-offset": [
           0.0,
-          2.0
+          1.0
         ]
       },
       "source": "static_complication",
