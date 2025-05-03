@@ -2,6 +2,8 @@
 /tileserver/fonts/
 /tileserver/tiles/
 *.pbf
+*.tar
+*.zip
 /gh/data/logs/
 /gh/data/default-gh/
 .idea
