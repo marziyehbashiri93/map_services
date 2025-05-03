@@ -6,5 +6,5 @@ services:
     ports:
       - "9090:8080"
     volumes:
-      - /srv/tileserver:/data
+      - /mnt/drive_f/proj/viouna/map_services/tileserver:/data
     restart: unless-stopped
