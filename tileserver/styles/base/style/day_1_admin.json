@@ -10196,7 +10196,7 @@
         "text-halo-width": 1.5
       },
       "layout": {
-                "text-max-width": 6.0,
+        "text-max-width": 6.0,
         "text-font": [
           "IRANYekanWebFnMedium"
         ],
@@ -10222,7 +10222,6 @@
       "minzoom": 1,
       "source-layer": "label_object"
     },
-
     {
       "id": "osm_station",
       "type": "fill",
@@ -10235,7 +10234,6 @@
       "minzoom": 6.5,
       "source-layer": "osm_station"
     },
-
     {
       "id": "violation_camera_point",
       "type": "circle",
@@ -10548,7 +10546,6 @@
       "minzoom": 10,
       "source-layer": "station"
     }
-
   ],
   "sources": {
     "static_road": {

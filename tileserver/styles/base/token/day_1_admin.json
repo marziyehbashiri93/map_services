@@ -1,6 +1,5 @@
 {
   "_background_color_": "#F5F5F2",
-
   "_road_other_stroke_": "#d8d8cd",
   "_road_other_color_": "#FFF",
   "_road_footway_color_": "#FFF",
@@ -23,12 +22,10 @@
   "_road_label_color_": "#303030",
   "_road_label_halo_color_": "#FFF",
   "_road_arrow_image_": "icon/arrow-right-solid.png",
-
   "_admin_major_label_color_": "#314d53",
   "_admin_minor_label_color_": "#314d53",
   "_province_outline_": "#15130b",
   "_city_color_": "#EFEFEA",
-
   "_police_circle_color_": "#023E8A",
   "_violation_camera_circle_color_": "#B2B0AD",
   "_complex_service_circle_color_": "#444444",
@@ -36,6 +33,5 @@
   "_landuse_water_color_": "#82d4d7",
   "_station_color_": "#00B2FF",
   "_station_font_color_": "#00005F",
-
   "_river_color_": "#82d4d7"
 }
