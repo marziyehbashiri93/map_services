@@ -213,7 +213,7 @@ class StyleConverter:
         """Convert style name to a filesystem-safe format."""
         return name.replace("/", "_")
 
-    def convert(self, update_tileserver_config=False, tileserver_config_path=None):
+    def convert(self, update_tileserver_config=True, tileserver_config_path=None):
         """Generate server style JSON files from token/style/template combinations."""
         token_groups = self.get_token_groups()
         template_groups = self.get_style_templates()
@@ -273,12 +273,21 @@ def _parse_args():
     )
     parser.add_argument(
         "--update-tileserver-config",
+        dest="update_tileserver_config",
         action="store_true",
         help=(
             "Rewrite tileserver config.json 'styles' to list every generated style "
-            '(each entry uses "style": "<name>.json" only, no server_* path).'
+            '(each entry uses "style": "<name>.json" only, no server_* path). '
+            "Enabled by default."
         ),
     )
+    parser.add_argument(
+        "--no-update-tileserver-config",
+        dest="update_tileserver_config",
+        action="store_false",
+        help="Skip rewriting tileserver config.json styles section.",
+    )
+    parser.set_defaults(update_tileserver_config=True)
     parser.add_argument(
         "--tileserver-config",
         type=pathlib.Path,
