@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline Map Style Tester</title>
+    <link rel="stylesheet" href="./vendor/maplibre-gl.css">
+    <style>
+        :root { font-family: sans-serif; }
+        body { margin: 0; }
+        #toolbar {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(160px, 1fr));
+            gap: 8px;
+            align-items: end;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            background: #fff;
+        }
+        label { display: block; font-size: 12px; margin-bottom: 4px; }
+        input, button { width: 100%; box-sizing: border-box; padding: 6px 8px; font-size: 14px; }
+        #status { grid-column: 1 / -1; font-size: 12px; color: #333; }
+        #status.error { color: #b42323; }
+        #map { width: 100%; height: calc(100vh - 118px); }
+    </style>
+</head>
+<body>
+<div id="toolbar">
+    <div>
+        <label for="baseUrl">Base URL</label>
+        <input id="baseUrl" type="text">
+    </div>
+    <div>
+        <label for="styleName">Style name</label>
+        <input id="styleName" type="text">
+    </div>
+    <div>
+        <button id="applyBtn" type="button">Load / Reload</button>
+    </div>
+    <div id="status">در حال آماده‌سازی نقشه...</div>
+</div>
+
+<div id="map"></div>
+
+<script src="./vendor/maplibre-gl.js"></script>
+<script src="./vendor/mapbox-gl-rtl-text.js"></script>
+<script>
+    const config = {
+        baseUrl: "http://127.0.0.1:9090",
+        styleName: "day_1_public",
+        center: [51.393428, 35.726271],
+        zoom: 5
+    };
+
+    const controls = {
+        baseUrl: document.getElementById("baseUrl"),
+        styleName: document.getElementById("styleName"),
+        applyBtn: document.getElementById("applyBtn"),
+        status: document.getElementById("status")
+    };
+
+    function setStatus(message, isError) {
+        controls.status.textContent = message;
+        controls.status.className = isError ? "error" : "";
+    }
+
+    function normalizeBaseUrl(url) {
+        return url.trim().replace(/\/+$/, "");
+    }
+
+    function vectorStyleUrl() {
+        return normalizeBaseUrl(config.baseUrl) + "/styles/" + config.styleName + "/style.json";
+    }
+
+    controls.baseUrl.value = config.baseUrl;
+    controls.styleName.value = config.styleName;
+
+    if (typeof maplibregl === "undefined") {
+        setStatus("maplibre-gl.js لود نشده است. مسیر ./vendor/maplibre-gl.js را چک کنید.", true);
+        controls.applyBtn.disabled = true;
+    }
+
+    let map = null;
+
+    function configureRtlPlugin() {
+        if (typeof maplibregl.setRTLTextPlugin !== "function") return;
+
+        if (window.location.protocol === "file:") {
+            console.warn("RTL plugin skipped on file://. Run this page via http://localhost to enable RTL plugin.");
+            return;
+        }
+
+        const rtlPluginUrl = new URL("./vendor/mapbox-gl-rtl-text.js", window.location.href).href;
+        try {
+            maplibregl.setRTLTextPlugin(rtlPluginUrl, (error) => {
+                if (error) {
+                    setStatus("RTL plugin load warning: " + error.message, true);
+                }
+            }, true);
+        } catch (error) {
+            setStatus("RTL plugin load warning: " + error.message, true);
+        }
+    }
+
+    window.addEventListener("unhandledrejection", (event) => {
+        const reason = event && event.reason;
+        const message = reason && reason.message ? reason.message : "";
+        if (message.includes("RTL Text Plugin failed to import scripts")) {
+            event.preventDefault();
+            setStatus("RTL plugin load warning: " + message, true);
+        }
+    });
+
+    function initMap() {
+        if (typeof maplibregl === "undefined") return;
+
+        const canUseWebGL = typeof maplibregl.supported === "function"
+            ? maplibregl.supported({ failIfMajorPerformanceCaveat: false })
+            : true;
+
+        if (!canUseWebGL) {
+            setStatus("WebGL در این مرورگر/سیستم فعال نیست. نقشه قابل نمایش نیست.", true);
+            controls.applyBtn.disabled = true;
+            return;
+        }
+
+        configureRtlPlugin();
+
+        try {
+            map = new maplibregl.Map({
+                container: "map",
+                style: vectorStyleUrl(),
+                center: config.center,
+                zoom: config.zoom
+            });
+        } catch (error) {
+            setStatus("Failed to initialize WebGL. مرورگر را با WebGL/Hardware Acceleration اجرا کنید.", true);
+            controls.applyBtn.disabled = true;
+            return;
+        }
+
+        map.addControl(new maplibregl.NavigationControl(), "top-left");
+
+        map.on("style.load", () => {
+            setStatus("Style loaded: " + vectorStyleUrl(), false);
+        });
+
+        map.on("error", (event) => {
+            const message = event && event.error && event.error.message ? event.error.message : "Map error";
+            setStatus(message, true);
+        });
+    }
+
+    initMap();
+
+    controls.applyBtn.addEventListener("click", () => {
+        config.baseUrl = controls.baseUrl.value.trim();
+        config.styleName = controls.styleName.value.trim();
+
+        if (!config.baseUrl || !config.styleName) {
+            setStatus("Base URL و Style name اجباری هستند.", true);
+            return;
+        }
+
+        if (!map) {
+            setStatus("Map ساخته نشده چون WebGL در دسترس نیست.", true);
+            return;
+        }
+
+        setStatus("Reloading map style...", false);
+        map.setStyle(vectorStyleUrl());
+    });
+</script>
+</body>
+</html>
