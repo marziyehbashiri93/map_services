@@ -39,8 +39,30 @@
     }
   },
   "styles": {
-    "day_1": {
-      "style": "day_1.json",
+    "day_1_admin": {
+      "style": "day_1_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "day_1_public": {
+      "style": "day_1_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "gray_light_admin": {
+      "style": "gray_light_admin.json",
       "tilejson": {
         "bounds": [
           44.033126,

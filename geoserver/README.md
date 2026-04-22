@@ -1,5 +1,27 @@
-# geoserver
-> 1. create path to mount 
-> 2. create file  /{path}/additional_libs/ and copy plugins
-> 3. run command : docker-compose up --build -d --force-recreate
-> 4. for jndi -> change apache-tomcat-9.0.89/conf/context.xml
+# GeoServer
+
+## توضیحات
+این سرویس برای ارائه نقشه‌های جغرافیایی و داده‌های مکانی استفاده می‌شود. با استفاده از Docker، می‌توانید GeoServer را به راحتی راه‌اندازی کنید.
+
+## پیش‌نیازها
+- Docker و Docker Compose
+- Java Runtime Environment (JRE)
+
+## نحوه راه‌اندازی
+1. ایجاد مسیر برای mount:
+   - مسیر مورد نظر را ایجاد کنید.
+2. ایجاد دایرکتوری برای افزونه‌ها:
+   - دایرکتوری `/{path}/additional_libs/` را ایجاد کنید و افزونه‌های مورد نیاز را در آن قرار دهید.
+3. اجرای دستور زیر برای راه‌اندازی سرویس:
+   ```bash
+   docker-compose up --build -d --force-recreate
+   ```
+4. برای تنظیمات JNDI، فایل `apache-tomcat-9.0.89/conf/context.xml` را ویرایش کنید.
+
+## ورودی‌ها
+- افزونه‌های GeoServer در دایرکتوری `additional_libs`
+- تنظیمات JNDI در فایل `context.xml`
+
+## خروجی‌ها
+- ارائه نقشه‌های جغرافیایی و داده‌های مکانی از طریق API
+- امکان دسترسی به نقشه‌ها با استفاده از URLهای استاندارد

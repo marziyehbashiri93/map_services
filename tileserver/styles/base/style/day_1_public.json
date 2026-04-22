@@ -1,6 +1,6 @@
 {
-  "id": "day_1",
-  "name": "day_1",
+  "id": "day_1_public",
+  "name": "day_1_public",
   "draft": false,
   "owner": "viuna",
   "glyphs": "{fontstack}/{range}.pbf",
@@ -9378,7 +9378,7 @@
             ]
           ]
         },
-        "icon-image": "new/mingcute--arrow-right-fill.png",
+        "icon-image": "mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9470,7 +9470,7 @@
             ]
           ]
         },
-        "icon-image": "new/mingcute--arrow-right-fill.png",
+        "icon-image": "mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9566,7 +9566,7 @@
             ]
           ]
         },
-        "icon-image": "new/mingcute--arrow-right-fill.png",
+        "icon-image": "mingcute--arrow-right-fill.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -10157,7 +10157,7 @@
       ],
       "layout": {
         "icon-size": 0.025,
-        "icon-image": "new/carbon--circle-filled.png",
+        "icon-image": "carbon--circle-filled.png",
         "text-font": [
           "IRANYekanWebFnMedium"
         ],
@@ -10334,36 +10334,6 @@
       "maxzoom": 10
     },
     {
-      "id": "violation_camera-icon",
-      "type": "symbol",
-      "paint": {},
-      "layout": {
-        "icon-size": {
-          "stops": [
-            [
-              9,
-              0.05
-            ],
-            [
-              16,
-              0.06
-            ],
-            [
-              22,
-              0.07
-            ]
-          ]
-        },
-        "icon-image": "new/security-camera_10752816.png",
-        "icon-anchor": "bottom",
-        "symbol-placement": "point"
-      },
-      "source": "static_complication",
-      "source-layer": "violation_camera",
-      "minzoom": 10.01,
-      "maxzoom": 22
-    },
-    {
       "id": "complex_service-icon",
       "type": "symbol",
       "paint": {
@@ -10384,7 +10354,7 @@
             ]
           ]
         },
-        "icon-image": "new/rest-area_1050947.png",
+        "icon-image": "rest-area_1050947.png",
         "icon-anchor": "bottom",
         "text-max-width": 6.0,
         "text-font": [
@@ -10436,7 +10406,7 @@
             ]
           ]
         },
-        "icon-image": "new/policeman_5600550.png",
+        "icon-image": "policeman_5600550.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
@@ -10470,7 +10440,7 @@
             ]
           ]
         },
-        "icon-image": "new/bus_14935377.png",
+        "icon-image": "bus_14935377.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point",
         "text-font": [

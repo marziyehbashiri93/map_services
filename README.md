@@ -1,5 +1,13 @@
-# map_services
-> ### [geoserver](geoserver/README.md)
-> ### [tileserver](tileserver/README.md)
-> ### sample_site with map box
+# Map Services
+
+## توضیحات
+این پروژه شامل چندین سرویس برای ارائه نقشه‌های جغرافیایی و داده‌های مکانی است. هر سرویس دارای فایل README مخصوص به خود است که توضیحات، پیش‌نیازها، نحوه اجرا، ورودی‌ها و خروجی‌های آن را ارائه می‌دهد.
+
+## سرویس‌ها
+- [GeoServer](geoserver/README.md): برای ارائه نقشه‌های جغرافیایی و داده‌های مکانی.
+- [Tile Server](tileserver/README.md): برای ارائه نقشه‌های برداری (vector tiles).
+- [OSM2pgsql](osm2pqsql/README.md): برای تبدیل داده‌های OpenStreetMap به فرمت PostgreSQL با پشتیبانی از PostGIS.
+
+## نمونه سایت با Mapbox
+این پروژه همچنین شامل یک نمونه سایت با استفاده از Mapbox است که می‌توانید برای نمایش نقشه‌ها از آن استفاده کنید.
 

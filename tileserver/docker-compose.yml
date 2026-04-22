@@ -1,10 +1,9 @@
-version: "3.9"
 services:
   tileserver:
-    image: maptiler/tileserver-gl
+    image: docker.arvancloud.ir/maptiler/tileserver-gl
     container_name: tileserver
     ports:
       - "9090:8080"
     volumes:
-      - /mnt/drive_f/proj/viouna/map_services/tileserver:/data
+      - .:/data
     restart: unless-stopped

@@ -1,50 +1,50 @@
 {
-"new/mingcute--arrow-right-fill.png": {
-"x": 0,
-"y": 0,
-"width": 776,
-"height": 612,
-"pixelRatio": 1,
-"visible": true
-},
-"new/carbon--circle-filled.png": {
-"x": 776,
-"y": 0,
-"width": 896,
-"height": 896,
-"pixelRatio": 1,
-"visible": true
-},
-"new/security-camera_10752816.png": {
-"x": 1672,
-"y": 0,
-"width": 636,
-"height": 924,
-"pixelRatio": 1,
-"visible": true
-},
-"new/bus_14935377.png": {
-"x": 2308,
-"y": 0,
-"width": 982,
-"height": 992,
-"pixelRatio": 1,
-"visible": true
-},
-"new/rest-area_1050947.png": {
-"x": 0,
-"y": 896,
-"width": 1024,
-"height": 998,
-"pixelRatio": 1,
-"visible": true
-},
-"new/policeman_5600550.png": {
-"x": 1024,
-"y": 924,
-"width": 924,
-"height": 1024,
-"pixelRatio": 1,
-"visible": true
-}
+  "arrow-right.png": {
+    "x": 0,
+    "y": 0,
+    "width": 778,
+    "height": 634,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "bus.png": {
+    "x": 778,
+    "y": 0,
+    "width": 1024,
+    "height": 1024,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "carbon--circle-filled.png": {
+    "x": 1802,
+    "y": 0,
+    "width": 1024,
+    "height": 1024,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "policeman.png": {
+    "x": 2826,
+    "y": 0,
+    "width": 1024,
+    "height": 1024,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "rest-area.png": {
+    "x": 3850,
+    "y": 0,
+    "width": 984,
+    "height": 1024,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "security-camera.png": {
+    "x": 4834,
+    "y": 0,
+    "width": 644,
+    "height": 942,
+    "pixelRatio": 2,
+    "visible": true
+  }
 }

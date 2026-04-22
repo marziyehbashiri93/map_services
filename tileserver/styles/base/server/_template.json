@@ -1,12 +1,12 @@
 {
-  "glyphs": "http://5.201.178.229:10580/fonts/{fontstack}/{range}.pbf",
-  "sprite": "http://5.201.178.229:10580/sprites/sprite",
+  "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
+  "sprite": "__BASE_URL__/sprites/sprite",
   "sources": {
     "static_road": {
       "name": "roads",
       "type": "vector",
       "tiles": [
-        "http://5.201.178.229:10580/data/static_road/{z}/{x}/{y}.pbf"
+        "__BASE_URL__/data/static_road/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -64,7 +64,7 @@
       "attribution": "Viuna Attribution",
       "type": "vector",
       "tiles": [
-        "http://5.201.178.229:10580/data/static_complication/{z}/{x}/{y}.pbf"
+        "__BASE_URL__/data/static_complication/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -114,7 +114,7 @@
       "attribution": "Viuna Attribution",
       "type": "vector",
       "tiles": [
-        "http://5.201.178.229:10580/data/static_admin_division/{z}/{x}/{y}.pbf"
+        "__BASE_URL__/data/static_admin_division/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -164,7 +164,7 @@
       "type": "vector",
       "attribution": "Viuna Attribution",
       "tiles": [
-        "http://172.30.4.175:9090/data/static_landuse/{z}/{x}/{y}.pbf"
+        "__BASE_URL__/data/static_landuse/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",

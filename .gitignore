@@ -7,3 +7,7 @@
 /gh/data/logs/
 /gh/data/default-gh/
 .idea
+/venv
+/__pycache__
+*.pyc
+.idea/
