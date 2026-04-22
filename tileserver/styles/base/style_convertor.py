@@ -1,34 +1,79 @@
+"""Generate per-environment MapLibre styles from base templates and tokens."""
+
+import argparse
+import copy
 import json
 import pathlib
-import os
-import copy
 
 
 class StyleConverter:
+    """Convert tokenized base styles into server-specific style JSON files."""
+
     STYLE_VARIANTS = ("public", "admin")
     SERVER_TEMPLATE_FILE = "_template.json"
 
+    DEFAULT_TILEJSON_BOUNDS = [44.033126, 25.063607, 63.317784, 39.783728]
+
     def __init__(self):
-        self.base_dir = pathlib.Path(os.path.abspath(__file__)).parent
+        """Set all filesystem paths required for style generation."""
+        self.base_dir = pathlib.Path(__file__).resolve().parent
         self.token_dir = self.base_dir.joinpath("token")
         self.style_dir = self.base_dir.joinpath("style")
         self.server_dir = self.base_dir.joinpath("server")
         self.output_style_dir = self.base_dir.parent
-        self.site_dir = self.base_dir.parents[2].joinpath("site")
+        self.tileserver_dir = self.base_dir.parents[1]
+
+    def default_tileserver_config_path(self):
+        """Return default tileserver config path."""
+        return self.tileserver_dir.joinpath("config.json")
+
+    def update_tileserver_styles_config(self, style_names, config_path=None):
+        """Rewrite tileserver `styles` section with generated style names only."""
+        path = pathlib.Path(config_path) if config_path else self.default_tileserver_config_path()
+        if not path.is_file():
+            raise RuntimeError(f"Tileserver config not found: {path}")
+
+        config = self.read_json(path)
+        prev_styles = config.get("styles") or {}
+        default_bounds = None
+        for entry in prev_styles.values():
+            bounds = (entry.get("tilejson") or {}).get("bounds")
+            if bounds:
+                default_bounds = bounds
+                break
+        if default_bounds is None:
+            default_bounds = list(self.DEFAULT_TILEJSON_BOUNDS)
+
+        new_styles = {}
+        for name in style_names:
+            prev = prev_styles.get(name, {})
+            bounds = (prev.get("tilejson") or {}).get("bounds") or default_bounds
+            new_styles[name] = {
+                "style": f"{name}.json",
+                "tilejson": {"bounds": bounds},
+            }
+        config["styles"] = new_styles
+
+        with open(path, "w", encoding="utf-8") as f:
+            json.dump(config, f, indent=2, ensure_ascii=False)
+            f.write("\n")
 
     @staticmethod
     def read_json(path):
+        """Read and deserialize a JSON file."""
         with open(path, "r") as f:
             return json.load(f)
 
     @staticmethod
     def save_json(path, data):
+        """Serialize JSON to disk, creating parent directories when needed."""
         path.parent.mkdir(parents=True, exist_ok=True)
         with open(path, "w") as f:
             json.dump(data, f)
 
     @classmethod
     def split_name_and_variant(cls, file_path):
+        """Split file stem into `<base_name>` and style variant suffix."""
         stem = file_path.stem
         for variant in cls.STYLE_VARIANTS:
             suffix = f"_{variant}"
@@ -37,6 +82,7 @@ class StyleConverter:
         return stem, None
 
     def get_token_groups(self):
+        """Group token files by token set name and variant."""
         token_groups = {}
         for token_path in sorted(self.token_dir.glob("*.json")):
             token_name, token_variant = self.split_name_and_variant(token_path)
@@ -44,13 +90,13 @@ class StyleConverter:
         return token_groups
 
     def get_style_templates(self):
+        """Group style template files by logical template name and variant."""
         template_groups = {}
         for style_path in sorted(self.style_dir.rglob("*.json")):
             template_name, template_variant = self.split_name_and_variant(style_path)
             if template_variant not in self.STYLE_VARIANTS:
                 continue
 
-            # Use folder path in the key to support future nested configuration folders.
             relative_parent = style_path.relative_to(self.style_dir).parent
             if relative_parent == pathlib.Path("."):
                 group_key = template_name
@@ -60,6 +106,7 @@ class StyleConverter:
         return template_groups
 
     def get_server_configs(self):
+        """Load all server config files except the shared template file."""
         configs = {}
         for config_path in sorted(self.server_dir.glob("*.json")):
             if config_path.name == self.SERVER_TEMPLATE_FILE:
@@ -69,6 +116,7 @@ class StyleConverter:
         return configs
 
     def get_server_template(self):
+        """Load the shared server template used for placeholder replacement."""
         template_path = self.server_dir.joinpath(self.SERVER_TEMPLATE_FILE)
         if not template_path.exists():
             raise RuntimeError(f"Server template not found: {template_path}")
@@ -76,6 +124,7 @@ class StyleConverter:
 
     @staticmethod
     def resolve_variant_data(group_paths, variant):
+        """Return exact variant data, then default, then first available value."""
         if variant in group_paths:
             return group_paths[variant]
         if "default" in group_paths:
@@ -84,26 +133,31 @@ class StyleConverter:
 
     @staticmethod
     def replace_tokens_in_style(style_data, token_data):
-        # * جایگزینی مقادیر توکن در style_data با داده‌های موجود در token_data
+        """Replace token placeholders in layer paint values with real values."""
         token_keys = tuple(token_data.keys())
         for layer in style_data.get('layers', []):
             if 'paint' in layer:
                 for k, v in layer['paint'].items():
                     if isinstance(v, list):
-                        # * جایگزینی مقادیر لیستی
                         layer['paint'][k] = [token_data[i] if i in token_keys else i for i in v]
                     elif v in token_keys:
-                        # * جایگزینی مقدار مستقیم
                         layer['paint'][k] = token_data[v]
 
     def apply_server_config(self, style_data, server_config):
-        # * اضافه کردن پیکربندی سرور به استایل
+        """Inject server-specific sources, sprite and glyph endpoints."""
         style_data["sources"] = server_config["sources"]
         style_data["sprite"] = server_config["sprite"]
         style_data["glyphs"] = server_config["glyphs"]
 
     @staticmethod
+    def apply_style_identity(style_data, style_name):
+        """Set style `id` and `name` fields to a stable generated value."""
+        style_data["id"] = style_name
+        style_data["name"] = style_name
+
+    @staticmethod
     def replace_placeholders(data, replacements):
+        """Recursively replace placeholder strings in nested dict/list structures."""
         if isinstance(data, dict):
             return {k: StyleConverter.replace_placeholders(v, replacements) for k, v in data.items()}
         if isinstance(data, list):
@@ -116,6 +170,7 @@ class StyleConverter:
         return data
 
     def build_server_config(self, server_template, config_data):
+        """Build a concrete server config from template and config file content."""
         if {"sources", "sprite", "glyphs"}.issubset(config_data.keys()):
             return config_data
 
@@ -123,11 +178,9 @@ class StyleConverter:
         if replacements is None:
             base_url = config_data.get("base_url")
             if not base_url:
-                # raise RuntimeError(
-                #     "Server config must provide either full style values or `base_url`/`replacements`."
-                # )
-                replacements = {"__BASE_URL__/": ""}
-                server_template["sources"] = {
+                replacements = {"__BASE_URL__": ""}
+                template_with_local_sources = copy.deepcopy(server_template)
+                template_with_local_sources["sources"] = {
                     "static_road": {
                         "url": "mbtiles://{static_road}",
                         "type": "vector",
@@ -149,36 +202,19 @@ class StyleConverter:
                         "maxzoom": 18
                     }
                 }
-
+                return self.replace_placeholders(template_with_local_sources, replacements)
             else:
                 replacements = {"__BASE_URL__": base_url}
 
         return self.replace_placeholders(copy.deepcopy(server_template), replacements)
 
-    def write_index_js_file(self, name, style_data):
-        # * نوشتن فایل جاوااسکریپت با داده استایل
-        js_path = self.site_dir.joinpath(f"{name}.js")
-        with open(js_path, "w") as f:
-            f.write("const theme=" + json.dumps(style_data))
-
-    def generate_html_file(self, name):
-        # * تولید فایل HTML بر اساس قالب base.html
-        base_html_path = self.site_dir.joinpath("base.html")
-        target_html_path = self.site_dir.joinpath(f"{name}.html")
-
-        with open(base_html_path, "r") as f:
-            html_content = f.read()
-        html_content = html_content.replace("__js__name__", f"{name}.js")
-
-        with open(target_html_path, "w") as f:
-            f.write(html_content)
-
     @staticmethod
     def sanitize_style_name(name):
+        """Convert style name to a filesystem-safe format."""
         return name.replace("/", "_")
 
-    def convert(self):
-        # *تبدیل نهایی: تولید استایل‌ها با کشف پویا از توکن‌ها و کانفیگ‌های سرور
+    def convert(self, update_tileserver_config=False, tileserver_config_path=None):
+        """Generate server style JSON files from token/style/template combinations."""
         token_groups = self.get_token_groups()
         template_groups = self.get_style_templates()
         server_template = self.get_server_template()
@@ -192,7 +228,8 @@ class StyleConverter:
             raise RuntimeError(f"No server configs found in {self.server_dir}")
 
         default_template_name = next(iter(template_groups.keys()))
-        primary_server_name = "viuna" if "viuna" in server_configs else next(iter(server_configs.keys()))
+
+        generated_style_names = []
 
         for token_name, token_group in token_groups.items():
             template_name = token_name if token_name in template_groups else default_template_name
@@ -209,6 +246,9 @@ class StyleConverter:
 
                 self.replace_tokens_in_style(style_data, token_data)
                 style_name = self.sanitize_style_name(f"{token_name}_{variant}")
+                self.apply_style_identity(style_data, style_name)
+                if update_tileserver_config and style_name not in generated_style_names:
+                    generated_style_names.append(style_name)
 
                 for config_name, server_config in server_configs.items():
                     server_style_data = copy.deepcopy(style_data)
@@ -218,12 +258,39 @@ class StyleConverter:
                     config_style_dir = self.output_style_dir.joinpath(f"server_{config_name}")
                     self.save_json(config_style_dir.joinpath(f"{style_name}.json"), server_style_data)
 
-                    if config_name == primary_server_name:
-                        self.write_index_js_file(style_name, server_style_data)
-                        self.generate_html_file(style_name)
+        if update_tileserver_config:
+            self.update_tileserver_styles_config(
+                generated_style_names, tileserver_config_path
+            )
 
         print("done")
 
 
-# * اجرای برنامه
-StyleConverter().convert()
+def _parse_args():
+    """Parse CLI arguments for style generation."""
+    parser = argparse.ArgumentParser(
+        description="Generate MapLibre style JSON per server from base templates."
+    )
+    parser.add_argument(
+        "--update-tileserver-config",
+        action="store_true",
+        help=(
+            "Rewrite tileserver config.json 'styles' to list every generated style "
+            '(each entry uses "style": "<name>.json" only, no server_* path).'
+        ),
+    )
+    parser.add_argument(
+        "--tileserver-config",
+        type=pathlib.Path,
+        default=None,
+        help="Path to tileserver config.json (default: <tileserver>/config.json).",
+    )
+    return parser.parse_args()
+
+
+if __name__ == "__main__":
+    _args = _parse_args()
+    StyleConverter().convert(
+        update_tileserver_config=_args.update_tileserver_config,
+        tileserver_config_path=_args.tileserver_config,
+    )

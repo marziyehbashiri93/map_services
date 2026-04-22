@@ -1,6 +1,6 @@
 {
   "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
-  "sprite": "__BASE_URL__/sprites/sprite",
+  "sprite": "__BASE_URL__/sprite",
   "sources": {
     "static_road": {
       "name": "roads",

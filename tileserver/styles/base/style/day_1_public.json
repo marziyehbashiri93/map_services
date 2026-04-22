@@ -9378,7 +9378,7 @@
             ]
           ]
         },
-        "icon-image": "mingcute--arrow-right-fill.png",
+        "icon-image": "arrow-right.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9470,7 +9470,7 @@
             ]
           ]
         },
-        "icon-image": "mingcute--arrow-right-fill.png",
+        "icon-image": "arrow-right.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -9566,7 +9566,7 @@
             ]
           ]
         },
-        "icon-image": "mingcute--arrow-right-fill.png",
+        "icon-image": "arrow-right.png",
         "symbol-spacing": 200.0,
         "symbol-sort-key": [
           "-",
@@ -10354,7 +10354,7 @@
             ]
           ]
         },
-        "icon-image": "rest-area_1050947.png",
+        "icon-image": "rest-area.png",
         "icon-anchor": "bottom",
         "text-max-width": 6.0,
         "text-font": [
@@ -10406,7 +10406,7 @@
             ]
           ]
         },
-        "icon-image": "policeman_5600550.png",
+        "icon-image": "policeman.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
@@ -10440,7 +10440,7 @@
             ]
           ]
         },
-        "icon-image": "bus_14935377.png",
+        "icon-image": "bus.png",
         "icon-anchor": "bottom",
         "symbol-placement": "point",
         "text-font": [
