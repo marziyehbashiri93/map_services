@@ -11,3 +11,6 @@
 /__pycache__
 *.pyc
 .idea/
+/tileserver/styles/server_local/
+/tileserver/styles/server_viuna/
+/tileserver/styles/server_rahdari/
