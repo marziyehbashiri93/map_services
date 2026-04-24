@@ -18,7 +18,7 @@
             background: #fff;
         }
         label { display: block; font-size: 12px; margin-bottom: 4px; }
-        input, button { width: 100%; box-sizing: border-box; padding: 6px 8px; font-size: 14px; }
+        input, select, button { width: 100%; box-sizing: border-box; padding: 6px 8px; font-size: 14px; }
         #status { grid-column: 1 / -1; font-size: 12px; color: #333; }
         #status.error { color: #b42323; }
         #map { width: 100%; height: calc(100vh - 118px); }
@@ -32,7 +32,7 @@
     </div>
     <div>
         <label for="styleName">Style name</label>
-        <input id="styleName" type="text">
+        <select id="styleName"></select>
     </div>
     <div>
         <button id="applyBtn" type="button">Load / Reload</button>
@@ -43,7 +43,6 @@
 <div id="map"></div>
 
 <script src="./vendor/maplibre-gl.js"></script>
-<script src="./vendor/mapbox-gl-rtl-text.js"></script>
 <script>
     const config = {
         baseUrl: "http://127.0.0.1:9090",
@@ -72,8 +71,98 @@
         return normalizeBaseUrl(config.baseUrl) + "/styles/" + config.styleName + "/style.json";
     }
 
+    function stylesEndpointUrl() {
+        return normalizeBaseUrl(config.baseUrl) + "/styles.json";
+    }
+
+    function extractStyleNames(payload) {
+        if (Array.isArray(payload)) {
+            return payload
+                .map((item) => {
+                    if (typeof item === "string") return item;
+                    if (item && typeof item === "object") {
+                        return item.name || item.id || item.style || "";
+                    }
+                    return "";
+                })
+                .filter(Boolean);
+        }
+
+        if (payload && typeof payload === "object") {
+            if (Array.isArray(payload.styles)) {
+                return payload.styles
+                    .map((item) => {
+                        if (typeof item === "string") return item;
+                        if (item && typeof item === "object") {
+                            return item.name || item.id || item.style || "";
+                        }
+                        return "";
+                    })
+                    .filter(Boolean);
+            }
+            if (payload.styles && typeof payload.styles === "object") {
+                return Object.keys(payload.styles);
+            }
+            return Object.keys(payload);
+        }
+
+        return [];
+    }
+
+    function setStyleOptions(styleNames, selectedStyle) {
+        controls.styleName.innerHTML = "";
+        styleNames.forEach((name) => {
+            const option = document.createElement("option");
+            option.value = name;
+            option.textContent = name;
+            controls.styleName.appendChild(option);
+        });
+
+        if (!styleNames.length) return;
+
+        const nextSelection = styleNames.includes(selectedStyle) ? selectedStyle : styleNames[0];
+        controls.styleName.value = nextSelection;
+        config.styleName = nextSelection;
+    }
+
+    async function loadStyleOptions() {
+        const previous = controls.styleName.value || config.styleName;
+        try {
+            const response = await fetch(stylesEndpointUrl(), { cache: "no-store" });
+            if (!response.ok) {
+                throw new Error("HTTP " + response.status);
+            }
+            const payload = await response.json();
+            const styleNames = extractStyleNames(payload);
+            if (!styleNames.length) {
+                throw new Error("No styles found");
+            }
+            setStyleOptions(styleNames, previous);
+            return true;
+        } catch (error) {
+            try {
+                const localConfigRes = await fetch("/tileserver/config.json", { cache: "no-store" });
+                if (!localConfigRes.ok) {
+                    throw new Error("HTTP " + localConfigRes.status);
+                }
+                const localConfig = await localConfigRes.json();
+                const styleNames = extractStyleNames(localConfig);
+                if (!styleNames.length) {
+                    throw new Error("No styles found in local config");
+                }
+                setStyleOptions(styleNames, previous);
+                setStatus("Tileserver style list unavailable; loaded styles from local config.", false);
+                return true;
+            } catch (fallbackError) {
+                setStyleOptions([config.styleName], config.styleName);
+                setStatus("Style list load warning: " + error.message + " | Fallback failed: " + fallbackError.message, true);
+                return false;
+            }
+        }
+    }
+
     controls.baseUrl.value = config.baseUrl;
-    controls.styleName.value = config.styleName;
+    setStyleOptions([config.styleName], config.styleName);
 
     if (typeof maplibregl === "undefined") {
         setStatus("maplibre-gl.js لود نشده است. مسیر ./vendor/maplibre-gl.js را چک کنید.", true);
@@ -86,7 +175,7 @@
         if (typeof maplibregl.setRTLTextPlugin !== "function") return;
 
         if (window.location.protocol === "file:") {
-            console.warn("RTL plugin skipped on file://. Run this page via http://localhost to enable RTL plugin.");
+            console.warn("RTL plugin skipped on file://. Run this page via http://localhost to enable RTL plugin.help : python3 -m http.server 8088 ");
             return;
         }
 
@@ -111,7 +200,7 @@
         }
     });
 
-    function initMap() {
+    async function initMap() {
         if (typeof maplibregl === "undefined") return;
 
         const canUseWebGL = typeof maplibregl.supported === "function"
@@ -125,6 +214,7 @@
         }
 
         configureRtlPlugin();
+        await loadStyleOptions();
 
         try {
             map = new maplibregl.Map({
@@ -153,8 +243,9 @@
 
     initMap();
 
-    controls.applyBtn.addEventListener("click", () => {
+    controls.applyBtn.addEventListener("click", async () => {
         config.baseUrl = controls.baseUrl.value.trim();
+        await loadStyleOptions();
         config.styleName = controls.styleName.value.trim();
 
         if (!config.baseUrl || !config.styleName) {

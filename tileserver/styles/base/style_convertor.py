@@ -213,7 +213,23 @@ class StyleConverter:
         """Convert style name to a filesystem-safe format."""
         return name.replace("/", "_")
 
-    def convert(self, update_tileserver_config=True, tileserver_config_path=None):
+    @staticmethod
+    def filter_style_names(style_names, scope):
+        """Filter generated styles by variant scope for tileserver config."""
+        if scope == "all":
+            return style_names
+        if scope == "public":
+            return [name for name in style_names if name.endswith("_public")]
+        if scope == "admin":
+            return [name for name in style_names if name.endswith("_admin")]
+        raise RuntimeError(f"Unsupported style scope: {scope}")
+
+    def convert(
+        self,
+        update_tileserver_config=True,
+        tileserver_config_path=None,
+        tileserver_style_scope="all",
+    ):
         """Generate server style JSON files from token/style/template combinations."""
         token_groups = self.get_token_groups()
         template_groups = self.get_style_templates()
@@ -260,7 +276,8 @@ class StyleConverter:
 
         if update_tileserver_config:
             self.update_tileserver_styles_config(
-                generated_style_names, tileserver_config_path
+                self.filter_style_names(generated_style_names, tileserver_style_scope),
+                tileserver_config_path,
             )
 
         print("done")
@@ -294,6 +311,16 @@ def _parse_args():
         default=None,
         help="Path to tileserver config.json (default: <tileserver>/config.json).",
     )
+    parser.add_argument(
+        "--tileserver-style-scope",
+        choices=("public", "admin", "all"),
+        default="all",
+        help=(
+            "When rewriting config.json, which generated styles to register: "
+            "public, admin, or all (default: all). Use public or admin if tileserver "
+            "hits memory limits with many styles."
+        ),
+    )
     return parser.parse_args()
 
 
@@ -302,4 +329,5 @@ if __name__ == "__main__":
     StyleConverter().convert(
         update_tileserver_config=_args.update_tileserver_config,
         tileserver_config_path=_args.tileserver_config,
+        tileserver_style_scope=_args.tileserver_style_scope,
     )
