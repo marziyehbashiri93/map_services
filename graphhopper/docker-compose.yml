@@ -1,0 +1,50 @@
+services:
+  graphhopper:
+    build: .
+    image: graphhopper:latest
+    container_name: graphhopper
+    ports:
+      - "8989:8989"
+      - "8990:8990"
+    networks:
+      - map_services_net
+      - fleet-net
+    init: true
+    environment:
+      # Override image defaults; keep below deploy.resources.limits.memory (native + metaspace headroom)
+      - JAVA_OPTS=-Xms512m -Xmx4g
+    # Bind mounts: Docker creates missing host paths as empty dirs (often root-owned); chown if needed.
+    volumes:
+      - ./data:/data
+      - ./data/logs:/graphhopper/logs
+      - ./config-example.yml:/graphhopper/config-example.yml
+      - ./graphhopper.sh:/graphhopper/graphhopper.sh
+    entrypoint: ["/bin/bash"]
+    command: ["./graphhopper.sh"]
+    deploy:
+      resources:
+        limits:
+          cpus: "4"
+          memory: 5G
+        reservations:
+          cpus: "0.5"
+          memory: 1G
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "curl -fsS --max-time 5 -o /dev/null http://localhost:8989/health || exit 1",
+        ]
+      interval: 2m
+      retries: 3
+      timeout: 10s
+      start_period: 120s
+    restart: unless-stopped
+
+networks:
+  map_services_net:
+    external: true
+    name: map_services_net
+  fleet-net:
+    external: true
+    name: fleet-net

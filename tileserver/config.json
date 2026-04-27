@@ -9,7 +9,9 @@
     },
     "domains": [
       "localhost:9090",
-      "127.0.0.1:9090"
+      "127.0.0.1:9090",
+      "localhost:8080",
+      "127.0.0.1:8080"
     ],
     "formatOptions": {
       "jpeg": {
@@ -43,6 +45,28 @@
     }
   },
   "styles": {
+    "blue_light_public": {
+      "style": "blue_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "blue_light_admin": {
+      "style": "blue_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
     "day_1_public": {
       "style": "day_1_public.json",
       "tilejson": {
@@ -78,6 +102,138 @@
     },
     "gray_light_admin": {
       "style": "gray_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "neutral_light_public": {
+      "style": "neutral_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "neutral_light_admin": {
+      "style": "neutral_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "orange_light_public": {
+      "style": "orange_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "orange_light_admin": {
+      "style": "orange_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "red_light_public": {
+      "style": "red_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "red_light_admin": {
+      "style": "red_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "rose_light_public": {
+      "style": "rose_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "rose_light_admin": {
+      "style": "rose_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "violet_light_public": {
+      "style": "violet_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "violet_light_admin": {
+      "style": "violet_light_admin.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "yellow_light_public": {
+      "style": "yellow_light_public.json",
+      "tilejson": {
+        "bounds": [
+          44.033126,
+          25.063607,
+          63.317784,
+          39.783728
+        ]
+      }
+    },
+    "yellow_light_admin": {
+      "style": "yellow_light_admin.json",
       "tilejson": {
         "bounds": [
           44.033126,

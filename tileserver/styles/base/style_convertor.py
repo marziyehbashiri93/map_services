@@ -226,7 +226,7 @@ class StyleConverter:
 
     def convert(
         self,
-        update_tileserver_config=True,
+        update_tileserver_config=False,
         tileserver_config_path=None,
         tileserver_style_scope="all",
     ):
@@ -295,7 +295,7 @@ def _parse_args():
         help=(
             "Rewrite tileserver config.json 'styles' to list every generated style "
             '(each entry uses "style": "<name>.json" only, no server_* path). '
-            "Enabled by default."
+            "Disabled by default."
         ),
     )
     parser.add_argument(
@@ -304,7 +304,7 @@ def _parse_args():
         action="store_false",
         help="Skip rewriting tileserver config.json styles section.",
     )
-    parser.set_defaults(update_tileserver_config=True)
+    parser.set_defaults(update_tileserver_config=False)
     parser.add_argument(
         "--tileserver-config",
         type=pathlib.Path,

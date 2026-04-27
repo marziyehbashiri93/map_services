@@ -45,7 +45,7 @@
 <script src="./vendor/maplibre-gl.js"></script>
 <script>
     const config = {
-        baseUrl: "http://127.0.0.1:9090",
+        baseUrl: "http://127.0.0.1:8080",
         styleName: "day_1_public",
         center: [51.393428, 35.726271],
         zoom: 5
@@ -68,11 +68,11 @@
     }
 
     function vectorStyleUrl() {
-        return normalizeBaseUrl(config.baseUrl) + "/styles/" + config.styleName + "/style.json";
+        return normalizeBaseUrl(config.baseUrl) + "/styles/v1/" + config.styleName + ".json";
     }
 
     function stylesEndpointUrl() {
-        return normalizeBaseUrl(config.baseUrl) + "/styles.json";
+        return normalizeBaseUrl(config.baseUrl) + "/styles/v1/styles.json";
     }
 
     function extractStyleNames(payload) {
@@ -141,6 +141,17 @@
             return true;
         } catch (error) {
             try {
+                const legacyResponse = await fetch(normalizeBaseUrl(config.baseUrl) + "/styles.json", { cache: "no-store" });
+                if (legacyResponse.ok) {
+                    const legacyPayload = await legacyResponse.json();
+                    const legacyStyles = extractStyleNames(legacyPayload);
+                    if (legacyStyles.length) {
+                        setStyleOptions(legacyStyles, previous);
+                        setStatus("Loaded style list from legacy tileserver API.", false);
+                        return true;
+                    }
+                }
+
                 const localConfigRes = await fetch("/tileserver/config.json", { cache: "no-store" });
                 if (!localConfigRes.ok) {
                     throw new Error("HTTP " + localConfigRes.status);

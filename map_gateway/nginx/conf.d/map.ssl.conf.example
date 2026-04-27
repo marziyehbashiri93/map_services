@@ -1,0 +1,102 @@
+# HTTPS gateway template (optional — this repo does not ship Certbot).
+#
+# Before enabling:
+# 1) Replace YOUR_DOMAIN_HERE with your real hostname.
+# 2) Obtain TLS key + full chain (any CA or internal PKI) as PEM files.
+# 3) Mount them read-only in the container, e.g. map_gateway/tls/ → /etc/nginx/tls/
+#    and set ssl_certificate / ssl_certificate_key below to match.
+# 4) Disable the HTTP-only vhost so port 80 is not bound twice:
+#      mv conf.d/10-gateway-http.conf conf.d/10-gateway-http.conf.disabled
+# 5) Copy this file to conf.d/map.ssl.conf (without .example).
+# 6) In map_gateway/docker-compose.yml add "443:443" and the tls volume on nginx.
+# 7) Rebuild/restart nginx; nginx -t && reload.
+#
+# Upstream tileserver_upstream must be defined in conf.d/00-upstreams.conf.
+
+# --- Port 80: health + redirect to HTTPS ---
+server {
+    listen 80;
+    listen [::]:80;
+    server_name YOUR_DOMAIN_HERE;
+
+    include /etc/nginx/snippets/security-headers.conf;
+
+    location = /healthz {
+        access_log off;
+        return 200 "ok\n";
+        add_header Content-Type text/plain;
+    }
+
+    location / {
+        return 301 https://$host$request_uri;
+    }
+}
+
+# --- Port 443: same surface as 10-gateway-http.conf ---
+server {
+    listen 443 ssl http2;
+    listen [::]:443 ssl http2;
+    server_name YOUR_DOMAIN_HERE;
+
+    ssl_certificate /etc/nginx/tls/fullchain.pem;
+    ssl_certificate_key /etc/nginx/tls/privkey.pem;
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_prefer_server_ciphers on;
+
+    include /etc/nginx/snippets/security-headers.conf;
+
+    location = /healthz {
+        access_log off;
+        return 200 "ok\n";
+        add_header Content-Type text/plain;
+    }
+
+    location /styles/ {
+        alias /opt/map_assets/styles/;
+        add_header Cache-Control "public, max-age=300";
+        try_files $uri =404;
+    }
+
+    location /sprite/ {
+        alias /opt/map_assets/sprite/;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        try_files $uri =404;
+    }
+
+    location /fonts/ {
+        alias /opt/map_fonts/;
+        add_header Cache-Control "public, max-age=31536000, immutable";
+        try_files $uri =404;
+    }
+
+    location /data/ {
+        proxy_pass http://tileserver_upstream/data/;
+        include /etc/nginx/snippets/proxy-tileserver.conf;
+    }
+
+    location /tiles/ {
+        proxy_pass http://tileserver_upstream/tiles/;
+        include /etc/nginx/snippets/proxy-tileserver.conf;
+    }
+
+    location /styles.json {
+        proxy_pass http://tileserver_upstream/styles.json;
+        include /etc/nginx/snippets/proxy-tileserver.conf;
+    }
+
+    location /styles/legacy/ {
+        proxy_pass http://tileserver_upstream/styles/;
+        include /etc/nginx/snippets/proxy-tileserver.conf;
+    }
+
+    # Optional: second TileServer — define tileserver_alt_upstream in 00-upstreams.conf first.
+    # location /tileserver/ {
+    #     proxy_pass http://tileserver_alt_upstream/;
+    #     include /etc/nginx/snippets/proxy-tileserver.conf;
+    # }
+
+    location / {
+        proxy_pass http://tileserver_upstream/;
+        include /etc/nginx/snippets/proxy-tileserver.conf;
+    }
+}

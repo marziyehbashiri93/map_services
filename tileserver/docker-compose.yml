@@ -1,9 +1,22 @@
 services:
   tileserver:
-    image: mirror-docker.runflare.com/maptiler/tileserver-gl:latest
+    build: .
+    image: map_services_tileserver:local
     container_name: tileserver
     ports:
       - "9090:8080"
     volumes:
       - .:/data
     restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          cpus: "4.0"
+          memory: 5G
+    networks:
+      - map_services_net
+
+networks:
+  map_services_net:
+    name: map_services_net
+    driver: bridge

@@ -1,11 +1,11 @@
-/gh/graphhopper/
+/graphhopper/graphhopper/
 /tileserver/fonts/
 /tileserver/tiles/
 *.pbf
 *.tar
 *.zip
-/gh/data/logs/
-/gh/data/default-gh/
+/graphhopper/data/logs/
+/graphhopper/data/default-gh/
 .idea
 /venv
 /__pycache__
@@ -40,3 +40,9 @@
 /tileserver/styles/server_local/
 /tileserver/styles/server_viuna/
 /tileserver/styles/server_rahdari/
+
+# GeoServer local data (next to docker-compose)
+/geoserver/data/**
+!/geoserver/data/.gitkeep
+docker_image/
+graphhopper/data/

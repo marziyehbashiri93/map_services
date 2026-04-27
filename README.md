@@ -6,6 +6,7 @@
 ## سرویس‌ها
 - [GeoServer](geoserver/README.md): برای ارائه نقشه‌های جغرافیایی و داده‌های مکانی.
 - [Tile Server](tileserver/README.md): برای ارائه نقشه‌های برداری (vector tiles).
+- [Map gateway](map_gateway/README.md): Nginx برای حالت hybrid (استایل/اسپرایت/فونت استاتیک + پروکسی TileServer).
 - [OSM2pgsql](osm2pqsql/README.md): برای تبدیل داده‌های OpenStreetMap به فرمت PostgreSQL با پشتیبانی از PostGIS.
 
 ## نمونه سایت با Mapbox

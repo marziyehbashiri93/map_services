@@ -1,0 +1,40 @@
+# Copy relevant keys to group_vars/all/vars.yml (or merge into your layout).
+# All values are placeholders: replace or override with -e on the command line.
+#
+# --- Deployment layout ---
+# Absolute path on the target where the map_services repository lives (or will be copied).
+# Example: /opt/map_services
+map_services_deploy_root: "/opt/map_services"
+#
+# The play expects the repo to already exist at map_services_deploy_root (git clone / rsync).
+# Add your own tasks or a separate play to copy the tree if needed.
+#
+# --- Optional public / DNS (for docs, certbot, or future templating) ---
+# map_public_hostname: "maps.example.com"
+#
+# --- Docker: external networks (must exist before geoserver / graphhopper compose) ---
+map_services_net_name: "map_services_net"
+# Backend integration network (GeoServer + GraphHopper docker-compose use this as external).
+# Create even if empty, or set map_services_ensure_fleet_net: false if you remove those services.
+map_services_fleet_net_name: "fleet-net"
+map_services_ensure_fleet_net: true
+#
+# --- Compose: which stacks to start (set false to skip) ---
+map_services_start_tileserver: true
+map_services_start_map_gateway: true
+map_services_start_geoserver: true
+map_services_start_graphhopper: true
+#
+# Build images on target (adds latency; set false if images are preloaded).
+map_services_compose_build: true
+#
+# --- Published hybrid assets (TileServer + Nginx) ---
+# Run the publisher before bringing up map_gateway if styles/sprite/fonts are not already under map_gateway/data/.
+map_services_run_publish_hybrid_assets: true
+map_services_python3: "python3"
+#
+# --- Health checks (HTTP from target to localhost; adjust ports if you change compose) ---
+map_services_gateway_http_port: 8080
+map_services_tileserver_port: 9090
+map_services_run_health_checks: true
+# map_services_healthcheck_style: "day_1_public"  # basename of style JSON under styles/v1/

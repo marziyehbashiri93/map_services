@@ -1,1 +1,2 @@
-FROM docker.osgeo.org/geoserver:2.25.2
+ARG GEOSERVER_VERSION=2.28.3
+FROM docker.osgeo.org/geoserver:${GEOSERVER_VERSION}

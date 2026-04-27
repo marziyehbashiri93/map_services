@@ -1,0 +1,4 @@
+# Local inventory and vars (may contain hostnames or overrides you do not want in git)
+inventory/hosts.yml
+group_vars/all/vars.yml
+host_vars/
