@@ -238,7 +238,7 @@ server:
   admin_connectors:
   - type: http
     port: 8990
-    bind_host: 0.0.0.0
+    bind_host: 127.0.0.1   # S-M2: admin interface restricted to loopback inside the container
 # See https://www.dropwizard.io/en/latest/manual/core.html#logging
 logging:
   appenders:

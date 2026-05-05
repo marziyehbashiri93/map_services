@@ -1,29 +1,28 @@
-<div dir="rtl">
-
 # GeoServer
 
-## توضیحات
+> Publishes spatial data layers (WMS, WMTS, WFS) via the official `docker.osgeo.org/geoserver` image. Consumed by TileServer and other map clients.
 
-این سرویس با تصویر رسمی `docker.osgeo.org/geoserver` و Docker Compose اجرا می‌شود و برای انتشار لایه‌های مکانی (مثلاً WMS/WMTS برای مصرف توسط Tile Server یا کلاینت‌های دیگر) مناسب است.
+## Overview
 
-## پیش‌نیازها
+GeoServer runs as an optional service in the map stack. It is accessed from within the Docker network at `geoserver:8080` and from outside via the Nginx gateway at `/geoserver/`. The JVM runs inside the container — no Java installation is required on the host.
 
-- نصب **Docker** و **Docker Compose** (پلاگین `compose` روی Docker CLI کافی است؛ نیازی به نصب JRE روی میزبان نیست؛ JVM داخل کانتینر است).
-- اگر از **SELinux** استفاده می‌کنید (مثلاً Fedora/RHEL/CentOS)، برچسب `:Z` روی ولوم‌ها در `docker-compose.yml` برای bind mount در نظر گرفته شده است.
+## Prerequisites
 
-## نصب و راه‌اندازی
+- Docker and Docker Compose plugin
+- Both Docker networks must exist:
 
-### ۱. دایرکتوری داده (کنار Compose)
+```bash
+docker network create map_services_net   # shared with tileserver/gateway/graphhopper
+docker network create fleet-net          # fleet backend integration
+```
 
-مسیرهای ولوم **نسبت به همان پوشه‌ای است که `docker-compose.yml` دارد** (`geoserver/`):
+- If running on SELinux (Fedora/RHEL/CentOS), the `:Z` volume label is already set in `docker-compose.yml`.
 
-| نقش | مسیر روی میزبان (نسبی) |
-|-----|------------------------|
-| داده و پیکربندی GeoServer | `./data/geoserver_data` |
-| کتابخانه‌ها / افزونه‌های اضافی | `./data/additional_libs` |
-| تنظیمات Tomcat (مثلاً JNDI) | `./data/tomcat/conf` |
+## Installation
 
-Docker در صورت نبودن این پوشه‌ها آن‌ها را می‌سازد (معمولاً خالی و با مالک root). در صورت خطای دسترسی، مثلاً:
+### 1. Create data directories
+
+All volume paths are relative to the `geoserver/` directory:
 
 ```bash
 cd geoserver
@@ -31,73 +30,99 @@ mkdir -p data/geoserver_data data/additional_libs data/tomcat/conf
 sudo chown -R "$USER:$USER" data
 ```
 
-در اولین اجرا، GeoServer دادهٔ اولیه را در `data/geoserver_data` می‌سازد؛ قبل از حذف این پوشه از بکاپ مطمئن شوید. پوشهٔ **`data/`** در `.gitignore` است تا دادهٔ حجیم وارد Git نشود. در production اگر ترجیح می‌دهید داده روی دیسک جدا (مثلاً `/srv/geoserver/...`) باشد، همان مسیرها را در `docker-compose.yml` جایگزین کنید.
+| Host Path (relative) | Purpose |
+|----------------------|---------|
+| `./data/geoserver_data` | GeoServer data and workspace configuration |
+| `./data/additional_libs` | Extra JARs and plugins |
+| `./data/tomcat/conf` | Tomcat configuration (e.g. JNDI) |
 
-### ۲. تنظیم Tomcat و JNDI (در صورت نیاز)
-
-فایل **`context.xml`** را در **`geoserver/data/tomcat/conf/context.xml`** قرار دهید یا ویرایش کنید. این مسیر به **`/opt/apache-tomcat-9.0.89/conf`** داخل کانتینر متصل است.
-
-**توجه:** شمارهٔ نسخهٔ Tomcat در مسیر داخل کانتینر (`9.0.89`) با نسخهٔ تصویر Docker یکی است؛ اگر در آینده نسخهٔ GeoServer/Tomcat در image عوض شود، ممکن است لازم باشد مسیر mount در `docker-compose.yml` را با مسیر واقعی داخل تصویر جدید هماهنگ کنید.
-
-### ۳. شبکه‌های Docker
-
-GeoServer به دو شبکه وصل است:
-
-- **`map_services_net`:** شبکهٔ مشترک سرویس‌های نقشه (Tile Server، Gateway، GeoServer و …) تا با نام سرویس به هم درخواست بزنند. معمولاً این شبکه را **Tile Server** می‌سازد؛ در غیر این صورت یک بار روی میزبان اجرا کنید:
-(الزامی). باید از قبل وجود داشته باشد، مثلاً:  
+### 2. Start the service
 
 ```bash
-docker network create map_services_net
+docker compose up -d --build
 ```
 
-- **`fleet-net`:** شبکهٔ **خارجی** برای ارتباط با بک‌اند (الزامی). باید از قبل وجود داشته باشد، مثلاً:  
+## Configuration
+
+| Variable | Description |
+|----------|-------------|
+| `GEOSERVER_VERSION` | GeoServer version — must match in both `docker-compose.yml` and `Dockerfile` |
+| `EXTRA_JAVA_OPTS` | JVM flags (e.g. `-Xms256m -Xmx1g`) — `deploy.resources.limits.memory` must be larger than `-Xmx` |
+| `CORS_ENABLED` | Set to `true` to enable CORS |
+| `CORS_ALLOWED_ORIGINS` | Restrict allowed origins once domain is known (see CORS section below) |
+| `STABLE_EXTENSIONS` | Extensions to install at startup (e.g. `oracle,vectortiles`) |
+
+Logs are automatically rotated (`max-size: 100m`, `max-file: 5`).
+
+## Usage
+
+### Start
+
 ```bash
-docker network create fleet-net
+docker compose up -d --build
 ```
 
-  (اگر در زیرساخت شما نام یا نحوهٔ ساخت دیگری دارید، همان را استفاده کنید.)
-
-### ۴. اجرای سرویس
-
-از داخل همین پوشه (`geoserver`):
+### Stop
 
 ```bash
-docker compose up --build -d
+docker compose down
 ```
 
-در صورت نیاز به ساخت مجدد کامل:
+### Reload / restart
+
+GeoServer does not support a live reload — restart the container after configuration changes:
 
 ```bash
-docker compose up --build -d --force-recreate
+docker compose restart geoserver
 ```
 
-### ۵. دسترسی به رابط وب
+## Endpoints
 
-- مرورگر: **`http://<آدرس-سرور>:8090/geoserver`**
-- داخل Docker، نام سرویس **`geoserver`** و پورت داخلی **`8080`** است (مثلاً برای سرویس دیگری روی همان شبکه: `http://geoserver:8080/geoserver/...`).
+| Endpoint | Access | Notes |
+|----------|--------|-------|
+| `http://geoserver:8080/geoserver/` | Docker network | From other containers via `map_services_net` |
+| `http://<server>:8090/geoserver` | Host | Direct host access |
+| `http://<server>:8080/geoserver/` | Public | Via Nginx gateway |
 
-اولین بار ممکن است به‌خاطر نصب افزونه‌ها و بالا آمدن JVM، چند دقیقه طول بکشد؛ healthcheck با **`start_period: 120s`** این تأخیر را در نظر می‌گیرد.
+## CORS Configuration
 
-## شبکهٔ مشترک نقشه
+CORS is currently enabled without origin restriction. Once the domain is known, update `docker-compose.yml`:
 
-سرویس‌های map (مثل `tileserver`، `map_nginx`، `geoserver`) روی **`map_services_net`** هستند؛ آدرس داخلی GeoServer برای بقیهٔ همان سرویس‌ها: **`http://geoserver:8080/geoserver/...`**. برای بک‌اندهایی که روی **`fleet-net`** قرار می‌گیرند، از نام DNS همان شبکه استفاده کنید.
+```yaml
+- CORS_ENABLED=true
+- CORS_ALLOWED_ORIGINS=https://your-domain.com
+```
 
-## پیکربندی مهم (خلاصه)
+## Directory Structure
 
-- **نسخه GeoServer:** از طریق آرگومان build **`GEOSERVER_VERSION`** در `docker-compose.yml` و **`Dockerfile`** (باید با هم یکسان بمانند).
-- **حافظه JVM:** متغیر **`EXTRA_JAVA_OPTS`** (مثلاً `-Xms` / `-Xmx` و `SoftRefLRUPolicyMSPerMB`)؛ حد حافظهٔ کانتینر در بخش **`deploy.resources`** است و باید از `Xmx` بزرگ‌تر باشد تا فضای متaspace و فرآیندهای بومی کافی باشد.
-- **افزونه‌ها:** **`STABLE_EXTENSIONS`** (مثلاً `oracle,vectortiles`)؛ برای Oracle ممکن است به JARهای اضافی در **`additional_libs`** نیاز باشد.
-- **CORS:** **`CORS_ENABLED=true`** برای فراخوانی از دامنه‌های دیگر (در صورت نیاز محدودسازی مبدأ را در خود GeoServer بررسی کنید).
+```text
+geoserver/
+├── Dockerfile
+├── docker-compose.yml
+└── data/
+    ├── geoserver_data/     # workspaces, stores, styles, layer config
+    ├── additional_libs/    # extra JARs and plugins
+    └── tomcat/
+        └── conf/           # Tomcat configuration files
+```
 
-## ورودی‌ها و خروجی‌ها
+## Troubleshooting
 
-- **ورودی:** داده در `data/geoserver_data`، افزونه/کتابخانه در `data/additional_libs`، `context.xml` و سایر فایل‌های `conf` در `data/tomcat/conf`.
-- **خروجی:** سرویس‌های استاندارد GeoServer (REST، WMS، …) روی پورت منتشرشدهٔ میزبان (**8090**).
+```bash
+# Live logs
+docker compose logs -f geoserver
 
-## عیب‌یابی
+# Health status (JSON)
+docker inspect --format='{{json .State.Health}}' geoserver
 
-- لاگ کانتینر: `docker compose logs -f geoserver`
-- وضعیت سلامت: `docker inspect --format='{{json .State.Health}}' geoserver`
-- اگر healthcheck همیشه ناموفق است، بررسی کنید آیا REST در نصب شما بدون احراز هویت به **`/geoserver/rest/about/version`** پاسخ می‌دهد؛ در غیر این صورت باید endpoint یا امنیت REST را با پیکربندی شما هماهنگ کنید.
+# Check REST endpoint (used by health check)
+curl http://127.0.0.1:8090/geoserver/rest/about/version.json
+```
 
-</div>
+If the health check fails, verify that the REST endpoint is accessible without authentication (`REST_PATH` is not restricted to authenticated users in GeoServer settings).
+
+## Related Documentation
+
+- [Security & performance analysis](../docs/analysis-report.md)
+- [Implementation report](../docs/implementation-report.md)
+- [HA architecture guide](../docs/ha-recommendation.md)

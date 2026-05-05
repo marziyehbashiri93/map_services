@@ -1,84 +1,130 @@
-<div dir="rtl">
-
 # GraphHopper
 
-## توضیحات
+> Open-source routing service built from source using a custom Dockerfile. Processes Iran OSM PBF data and exposes a routing API on port `8989`.
 
-سرویس مسیریابی **GraphHopper** با تصویر ساخته‌شده از همین مخزن (`Dockerfile`) و Docker Compose اجرا می‌شود. API وب پیش‌فرض روی پورت **8989** است (مثلاً `/route`).
+## Overview
 
-## پیش‌نیازها
+GraphHopper is built from the source in `graphhopper/graphhopper/` and run via Docker Compose. The routing graph is built from an Iran OSM PBF file on first start (15–30 minutes). Subsequent starts reuse the cached graph. The API port is loopback-bound; all external routing requests go through the Nginx gateway at `/graphhopper/`.
 
-- **Docker** و **Docker Compose**
-- سورس رسمی GraphHopper داخل پوشهٔ **`graphhopper/graphhopper/`** (کلون از [GitHub](https://github.com/graphhopper/graphhopper))؛ طبق نیاز پروژه، فایل‌های اضافی مثل `config.xml` قدیمی را حذف کنید.
-- شبکه‌های Docker از قبل ایجاد شده باشند:
-  - **`map_services_net`** — مشترک با Tile Server، Gateway، GeoServer و …
-  - **`fleet-net`** — برای ارتباط با بک‌اند
+## Prerequisites
+
+- Docker and Docker Compose plugin
+- GraphHopper source cloned into `graphhopper/graphhopper/` (from the [official repo](https://github.com/graphhopper/graphhopper))
+- Iran OSM PBF file placed in `data/` (download from [Geofabrik](https://download.geofabrik.de/asia/iran.html))
+- Docker networks created:
 
 ```bash
-docker network create map_services_net   # اگر هنوز وجود ندارد
+docker network create map_services_net   # if not already created by TileServer
 docker network create fleet-net
 ```
 
-## ساخت تصویر
+## Installation
 
-از ریشهٔ همین پوشه (`graphhopper/`):
+### Build the Docker image
+
+From the `graphhopper/` directory:
 
 ```bash
 docker build -t graphhopper:latest .
 ```
 
-برای انتقال تصویر به سرور دیگر (اختیاری):
+To transfer the image to another server:
 
 ```bash
 docker save -o graphhopper.tar graphhopper:latest
 ```
 
-## داده و ولوم‌ها
-
-مسیر **`./data`** نسبت به همان پوشه‌ای است که `docker-compose.yml` قرار دارد:
-
-| نقش | مسیر نسبی (میزبان) |
-|-----|---------------------|
-| گراف و ورودی OSM / کش | `./data` (پیش‌فرض اسکریپت: `/data/default-gh` داخل کانتینر) |
-| لاگ | `./data/logs` |
-
-پوشه‌ها در اولین اجرا در صورت نبودن توسط Docker ساخته می‌شوند؛ در صورت خطای دسترسی، مالکیت را با `chown` اصلاح کنید.
-
-## اجرا
+### Start the service
 
 ```bash
-docker compose up --build -d
+docker compose up -d --build
 ```
 
-بازسازی کامل کانتینر:
+> **First start:** The routing graph is built from the Iran PBF file — this takes **15 to 30 minutes**. The health check `start_period` is set to 30 minutes; `docker inspect` will show `starting` during this window.
+
+## Configuration
+
+| Variable / File | Value | Description |
+|-----------------|-------|-------------|
+| `JAVA_OPTS` | `-Xms512m -Xmx5500m` | JVM heap — container limit is 6 GB, leaving 500 MB headroom |
+| `deploy.resources.limits.memory` | `6G` | Must be larger than `-Xmx` |
+| `config-example.yml` | mounted into container | GraphHopper routing profiles and graph settings |
+| `graphhopper.sh` | mounted into container | Entrypoint wrapper script |
+
+Admin interface listens on `127.0.0.1:8990` inside the container only (configured in `config-example.yml`).
+
+## Usage
+
+### Start
 
 ```bash
-docker compose up --build -d --force-recreate
+docker compose up -d --build
 ```
 
-- رابط/API: **`http://<سرور>:8989`** (داخل Docker برای سرویس‌های روی **`map_services_net`**: **`http://graphhopper:8989`**)
-- پورت **8990** در `docker-compose` نقشه شده است؛ در صورت استفاده در `config-example.yml` باید با پیکربندی هم‌خوان باشد.
-
-اولین بار با import گراف ممکن است زمان‌بر باشد؛ **`start_period`** healthcheck این تأخیر اولیه را در نظر می‌گیرد.
-
-## شبکه
-
-- **`map_services_net`:** درخواست بین سرویس‌های نقشه (مثلاً از Gateway یا سرویس دیگر به `graphhopper:8989`).
-- **`fleet-net`:** دسترسی به بک‌اند طبق معماری Fleet شما.
-
-## پیکربندی و منابع
-
-- **`config-example.yml`** و **`graphhopper.sh`** به مسیرهای داخل کانتینر mount می‌شوند؛ برای تغییر رفتار، این فایل‌ها را روی میزبان ویرایش کنید و در صورت نیاز کانتینر را دوباره بالا بیاورید.
-- **`JAVA_OPTS`** در Compose (پیش‌فرض `-Xms512m -Xmx4g`) باید با **`deploy.resources.limits.memory`** هم‌خوان باشد (فضای غیر heap و سیستم‌عامل).
-- برای داده و گراف خیلی بزرگ، حد حافظه و `JAVA_OPTS` را متناسب افزایش دهید.
-
-## عیب‌یابی
+### Stop
 
 ```bash
+docker compose down
+```
+
+### Rebuild routing graph (after OSM data update)
+
+Delete the cached graph and restart:
+
+```bash
+rm -rf data/default-gh
+docker compose up -d
+```
+
+## Endpoints
+
+| Endpoint | Host Binding | Access |
+|----------|-------------|--------|
+| `http://graphhopper:8989` | — | From other containers via `map_services_net` |
+| `http://127.0.0.1:8989` | loopback | Direct API access from the server |
+| `http://<server>:8080/graphhopper/route` | public | Via Nginx gateway |
+| `http://127.0.0.1:8990` | loopback | Admin API (metrics, thread dumps) — do not expose externally |
+
+## Directory Structure
+
+```text
+graphhopper/
+├── Dockerfile                  # builds from source in graphhopper/graphhopper/
+├── docker-compose.yml          # loopback ports, memory limits, health check
+├── config-example.yml          # routing profiles and graph configuration
+├── graphhopper.sh              # container entrypoint wrapper
+├── data/
+│   ├── iran-latest.osm.pbf     # OSM input file
+│   ├── default-gh/             # built routing graph (cached across restarts)
+│   └── logs/                   # application logs
+└── graphhopper/                # GraphHopper source (cloned from GitHub)
+```
+
+## Networks
+
+| Network | Purpose |
+|---------|---------|
+| `map_services_net` | Inter-service requests from gateway to `graphhopper:8989` |
+| `fleet-net` | Access to the fleet backend services |
+
+## Troubleshooting
+
+```bash
+# Live logs
 docker compose logs -f graphhopper
+
+# Health status (JSON)
 docker inspect --format='{{json .State.Health}}' graphhopper
+
+# Direct API check from the server
+curl http://127.0.0.1:8989/health
+
+# Check graph build progress
+docker compose logs graphhopper | grep -i "graph\|import\|finish"
 ```
 
-Healthcheck روی **`http://localhost:8989/health`** داخل کانتینر است (نیاز به **`curl`** در تصویر، در `Dockerfile` نصب شده است).
+## Related Documentation
 
-</div>
+- [Security & performance analysis](../docs/analysis-report.md)
+- [Implementation report](../docs/implementation-report.md)
+- [HA architecture guide](../docs/ha-recommendation.md)

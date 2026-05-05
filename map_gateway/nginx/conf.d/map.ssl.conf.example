@@ -20,6 +20,7 @@ server {
     server_name YOUR_DOMAIN_HERE;
 
     include /etc/nginx/snippets/security-headers.conf;
+    include /etc/nginx/snippets/cors_header.conf;
 
     location = /healthz {
         access_log off;
@@ -44,6 +45,7 @@ server {
     ssl_prefer_server_ciphers on;
 
     include /etc/nginx/snippets/security-headers.conf;
+    include /etc/nginx/snippets/cors_header.conf;
 
     location = /healthz {
         access_log off;

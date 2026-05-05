@@ -28,13 +28,13 @@
     <!--
     <Manager pathname="" />
     -->
-    <Resource name="jdbc/postgres"
+   <Resource name="jdbc/oralocal"
       auth="Container"
       type="javax.sql.DataSource"
-      driverClassName="org.postgresql.Driver"
-      url="jdbc:postgresql://192.168.238.195:5432/mellat"
-      username="postgres" password="bashiri-2020"
-      maxActive="20"
+      driverClassName="oracle.jdbc.driver.OracleDriver"
+      url="jdbc:oracle:thin:@192.168.1.115:1521/gis"
+      username="FLEETTRACK" password="FLEETTRACK"
+      maxTotal="20"
       initialSize="0"
       minIdle="0"
       maxIdle="8"
@@ -42,8 +42,10 @@
       timeBetweenEvictionRunsMillis="30000"
       minEvictableIdleTimeMillis="60000"
       testWhileIdle="true"
-      validationQuery="SELECT 1"
+      poolPreparedStatements="true"
+      maxOpenPreparedStatements="100"
+      validationQuery="SELECT SYSDATE FROM DUAL"
       maxAge="600000"
       rollbackOnReturn="true"
-    />
+      />
 </Context>

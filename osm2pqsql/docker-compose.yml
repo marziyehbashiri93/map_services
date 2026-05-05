@@ -1,8 +1,10 @@
-version: "3.9"
+# S-L1: 'version' field removed — deprecated in modern Docker Compose.
+# S-M5: Mount only the data directory containing OSM PBF files, not the entire working directory.
+#        Place your .osm.pbf file(s) inside osm2pqsql/data/ before running.
 services:
   osm2pgsl:
     image: iboates/osm2pgsql:latest
     container_name: osm2pgsl
     volumes:
-      - ${PWD}:/usr/local/share/osm2pgsql/file/
+      - ./data:/usr/local/share/osm2pgsql/file/
     restart: unless-stopped

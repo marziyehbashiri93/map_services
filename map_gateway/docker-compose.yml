@@ -18,6 +18,7 @@ services:
       - ./data/tileserver/styles:/opt/map_assets/styles:ro
       - ./data/tileserver/sprite:/opt/map_assets/sprite:ro
       - ./data/tileserver/fonts:/opt/map_fonts:ro
+      - ./data/tileserver/terrain_tiles:/opt/terrain_tiles:ro
     restart: unless-stopped
     networks:
       - map_services_net

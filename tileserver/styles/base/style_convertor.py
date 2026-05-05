@@ -4,6 +4,7 @@ import argparse
 import copy
 import json
 import pathlib
+import shutil
 
 
 class StyleConverter:
@@ -22,6 +23,9 @@ class StyleConverter:
         self.server_dir = self.base_dir.joinpath("server")
         self.output_style_dir = self.base_dir.parent
         self.tileserver_dir = self.base_dir.parents[1]
+        self.gateway_tileserver_dir = self.tileserver_dir.parent / "map_gateway" / "data" / "tileserver"
+        self.sprites_dir = self.tileserver_dir / "sprites"
+        self.fonts_dir = self.tileserver_dir / "fonts"
 
     def default_tileserver_config_path(self):
         """Return default tileserver config path."""
@@ -75,11 +79,21 @@ class StyleConverter:
     def split_name_and_variant(cls, file_path):
         """Split file stem into `<base_name>` and style variant suffix."""
         stem = file_path.stem
+        parts = stem.split("_")
         for variant in cls.STYLE_VARIANTS:
-            suffix = f"_{variant}"
-            if stem.endswith(suffix):
-                return stem[:-len(suffix)], variant
+            if variant in parts:
+                base_parts = parts.copy()
+                base_parts.remove(variant)
+                return "_".join(base_parts), variant
         return stem, None
+
+    @staticmethod
+    def get_theme(name):
+        """Return theme suffix (`dark`/`light`) from a name when present."""
+        for theme in ("dark", "light"):
+            if name.endswith(f"_{theme}"):
+                return theme
+        return None
 
     def get_token_groups(self):
         """Group token files by token set name and variant."""
@@ -172,7 +186,7 @@ class StyleConverter:
     def build_server_config(self, server_template, config_data):
         """Build a concrete server config from template and config file content."""
         if {"sources", "sprite", "glyphs"}.issubset(config_data.keys()):
-            return config_data
+            return {k: v for k, v in config_data.items() if k != "output_to_gateway"}
 
         replacements = config_data.get("replacements")
         if replacements is None:
@@ -224,6 +238,29 @@ class StyleConverter:
             return [name for name in style_names if name.endswith("_admin")]
         raise RuntimeError(f"Unsupported style scope: {scope}")
 
+    def _publish_gateway_assets(self, style_entries):
+        """Copy sprites and fonts to the gateway and write the styles.json catalog."""
+        gateway_styles_v1 = self.gateway_tileserver_dir / "styles" / "v1"
+        gateway_sprite_v1 = self.gateway_tileserver_dir / "sprite" / "v1"
+        gateway_fonts = self.gateway_tileserver_dir / "fonts"
+
+        gateway_sprite_v1.mkdir(parents=True, exist_ok=True)
+        if gateway_fonts.exists():
+            shutil.rmtree(gateway_fonts)
+        gateway_fonts.mkdir(parents=True, exist_ok=True)
+
+        for filename in ("sprite.json", "sprite@2x.json", "sprite.png", "sprite@2x.png"):
+            src = self.sprites_dir / filename
+            if src.exists():
+                shutil.copy2(src, gateway_sprite_v1 / filename)
+
+        if self.fonts_dir.is_dir():
+            shutil.copytree(self.fonts_dir, gateway_fonts, dirs_exist_ok=True)
+
+        catalog = {"version": "v1", "styles": style_entries}
+        with open(gateway_styles_v1 / "styles.json", "w", encoding="utf-8") as f:
+            json.dump(catalog, f, ensure_ascii=False, indent=2)
+
     def convert(
         self,
         update_tileserver_config=False,
@@ -244,11 +281,30 @@ class StyleConverter:
             raise RuntimeError(f"No server configs found in {self.server_dir}")
 
         default_template_name = next(iter(template_groups.keys()))
+        default_template_by_theme = {}
+        for template_name in template_groups:
+            theme = self.get_theme(template_name)
+            if theme and theme not in default_template_by_theme:
+                default_template_by_theme[theme] = template_name
 
+        gateway_configs = {n for n, c in server_configs.items() if c.get("output_to_gateway")}
+        if gateway_configs:
+            gateway_styles_dir = self.gateway_tileserver_dir / "styles" / "v1"
+            if gateway_styles_dir.exists():
+                shutil.rmtree(gateway_styles_dir)
+            gateway_styles_dir.mkdir(parents=True, exist_ok=True)
+
+        gateway_catalog_entries = []
         generated_style_names = []
 
         for token_name, token_group in token_groups.items():
-            template_name = token_name if token_name in template_groups else default_template_name
+            token_theme = self.get_theme(token_name)
+            if token_name in template_groups:
+                template_name = token_name
+            elif token_theme in default_template_by_theme:
+                template_name = default_template_by_theme[token_theme]
+            else:
+                template_name = default_template_name
             template_group = template_groups[template_name]
 
             for variant in self.STYLE_VARIANTS:
@@ -271,8 +327,19 @@ class StyleConverter:
                     resolved_server_config = self.build_server_config(server_template, server_config)
                     self.apply_server_config(server_style_data, resolved_server_config)
 
-                    config_style_dir = self.output_style_dir.joinpath(f"server_{config_name}")
+                    if server_config.get("output_to_gateway"):
+                        config_style_dir = self.gateway_tileserver_dir / "styles" / "v1"
+                        gateway_catalog_entries.append({
+                            "name": style_name,
+                            "title": server_style_data.get("name", style_name),
+                            "url": f"/styles/v1/{style_name}.json",
+                        })
+                    else:
+                        config_style_dir = self.output_style_dir.joinpath(f"server_{config_name}")
                     self.save_json(config_style_dir.joinpath(f"{style_name}.json"), server_style_data)
+
+        if gateway_catalog_entries:
+            self._publish_gateway_assets(gateway_catalog_entries)
 
         if update_tileserver_config:
             self.update_tileserver_styles_config(

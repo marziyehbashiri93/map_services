@@ -1,12 +1,11 @@
 {
-  "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
-  "sprite": "__BASE_URL__/sprite",
+  "output_to_gateway": true,
   "sources": {
     "static_road": {
       "name": "roads",
       "type": "vector",
       "tiles": [
-        "__BASE_URL__/data/static_road/{z}/{x}/{y}.pbf"
+        "http://127.0.0.1:8080/data/static_road/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -64,7 +63,7 @@
       "attribution": "Viuna Attribution",
       "type": "vector",
       "tiles": [
-        "__BASE_URL__/data/static_complication/{z}/{x}/{y}.pbf"
+        "http://127.0.0.1:8080/data/static_complication/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -114,7 +113,7 @@
       "attribution": "Viuna Attribution",
       "type": "vector",
       "tiles": [
-        "__BASE_URL__/data/static_admin_division/{z}/{x}/{y}.pbf"
+        "http://127.0.0.1:8080/data/static_admin_division/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -164,7 +163,7 @@
       "type": "vector",
       "attribution": "Viuna Attribution",
       "tiles": [
-        "__BASE_URL__/data/static_landuse/{z}/{x}/{y}.pbf"
+        "http://127.0.0.1:8080/data/static_landuse/{z}/{x}/{y}.pbf"
       ],
       "format": "pbf",
       "scheme": "xyz",
@@ -187,16 +186,18 @@
           "source_name": "river"
         }
       ]
+    },
+    "terrain": {
+      "type": "raster-dem",
+      "tiles": [
+        "http://127.0.0.1:8080/terrain_tiles/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "encoding": "mapbox",
+      "maxzoom": 10,
+      "minzoom": 4
     }
   },
-  "terrain": {
-    "type": "raster-dem",
-    "tiles": [
-      "__BASE_URL__/terrain_tiles/{z}/{x}/{y}.png"
-    ],
-    "tileSize": 256,
-    "encoding": "mapbox",
-    "maxzoom": 10,
-    "minzoom": 4
-  }
+  "sprite": "http://127.0.0.1:8080/sprite/v1/sprite",
+  "glyphs": "http://127.0.0.1:8080/fonts/{fontstack}/{range}.pbf"
 }
