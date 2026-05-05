@@ -13,7 +13,7 @@ services:
     image: map_gateway_nginx:local
     container_name: map_nginx
     ports:
-      - "8080:80"
+      - "80:80"
     volumes:
       - ./data/tileserver/styles:/opt/map_assets/styles:ro
       - ./data/tileserver/sprite:/opt/map_assets/sprite:ro
