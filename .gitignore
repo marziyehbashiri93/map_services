@@ -47,3 +47,4 @@
 docker_image/
 graphhopper/data/
 /mbtile_export/
+/terrain/tiles/
