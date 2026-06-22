@@ -1,0 +1,17 @@
+{
+  "tilejson": "3.0.0",
+  "name": "Terrarium Terrain — Iran region",
+  "description": "AWS Terrain Tiles in Terrarium encoding. Elevation = (R*256 + G + B/256) - 32768 (meters).",
+  "version": "1.0.0",
+  "attribution": "<a href=\"https://registry.opendata.aws/terrain-tiles/\">Terrain Tiles</a> | <a href=\"https://www.mapzen.com/rights/\">Mapzen</a> | <a href=\"https://www.openstreetmap.org/copyright\">OpenStreetMap</a>",
+  "scheme": "xyz",
+  "tiles": [
+    "http://localhost:8080/terrain/tiles/{z}/{x}/{y}.png"
+  ],
+  "minzoom": 1,
+  "maxzoom": 10,
+  "bounds": [40.0, 22.0, 65.0, 42.0],
+  "center": [52.5, 32.0, 6],
+  "encoding": "terrarium",
+  "format": "png"
+}

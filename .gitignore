@@ -48,3 +48,15 @@ docker_image/
 graphhopper/data/
 /mbtile_export/
 /terrain/tiles/
+
+# Claude Code local state
+/.claude/
+
+# GeoServer binary plugins (download separately)
+/geoserver/extensions/
+
+# Generated/temporary sprite images
+/tileserver/sprites/icon_v2/
+
+# Data files (not versioned)
+iran_welfare_services.json
