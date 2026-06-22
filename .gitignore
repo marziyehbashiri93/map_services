@@ -60,3 +60,7 @@ graphhopper/data/
 
 # Data files (not versioned)
 iran_welfare_services.json
+
+# Terrain source data
+/tileserver/IR-489m-20201118topo
+/tileserver/IR-489m-20201118topo.zip
