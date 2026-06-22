@@ -46,3 +46,4 @@
 !/geoserver/data/.gitkeep
 docker_image/
 graphhopper/data/
+/mbtile_export/
