@@ -1,0 +1,167 @@
+schema_name: viuna-osm
+schema_description: Iran OSM vector tiles for VIOUNA platform
+attribution: "© OpenStreetMap contributors"
+
+sources:
+  osm:
+    type: osm
+    local_path: /data/iran.osm.pbf
+
+layers:
+
+  # ─── Roads ───────────────────────────────────────────────────────────────
+
+  - id: road_major
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 5
+        include_when:
+          highway: [motorway, trunk, primary, motorway_link, primary_link, trunk_link]
+        attributes:
+          - key: highway
+          - key: name
+          - key: oneway
+          - key: tunnel
+          - key: bridge
+          - key: layer
+
+  - id: road_intermediate
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 9
+        include_when:
+          highway: [secondary, tertiary, road, secondary_link, tertiary_link]
+        attributes:
+          - key: highway
+          - key: name
+          - key: oneway
+          - key: tunnel
+          - key: bridge
+          - key: layer
+          
+
+  - id: road_minor
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 13
+        include_when:
+          highway: [residential, living_street, service, services, unclassified]
+        attributes:
+          - key: highway
+          - key: name
+          - key: oneway
+          - key: tunnel
+          - key: bridge
+          - key: layer
+
+  - id: road_footway
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 12
+        include_when:
+          highway: [pedestrian, footway, steps, track]
+        attributes:
+          - key: highway
+          - key: name
+
+  - id: road_other
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 12
+        include_when:
+          highway: [cycleway, bus_guideway, platform, construction, path, raceway,
+                    corridor, elevator, busway, bridleway, proposed, abandoned]
+        attributes:
+          - key: highway
+          - key: name
+
+  # ─── Landuse / Natural / Water ───────────────────────────────────────────
+
+  - id: landuse
+    features:
+      - source: osm
+        geometry: polygon
+        min_zoom: 2
+        include_when:
+          __any__:
+            - landuse: [residential, commercial, industrial, retail, farmland, farmyard,
+                        forest, meadow, village_green, recreation_ground, cemetery,
+                        allotments, park, orchard, grass, military]
+            - leisure: [park, garden, playground, golf_course, sports_centre, stadium,
+                        nature_reserve, pitch, track]
+            - natural: [wood, scrub, heath, grassland, beach, sand, water, wetland,
+                        fell, bare_rock, glacier, cliff]
+            - water: [lake, reservoir, river, canal, pond, oxbow]
+        attributes:
+          - key: landuse
+          - key: leisure
+          - key: natural
+          - key: water
+          - key: name
+
+  - id: river
+    features:
+      - source: osm
+        geometry: line
+        min_zoom: 6
+        include_when:
+          waterway: [river, stream, canal, drain, ditch]
+        attributes:
+          - key: waterway
+          - key: name
+      - source: osm
+        geometry: polygon
+        min_zoom: 6
+        include_when:
+          __any__:
+            - natural: water
+            - water: [lake, reservoir, river, canal, pond, oxbow]
+        attributes:
+          - key: water
+          - key: name
+
+  # ─── Admin Divisions ─────────────────────────────────────────────────────
+
+  - id: admin_divisions_polygon
+    features:
+      - source: osm
+        geometry: polygon
+        min_zoom: 1
+        include_when:
+          boundary: administrative
+        attributes:
+          - key: admin_level
+            type: integer
+          - key: name
+
+  - id: admin_divisions_point_major
+    features:
+      - source: osm
+        geometry: point
+        min_zoom: 3
+        include_when:
+          place: [country, state, city, island]
+        attributes:
+          - key: place
+          - key: name
+          - key: capital
+          - key: population
+            type: long
+
+  - id: admin_divisions_point_minor
+    features:
+      - source: osm
+        geometry: point
+        min_zoom: 8
+        include_when:
+          place: [suburb, town, village, hamlet, locality, neighbourhood, quarter]
+        attributes:
+          - key: place
+          - key: name
+          - key: population
+            type: long

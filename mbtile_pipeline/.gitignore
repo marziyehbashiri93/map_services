@@ -1,0 +1,8 @@
+# Large binary files — not tracked in git
+data/*.mbtiles
+data/*.pbf
+data/tmp/
+data/*.tsv.gz
+
+# Custom GeoJSON exports (populated at build time)
+custom/data/*.geojson
