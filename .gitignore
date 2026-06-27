@@ -59,7 +59,7 @@ graphhopper/data/
 /tileserver/sprites/icon_v2/
 
 # Data files (not versioned)
-iran_welfare_services.json
+کرال استراحتگاه راهداری.json
 
 # Site HTML files (contain tokens — not tracked)
 /site/
