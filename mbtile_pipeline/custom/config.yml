@@ -1,0 +1,58 @@
+# ─────────────────────────────────────────────────────────────────────────────
+# Custom vector-tile build configuration
+#
+# Layers are DISCOVERED AUTOMATICALLY from PostGIS (every table in `schema`
+# that has a geometry column). This file only carries the things that cannot
+# be inferred from the database or the style:
+#   • per-layer zoom ranges
+#   • aliases mapping a style property name -> a real SQL column/expression
+#   • explicit include / exclude lists
+#
+# Which *attributes* survive into the tiles is decided automatically by reading
+# `style` and keeping only the properties the style actually renders. Anything
+# the style never references is dropped (smallest possible tiles).
+# ─────────────────────────────────────────────────────────────────────────────
+
+# MapLibre/Mapbox style used to detect which properties are rendered.
+# Mounted read-only into the container (see docker-compose.yml).
+style: /style.json
+
+# Default zoom range applied to any layer without an explicit override below.
+# Build maxzoom is intentionally capped — Martin/MapLibre overzoom serves the
+# higher display zooms (style uses maxzoom 22) for free, so generating tiles
+# past z14 only inflates size with no visual gain.
+defaults:
+  minzoom: 6
+  maxzoom: 14
+
+# Only build tables listed here. Empty list = build every geometry table found
+# in the schema (minus `exclude`).
+include: []
+
+# Never build these even if they have a geometry column.
+exclude: []
+
+# Per-layer overrides. Key = table name (also the vector-tile source-layer name).
+layers:
+  label_object:
+    minzoom: 3
+    maxzoom: 14
+
+  violation_camera:
+    minzoom: 6
+    maxzoom: 14
+
+  police:
+    minzoom: 6
+    maxzoom: 14
+
+  complex_service:
+    minzoom: 6
+    maxzoom: 14
+    # The style renders {axis_name}; the DB column is `axisname`.
+    columns:
+      axis_name: axisname
+
+  station:
+    minzoom: 6
+    maxzoom: 14

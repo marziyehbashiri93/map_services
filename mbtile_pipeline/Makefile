@@ -1,4 +1,4 @@
-.PHONY: build-osm build-custom serve stop all clean help
+.PHONY: build-osm build-custom serve stop all clean viewer help
 
 ## Build osm.mbtiles from iran.osm.pbf using Planetiler
 build-osm:
@@ -15,6 +15,11 @@ serve:
 ## Stop Martin
 stop:
 	docker compose down
+
+## Open the debug tile viewer (needs `make serve` running) at http://localhost:8080
+viewer:
+	@echo "Viewer:  http://localhost:8080   (Ctrl+C to stop)"
+	cd viewer && python3 -m http.server 8080
 
 ## Full monthly pipeline: OSM build + custom build
 all: build-osm build-custom

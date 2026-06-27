@@ -16,19 +16,25 @@ services:
       - --maxzoom=14
       - --force
 
-  # ── Step 2: Build custom.mbtiles from GeoJSON / PostGIS via Tippecanoe ────
+  # ── Step 2: Build custom.mbtiles from PostGIS via Tippecanoe ──────────────
+  #   Layers are auto-discovered from PostGIS; attributes are pruned against
+  #   the rendered style (see custom/build.py + custom/config.yml).
   custom-build:
     build:
       context: ./custom
     volumes:
+      - ./custom/config.yml:/app/config.yml:ro
+      - ../tileserver/styles/base/style/day_1_admin_light.json:/style.json:ro
       - ./custom/data:/data
       - ./data:/output
     environment:
       DB_HOST: ${DB_HOST:-host.docker.internal}
       DB_PORT: ${DB_PORT:-5432}
-      DB_NAME: ${DB_NAME:-osm}
-      DB_USER: ${DB_USER:-postgres}
-      DB_PASS: ${DB_PASS:-bashiri-2020}
+      DB_NAME: ${DB_NAME:-viuna_map}
+      DB_USER: ${DB_USER:-marziyeh}
+      DB_PASS: ${DB_PASS:-}
+      SCHEMA: ${SCHEMA:-public}
+      FORCE: ${FORCE:-}
     extra_hosts:
       - "host.docker.internal:host-gateway"
 

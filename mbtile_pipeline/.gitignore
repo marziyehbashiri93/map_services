@@ -4,5 +4,10 @@ data/*.pbf
 data/tmp/
 data/*.tsv.gz
 
-# Custom GeoJSON exports (populated at build time)
+# Incremental build cache + intermediate GeoJSON (generated at build time)
+custom/data/.custom_cache/
+custom/data/.custom_tmp/
+
+# Custom GeoJSON overrides (optional, populated by hand)
 custom/data/*.geojson
+custom/data/*.geojsonl

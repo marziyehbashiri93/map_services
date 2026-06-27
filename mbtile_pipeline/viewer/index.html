@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="utf-8" />
+  <title>VIOUNA — Martin tile viewer (debug)</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet" />
+  <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+  <style>
+    body { margin: 0; font-family: Tahoma, sans-serif; }
+    #map { position: absolute; inset: 0; }
+    #panel {
+      position: absolute; top: 10px; right: 10px; z-index: 1;
+      background: rgba(255,255,255,.92); padding: 10px 12px; border-radius: 8px;
+      font-size: 13px; line-height: 1.9; box-shadow: 0 1px 6px rgba(0,0,0,.2);
+      max-height: calc(100vh - 24px); overflow-y: auto;
+    }
+    #panel b { display:block; margin-bottom:4px; }
+    .sw { display:inline-block; width:12px; height:12px; border-radius:3px; margin-left:6px; vertical-align:middle; }
+    label { cursor: pointer; display:block; }
+    .grp { font-size:11px; color:#666; margin:8px 0 2px; }
+  </style>
+</head>
+<body>
+  <div id="map"></div>
+  <div id="panel">
+    <b>لایه‌ها (نمایش دیباگ)</b>
+
+    <div class="grp">OSM — پس‌زمینه</div>
+    <label><input type="checkbox" data-l="landuse" checked><span class="sw" style="background:#c8e6c9"></span> landuse</label>
+    <label><input type="checkbox" data-l="river" checked><span class="sw" style="background:#90caf9"></span> river</label>
+    <label><input type="checkbox" data-l="admin_divisions_polygon" checked><span class="sw" style="background:#ffe0b2"></span> admin_divisions_polygon</label>
+    <label><input type="checkbox" data-l="admin_divisions_point_major" checked><span class="sw" style="background:#5c6bc0"></span> admin_divisions_point_major</label>
+    <label><input type="checkbox" data-l="admin_divisions_point_minor"><span class="sw" style="background:#7986cb"></span> admin_divisions_point_minor</label>
+
+    <div class="grp">OSM — جاده‌ها</div>
+    <label><input type="checkbox" data-l="roads" checked><span class="sw" style="background:#555"></span> road_major + intermediate</label>
+    <label><input type="checkbox" data-l="road_minor" checked><span class="sw" style="background:#888"></span> road_minor</label>
+    <label><input type="checkbox" data-l="road_footway"><span class="sw" style="background:#bbb"></span> road_footway</label>
+    <label><input type="checkbox" data-l="road_other"><span class="sw" style="background:#ccc"></span> road_other</label>
+
+    <div class="grp">Custom (PostGIS)</div>
+    <label><input type="checkbox" data-l="complex_service" checked><span class="sw" style="background:#e6550d"></span> complex_service</label>
+    <label><input type="checkbox" data-l="police" checked><span class="sw" style="background:#3182bd"></span> police</label>
+    <label><input type="checkbox" data-l="violation_camera" checked><span class="sw" style="background:#e41a1c"></span> violation_camera</label>
+    <label><input type="checkbox" data-l="station" checked><span class="sw" style="background:#31a354"></span> station</label>
+    <label><input type="checkbox" data-l="label_object" checked><span class="sw" style="background:#756bb1"></span> label_object</label>
+
+    <hr style="margin:6px 0">
+    <span id="hint" style="color:#555">روی feature کلیک کن تا خصوصیاتش را ببینی</span>
+  </div>
+
+  <script>
+    const MARTIN = "http://localhost:3000";
+
+    // هر کلید پنل → یک یا چند id لایه MapLibre
+    const LAYER_GROUPS = {
+      landuse: ["landuse"],
+      river: ["river_fill", "river_line"],
+      admin_divisions_polygon: ["admin_divisions_polygon_fill", "admin_divisions_polygon_line"],
+      admin_divisions_point_major: ["admin_divisions_point_major"],
+      admin_divisions_point_minor: ["admin_divisions_point_minor"],
+      roads: ["roads", "roads2"],
+      road_minor: ["road_minor"],
+      road_footway: ["road_footway"],
+      road_other: ["road_other"],
+      complex_service: ["complex_service"],
+      police: ["police"],
+      violation_camera: ["violation_camera"],
+      station: ["station"],
+      label_object: ["label_object"]
+    };
+
+    const CLICKABLE = Object.values(LAYER_GROUPS).flat();
+
+    const map = new maplibregl.Map({
+      container: "map",
+      center: [53.0, 32.5],
+      zoom: 5,
+      style: {
+        version: 8,
+        sources: {
+          osm:    { type: "vector", url: `${MARTIN}/osm` },
+          custom: { type: "vector", url: `${MARTIN}/custom` }
+        },
+        layers: [
+          { id: "bg", type: "background", paint: { "background-color": "#f7f7f5" } },
+
+          // ── landuse (polygon) ──
+          { id: "landuse", type: "fill", source: "osm", "source-layer": "landuse",
+            paint: {
+              "fill-color": [
+                "match",
+                ["coalesce", ["get", "landuse"], ["get", "leisure"], ["get", "natural"], ["get", "water"], "other"],
+                "residential", "#e8e0d8",
+                "commercial", "#f5d5c8",
+                "industrial", "#e0c8d8",
+                "forest", "#a5d6a7",
+                "wood", "#a5d6a7",
+                "park", "#c8e6c9",
+                "meadow", "#dcedc8",
+                "farmland", "#fff9c4",
+                "water", "#90caf9",
+                "lake", "#90caf9",
+                "wetland", "#b3e5fc",
+                "military", "#ffcdd2",
+                "#e0e0e0"
+              ],
+              "fill-opacity": 0.65
+            } },
+
+          // ── admin boundaries (polygon) ──
+          { id: "admin_divisions_polygon_fill", type: "fill", source: "osm", "source-layer": "admin_divisions_polygon",
+            paint: { "fill-color": "#fff3e0", "fill-opacity": 0.25 } },
+          { id: "admin_divisions_polygon_line", type: "line", source: "osm", "source-layer": "admin_divisions_polygon",
+            paint: { "line-color": "#ff9800", "line-width": 1.2, "line-dasharray": [3, 2] } },
+
+          // ── river (polygon + line) ──
+          { id: "river_fill", type: "fill", source: "osm", "source-layer": "river",
+            filter: ["in", ["geometry-type"], ["literal", ["Polygon", "MultiPolygon"]]],
+            paint: { "fill-color": "#64b5f6", "fill-opacity": 0.7 } },
+          { id: "river_line", type: "line", source: "osm", "source-layer": "river",
+            filter: ["in", ["geometry-type"], ["literal", ["LineString", "MultiLineString"]]],
+            paint: { "line-color": "#42a5f5", "line-width": 1.5 } },
+
+          // ── roads ──
+          { id: "road_minor", type: "line", source: "osm", "source-layer": "road_minor",
+            paint: { "line-color": "#aaa", "line-width": 0.7 } },
+          { id: "road_footway", type: "line", source: "osm", "source-layer": "road_footway",
+            layout: { visibility: "none" },
+            paint: { "line-color": "#ccc", "line-width": 0.5, "line-dasharray": [2, 2] } },
+          { id: "road_other", type: "line", source: "osm", "source-layer": "road_other",
+            layout: { visibility: "none" },
+            paint: { "line-color": "#ddd", "line-width": 0.5 } },
+          { id: "roads", type: "line", source: "osm", "source-layer": "road_major",
+            paint: { "line-color": "#555", "line-width": 1.8 } },
+          { id: "roads2", type: "line", source: "osm", "source-layer": "road_intermediate",
+            paint: { "line-color": "#888", "line-width": 1.0 } },
+
+          // ── admin place labels (points) ──
+          { id: "admin_divisions_point_major", type: "circle", source: "osm", "source-layer": "admin_divisions_point_major",
+            paint: { "circle-radius": 5, "circle-color": "#3949ab", "circle-stroke-width": 1.5, "circle-stroke-color": "#fff" } },
+          { id: "admin_divisions_point_minor", type: "circle", source: "osm", "source-layer": "admin_divisions_point_minor",
+            layout: { visibility: "none" },
+            paint: { "circle-radius": 3, "circle-color": "#5c6bc0", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } },
+
+          // ── custom layers ──
+          { id: "complex_service", type: "circle", source: "custom", "source-layer": "complex_service",
+            paint: { "circle-radius": 4, "circle-color": "#e6550d", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } },
+          { id: "police", type: "circle", source: "custom", "source-layer": "police",
+            paint: { "circle-radius": 4, "circle-color": "#3182bd", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } },
+          { id: "violation_camera", type: "circle", source: "custom", "source-layer": "violation_camera",
+            paint: { "circle-radius": 3, "circle-color": "#e41a1c", "circle-stroke-width": 0.5, "circle-stroke-color": "#fff" } },
+          { id: "station", type: "circle", source: "custom", "source-layer": "station",
+            paint: { "circle-radius": 4, "circle-color": "#31a354", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } },
+          { id: "label_object", type: "circle", source: "custom", "source-layer": "label_object",
+            paint: { "circle-radius": 5, "circle-color": "#756bb1", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } }
+        ]
+      }
+    });
+
+    map.addControl(new maplibregl.NavigationControl());
+    map.addControl(new maplibregl.ScaleControl());
+
+    document.querySelectorAll("#panel input[data-l]").forEach(cb => {
+      cb.addEventListener("change", () => {
+        const vis = cb.checked ? "visible" : "none";
+        (LAYER_GROUPS[cb.dataset.l] || [cb.dataset.l]).forEach(id => {
+          if (map.getLayer(id)) map.setLayoutProperty(id, "visibility", vis);
+        });
+      });
+    });
+
+    map.on("click", e => {
+      const f = map.queryRenderedFeatures(e.point, { layers: CLICKABLE })[0];
+      if (!f) return;
+      const props = Object.entries(f.properties).map(([k, v]) => `${k}: ${v}`).join("<br>") || "(بدون خصوصیت)";
+      new maplibregl.Popup().setLngLat(e.lngLat)
+        .setHTML(`<b>${f.layer.id}</b><br>${props}`).addTo(map);
+    });
+    map.on("mouseenter", () => map.getCanvas().style.cursor = "pointer");
+
+    map.on("error", e => console.error("Map error:", e && e.error));
+  </script>
+</body>
+</html>
