@@ -1,4 +1,4 @@
 {
   "output_to_gateway": true,
-  "base_url": ""
+  "base_url": "http://127.0.0.1:80"
 }

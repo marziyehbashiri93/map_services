@@ -2,8 +2,8 @@
   "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
   "sprite": "__BASE_URL__/sprite/v1/sprite",
   "sources": {
-    "static_road": {
-      "name": "osm roads",
+    "osm": {
+      "name": "osm layers",
       "type": "vector",
       "tiles": [
         "__BASE_URL__/osm/{z}/{x}/{y}"
@@ -13,29 +13,7 @@
       "maxzoom": 14,
       "attribution": "Viuna Attribution"
     },
-    "static_landuse": {
-      "name": "osm landuse and water",
-      "type": "vector",
-      "tiles": [
-        "__BASE_URL__/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
-    "static_admin_division": {
-      "name": "osm admin divisions",
-      "type": "vector",
-      "tiles": [
-        "__BASE_URL__/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
-    "static_complication": {
+    "custom": {
       "name": "custom layers",
       "type": "vector",
       "tiles": [

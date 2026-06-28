@@ -41,6 +41,7 @@ services:
   # ── Step 3: Martin tile server (serves local mbtiles files) ──────────────
   martin:
     image: maplibre/martin:latest
+    container_name: martin
     ports:
       - "3000:3000"
     volumes:

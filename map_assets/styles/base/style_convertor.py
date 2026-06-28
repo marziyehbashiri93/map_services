@@ -170,9 +170,12 @@ class StyleConverter:
         gateway_fonts = self.gateway_assets_dir / "fonts"
 
         gateway_sprite_v1.mkdir(parents=True, exist_ok=True)
-        if gateway_fonts.exists():
-            shutil.rmtree(gateway_fonts)
         gateway_fonts.mkdir(parents=True, exist_ok=True)
+        for font_path in gateway_fonts.iterdir():
+            if font_path.is_dir():
+                shutil.rmtree(font_path)
+            else:
+                font_path.unlink()
 
         for filename in ("sprite.json", "sprite@2x.json", "sprite.png", "sprite@2x.png"):
             src = self.sprites_dir / filename

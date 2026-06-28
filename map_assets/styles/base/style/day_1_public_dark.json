@@ -31,7 +31,7 @@
         "fill-color": "_landuse_water_color_",
         "fill-opacity": 0.8
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 1,
       "source-layer": "sea"
@@ -50,7 +50,7 @@
         ],
         "city"
       ],
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 1.0,
       "source-layer": "admin_divisions_polygon"
@@ -89,7 +89,7 @@
           ]
         ]
       ],
-      "source": "static_landuse",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 4.0,
       "source-layer": "landuse"
@@ -129,7 +129,7 @@
         true,
         false
       ],
-      "source": "static_landuse",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 4.5,
       "source-layer": "landuse"
@@ -174,7 +174,7 @@
           ]
         ]
       ],
-      "source": "static_landuse",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.0,
       "source-layer": "landuse"
@@ -222,7 +222,7 @@
           ]
         ]
       ],
-      "source": "static_landuse",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 6.5,
       "source-layer": "landuse"
@@ -294,7 +294,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_landuse",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 7.0,
       "source-layer": "river"
@@ -356,7 +356,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -422,7 +422,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -484,7 +484,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -566,7 +566,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -641,7 +641,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -712,7 +712,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -793,7 +793,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -867,7 +867,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -937,7 +937,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -1037,7 +1037,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1130,7 +1130,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1225,7 +1225,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1331,7 +1331,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1430,7 +1430,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1525,7 +1525,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1631,7 +1631,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1730,7 +1730,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1825,7 +1825,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1880,7 +1880,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -1934,7 +1934,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -2025,7 +2025,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2116,7 +2116,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2207,7 +2207,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2289,7 +2289,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2364,7 +2364,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2435,7 +2435,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2516,7 +2516,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2590,7 +2590,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2660,7 +2660,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2766,7 +2766,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2865,7 +2865,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2960,7 +2960,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3066,7 +3066,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3165,7 +3165,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3260,7 +3260,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3366,7 +3366,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3465,7 +3465,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3560,7 +3560,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3608,7 +3608,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -3664,7 +3664,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_footway"
@@ -3719,7 +3719,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -3773,7 +3773,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -3864,7 +3864,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3955,7 +3955,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4052,7 +4052,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4134,7 +4134,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4209,7 +4209,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4280,7 +4280,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4361,7 +4361,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4435,7 +4435,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4505,7 +4505,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4605,7 +4605,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4698,7 +4698,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4787,7 +4787,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4887,7 +4887,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4980,7 +4980,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5069,7 +5069,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5169,7 +5169,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5262,7 +5262,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5351,7 +5351,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5406,7 +5406,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -5460,7 +5460,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -5557,7 +5557,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5654,7 +5654,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5745,7 +5745,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5827,7 +5827,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -5902,7 +5902,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -5973,7 +5973,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -6054,7 +6054,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6128,7 +6128,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6198,7 +6198,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6298,7 +6298,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6391,7 +6391,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6480,7 +6480,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6580,7 +6580,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6673,7 +6673,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6762,7 +6762,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6862,7 +6862,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6955,7 +6955,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7044,7 +7044,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7099,7 +7099,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -7153,7 +7153,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -7250,7 +7250,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7347,7 +7347,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7444,7 +7444,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7526,7 +7526,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7601,7 +7601,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7672,7 +7672,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7753,7 +7753,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7827,7 +7827,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7897,7 +7897,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7997,7 +7997,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8090,7 +8090,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8179,7 +8179,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8279,7 +8279,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8372,7 +8372,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8461,7 +8461,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8561,7 +8561,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8654,7 +8654,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8743,7 +8743,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8798,7 +8798,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -8852,7 +8852,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -8949,7 +8949,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -9046,7 +9046,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -9143,7 +9143,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -9206,7 +9206,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_footway"
@@ -9273,7 +9273,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 22.1,
       "minzoom": 15.0,
       "source-layer": "road_footway"
@@ -9318,7 +9318,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 16.0,
       "source-layer": "road_other"
     },
@@ -9362,7 +9362,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 16.0,
       "source-layer": "road_footway"
     },
@@ -9410,7 +9410,7 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 16.0,
       "source-layer": "road_minor"
     },
@@ -9454,7 +9454,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 15.3,
       "source-layer": "road_minor"
     },
@@ -9502,7 +9502,7 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 15.0,
       "source-layer": "road_intermediate"
     },
@@ -9550,7 +9550,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 13.2,
       "source-layer": "road_intermediate"
     },
@@ -9598,7 +9598,7 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 15.0,
       "source-layer": "road_major"
     },
@@ -9657,7 +9657,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "maxzoom": 12.3,
       "minzoom": 11.0,
       "source-layer": "road_major"
@@ -9720,7 +9720,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 12.3,
       "source-layer": "road_major"
     },
@@ -9784,7 +9784,7 @@
         "text-pitch-alignment": "viewport",
         "text-rotation-alignment": "map"
       },
-      "source": "static_road",
+      "source": "osm",
       "minzoom": 12.3,
       "source-layer": "road_major"
     },
@@ -9837,7 +9837,7 @@
           3
         ]
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "source-layer": "province"
     },
     {
@@ -9898,7 +9898,7 @@
         ],
         "text-max-width": 7.0
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 16.0,
       "minzoom": 9.5,
       "source-layer": "admin_divisions_point_minor"
@@ -9936,7 +9936,7 @@
         "text-field": "{name}",
         "text-anchor": "center"
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 15.0,
       "minzoom": 8.0,
       "source-layer": "admin_divisions_point_minor"
@@ -9991,7 +9991,7 @@
         "text-field": "{name}",
         "text-anchor": "center"
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 14.0,
       "minzoom": 6.5,
       "source-layer": "admin_divisions_point_major"
@@ -10069,7 +10069,7 @@
         ],
         "symbol-placement": "point"
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 13.0,
       "minzoom": 10.5,
       "source-layer": "admin_divisions_point_minor"
@@ -10136,7 +10136,7 @@
         ],
         "symbol-placement": "point"
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 14.5,
       "minzoom": 12.0,
       "source-layer": "admin_divisions_point_minor"
@@ -10187,7 +10187,7 @@
         "symbol-placement": "point",
         "text-allow-overlap": true
       },
-      "source": "static_admin_division",
+      "source": "osm",
       "maxzoom": 10.5,
       "minzoom": 6,
       "source-layer": "admin_divisions_point_major"
@@ -10220,7 +10220,7 @@
         "symbol-placement": "point",
         "text-allow-overlap": true
       },
-      "source": "static_complication",
+      "source": "custom",
       "maxzoom": 6,
       "minzoom": 1,
       "source-layer": "label_object"
@@ -10232,7 +10232,7 @@
         "fill-color": "_station_color_",
         "fill-opacity": 0.2
       },
-      "source": "static_complication",
+      "source": "custom",
       "maxzoom": 22.1,
       "minzoom": 6.5,
       "source-layer": "station"
@@ -10265,7 +10265,7 @@
           3
         ]
       },
-      "source": "static_complication",
+      "source": "custom",
       "source-layer": "complex_service",
       "minzoom": 8,
       "maxzoom": 10
@@ -10298,7 +10298,7 @@
           3
         ]
       },
-      "source": "static_complication",
+      "source": "custom",
       "source-layer": "police",
       "minzoom": 8,
       "maxzoom": 10
@@ -10331,7 +10331,7 @@
           3
         ]
       },
-      "source": "static_complication",
+      "source": "custom",
       "source-layer": "station",
       "minzoom": 8,
       "maxzoom": 10
@@ -10381,7 +10381,7 @@
         ],
         "symbol-placement": "point"
       },
-      "source": "static_complication",
+      "source": "custom",
       "source-layer": "complex_service",
       "minzoom": 10.01,
       "maxzoom": 22
@@ -10411,7 +10411,7 @@
         "icon-anchor": "bottom",
         "symbol-placement": "point"
       },
-      "source": "static_complication",
+      "source": "custom",
       "source-layer": "police",
       "minzoom": 10.01,
       "maxzoom": 22
@@ -10478,14 +10478,14 @@
           1.0
         ]
       },
-      "source": "static_complication",
+      "source": "custom",
       "minzoom": 10,
       "source-layer": "station"
     }
   ],
   "sources": {
-    "static_road": {
-      "name": "osm roads",
+    "osm": {
+      "name": "osm layers",
       "type": "vector",
       "tiles": [
         "/osm/{z}/{x}/{y}"
@@ -10495,29 +10495,7 @@
       "maxzoom": 14,
       "attribution": "Viuna Attribution"
     },
-    "static_landuse": {
-      "name": "osm landuse and water",
-      "type": "vector",
-      "tiles": [
-        "/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
-    "static_admin_division": {
-      "name": "osm admin divisions",
-      "type": "vector",
-      "tiles": [
-        "/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
-    "static_complication": {
+    "custom": {
       "name": "custom layers",
       "type": "vector",
       "tiles": [
@@ -10527,6 +10505,16 @@
       "minzoom": 0,
       "maxzoom": 14,
       "attribution": "Viuna Attribution"
+    },
+    "terrain": {
+      "type": "raster-dem",
+      "tiles": [
+        "/terrain_tiles/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "encoding": "mapbox",
+      "maxzoom": 10,
+      "minzoom": 4
     }
   }
 }
