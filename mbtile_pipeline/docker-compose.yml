@@ -24,7 +24,7 @@ services:
       context: ./custom
     volumes:
       - ./custom/config.yml:/app/config.yml:ro
-      - ../tileserver/styles/base/style/day_1_admin_light.json:/style.json:ro
+      - ../map_assets/styles/base/style/day_1_admin_light.json:/style.json:ro
       - ./custom/data:/data
       - ./data:/output
     environment:
@@ -48,3 +48,9 @@ services:
       - ./martin/config.yaml:/config.yaml:ro
     command: ["--config", "/config.yaml"]
     restart: unless-stopped
+    networks:
+      - map_services_net
+
+networks:
+  map_services_net:
+    external: true

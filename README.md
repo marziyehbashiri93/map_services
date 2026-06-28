@@ -5,10 +5,10 @@
 
 ## سرویس‌ها
 - [GeoServer](geoserver/README.md): برای ارائه نقشه‌های جغرافیایی و داده‌های مکانی.
-- [Tile Server](tileserver/README.md): برای ارائه نقشه‌های برداری (vector tiles).
-- [Map gateway](map_gateway/README.md): Nginx برای حالت hybrid (استایل/اسپرایت/فونت استاتیک + پروکسی TileServer).
-- [OSM2pgsql](osm2pqsql/README.md): برای تبدیل داده‌های OpenStreetMap به فرمت PostgreSQL با پشتیبانی از PostGIS.
+- [Map gateway](map_gateway/README.md): Nginx برای سرو استایل/اسپرایت/فونت استاتیک و پروکسی سرویس‌های نقشه.
+- [MBTile Pipeline](mbtile_pipeline/README.md): مسیر فعلی ساخت `osm.mbtiles` از فایل OSM PBF با Planetiler و ساخت `custom.mbtiles` از داده‌های PostGIS با Tippecanoe.
+- [Map Assets](map_assets/styles/base): استایل‌ها، توکن‌ها، sprite و فونت‌های نقشه که مستقل از سرویس legacy نگه‌داری می‌شوند.
+- [GraphHopper](graphhopper/README.md): سرویس مسیریابی بر پایه داده‌های OSM.
 
 ## نمونه سایت با Mapbox
 این پروژه همچنین شامل یک نمونه سایت با استفاده از Mapbox است که می‌توانید برای نمایش نقشه‌ها از آن استفاده کنید.
-

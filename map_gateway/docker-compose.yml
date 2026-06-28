@@ -1,11 +1,10 @@
 # Map HTTP gateway (Nginx). All volume paths are relative to this folder.
 #
-# Bring-up (after TileServer network exists):
-#   cd ../tileserver && docker compose up -d
+# Bring-up (after map_services_net exists):
+#   docker network create map_services_net
 #   cd ../map_gateway && docker compose up -d --build
 #
 # First time: docker network create map_services_net
-# Or always start tileserver compose first (it creates the network).
 
 services:
   nginx:
@@ -15,10 +14,10 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./data/tileserver/styles:/opt/map_assets/styles:ro
-      - ./data/tileserver/sprite:/opt/map_assets/sprite:ro
-      - ./data/tileserver/fonts:/opt/map_fonts:ro
-      - ./data/tileserver/terrain_tiles:/opt/terrain_tiles:ro
+      - ./data/map_assets/styles:/opt/map_assets/styles:ro
+      - ./data/map_assets/sprite:/opt/map_assets/sprite:ro
+      - ./data/map_assets/fonts:/opt/map_fonts:ro
+      - ./data/map_assets/terrain_tiles:/opt/terrain_tiles:ro
     restart: unless-stopped
     networks:
       - map_services_net

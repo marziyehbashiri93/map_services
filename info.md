@@ -2,8 +2,8 @@
 
 پروژه مپ سرویس یک پروژه شامل تمام نیازمندی ها برای لود و مسیریابی در نقشه است.هدف این پروژه تبدیل فایل pbf به یک نقشه زیبا و قابل فهم برای کابر است.
 
-1.این پروژه ابتدا توسط osm2pgsql  فایل osm.pbf با فرمت مورد نظر که در فایل defualt.style k نوشته شده است داخل دیتابیس پستگرس میریزد.
-2.سرویس osm2mbitle تمام داده های نقشه را از دیتابیس مرحله 1 میخواند و سپس mbfile تولید میکند.
+1.مسیر فعلی ساخت tile در پوشه `mbtile_pipeline` قرار دارد. فایل OSM PBF مستقیماً با Planetiler به `osm.mbtiles` تبدیل می‌شود و داده‌های شخصی از PostGIS با Tippecanoe به `custom.mbtiles` تبدیل می‌شوند.
+2.سرویس Martin داخل `mbtile_pipeline` خروجی‌های `osm.mbtiles` و `custom.mbtiles` را سرو می‌کند.
 3.سرویس تایل سرور (پوشه تایل سرور)جهت نمایش نقشه و تایل کردن ان چندین نیازمندی دارد:
 الف)فونت:به صورت استاتیک و بدون تغییر داخل فولدر font
 ب)استایل:استایل ها داخل فولدر استایل هستند.برای اینکه به توان به صورت داینامیک و با صرف کمترین زمان استایل جدید تولید شود؛داخل پوشه base استایل اولیه و توکن های رنگی و ادرس سرور ها قرار داده شده است.سپس توسط اسکریپت style_convertor  به فایل استایل کامل و قابل قبول برای مپ باکس تبدیل میشود.
@@ -28,36 +28,31 @@
 ### معماری کلی سیستم
 پروژه از **معماری Microservices** استفاده می‌کند و شامل این کامپوننت‌های اصلی است:
 
-#### A) **osm2pgsql** — Data Ingestion Layer
-- وظیفه: خواندن فایل‌های OSM PBF و import کردن داده‌ها به PostgreSQL
-- استفاده از `default.style` برای تعیین ساختار داده
-- لایه اول pipeline: تبدیل داده خام OSM به ساختار قابل استفاده
+#### A) **mbtile_pipeline / OSM build** — OSM Tile Generation
+- وظیفه: خواندن فایل OSM PBF و تولید `osm.mbtiles` با Planetiler
+- استفاده از `mbtile_pipeline/osm/profile.yml` برای تعریف لایه‌ها و فیلدهای OSM
+- این مسیر دیگر برای OSM به import واسط داخل PostgreSQL وابسته نیست
 
-#### B) **osm2mbtiles** — Tile Generation Layer
-- وظیفه: خواندن داده از PostgreSQL و تولید فایل `mbtiles`
-- خروجی: فایل `.mbtiles` که در فولدر `tile/` قرار می‌گیرد
-- لایه دوم pipeline: تبدیل داده‌های پایگاه به tile های آماده سرو
+#### B) **mbtile_pipeline / Custom build** — Custom Tile Generation
+- وظیفه: خواندن داده‌های شخصی از PostGIS و تولید `custom.mbtiles`
+- خروجی: فایل‌های `osm.mbtiles` و `custom.mbtiles` در `mbtile_pipeline/data/`
+- این مسیر لایه‌ها را خودکار کشف می‌کند و فقط فیلدهای استفاده‌شده در style را داخل tile نگه می‌دارد
 
-#### C) **TileServer** — Core Map Tile Service
-- **پورت داخلی:** 8080
-- **پورت host:** 9090
-- **وظیفه اصلی:** سرو کردن tile های نقشه و asset های مرتبط
-- **فایل ها :**
-  - **Font:** فایل‌های فونت استاتیک در فولدر `font/`
-  - **Style:** 
-    - فولدر `styles/` شامل:
-      - `base/` → استایل‌های اولیه و color token ها
-      - `server_local/` → استایل‌های خام با URL های `mbtiles://`
-    - اسکریپت `style_convertor` برای تولید استایل‌های dynamic Mapbox
-  - **Sprite:** 
-    - فولدر `sprites/` 
-    - تولید شده از فایل‌های `icon` با اسکریپت `combine_image.py`
-  - **Config File:** فایل تنظیمات استاتیک و ثابت
-  - **MBTiles File:** فایل `.mbtiles` تولید شده در مرحله قبل، در فولدر `tile/`
+#### C) **Martin + Map Assets** — Core Tile and Asset Service
+- **پورت Martin:** 3000
+- **وظیفه Martin:** سرو کردن `osm.mbtiles` و `custom.mbtiles` از `mbtile_pipeline/data/`
+- **فایل‌های asset:**
+  - **Font:** فایل‌های فونت استاتیک در `map_assets/fonts/`
+  - **Style:**
+    - `map_assets/styles/base/` → استایل‌های اولیه، tokenهای رنگی و configهای خروجی
+    - `map_assets/styles/server_*` → خروجی‌های تولیدشده
+    - `map_assets/styles/base/style_convertor.py` → تولید styleهای MapLibre و publish به gateway
+  - **Sprite:**
+    - `map_assets/sprites/`
+    - تولید شده از فایل‌های `icon` با اسکریپت `combine_images.py`
 
 - **اسکریپت‌های کلیدی:**
-  - `scripts/publish_hybrid_assets.py` → انتشار asset های hybrid mode برای سرور تسوط nginx
-  - `scripts/benchmark_hybrid_endpoints.sh` → بنچمارک پرفورمنس
+  - `map_assets/styles/base/style_convertor.py` → انتشار assetها برای Nginx gateway
 - **بهبود**
   - در صورت نیاز میتوان ساختار و نام پروژه تغییر کند.
 
@@ -65,13 +60,13 @@
 - **پورت host:** 8080
 - **وظیفه:**
   - سرو کردن asset های استاتیک versioned (styles, sprites, fonts)
-  - Proxy کردن درخواست‌های tile به TileServer
+  - Proxy کردن درخواست‌های tile به tile backend
 - **Endpoint های اصلی:**
   - `/styles/v1/*.json` → استایل‌های versioned
   - `/sprite/v1/*` → sprite های versioned
   - `/fonts/{fontstack}/{range}.pbf` → فونت‌ها
-  - `/data/*.json` → metadata تایل‌ها
-  - `/tiles/*` → proxy به TileServer
+  - `/data/*.json` یا endpointهای tile backend → metadata تایل‌ها
+  - مسیرهای tile backend → proxy به سرویس tile
 
 - **فایل‌های تنظیمات:**
   - `nginx/nginx.conf` → تنظیمات اصلی
@@ -81,9 +76,9 @@
   - `nginx/snippets/` → snippet های proxy/cache/security
 
 - **Volume های مهم:**
-  - `data/tileserver/styles/v1/` → استایل‌های منتشر شده
-  - `data/tileserver/sprite/v1/` → sprite های منتشر شده
-  - `data/tileserver/fonts/` → فونت‌های منتشر شده
+  - `data/map_assets/styles/v1/` → استایل‌های منتشر شده
+  - `data/map_assets/sprite/v1/` → sprite های منتشر شده
+  - `data/map_assets/fonts/` → فونت‌های منتشر شده
 
 #### E) **GraphHopper** — Routing Service
 - **پورت:** 8989
@@ -113,9 +108,9 @@
 
 ### شبکه‌های Docker
 - **`map_services_net`:**
-  - شبکه اصلی بین TileServer، Nginx، GraphHopper، GeoServer
-  - ایجاد شده توسط `tileserver/docker-compose.yml`
-  - دسترسی service-to-service: `http://tileserver:8080`, `http://graphhopper:8989`
+  - شبکه اصلی بین Nginx، GraphHopper، GeoServer و tile backend
+  - در صورت نیاز دستی ایجاد می‌شود: `docker network create map_services_net`
+  - دسترسی service-to-service: `http://graphhopper:8989` و سرویس tile backend تنظیم‌شده در gateway
 
 - **`fleet-net`:**
   - شبکه backend برای اتصال GraphHopper به معماری Fleet
@@ -123,42 +118,40 @@
 ### فلوی دیپلوی (Hybrid Mode)
 bash
 # مرحله 1: انتشار asset های hybrid
-cd tileserver
-python3 scripts/publish_hybrid_assets.py
+python3 map_assets/styles/base/style_convertor.py
 
-# مرحله 2: اجرای TileServer (باید اول اجرا شود)
-docker compose up -d --build
+# مرحله 2: اجرای tile backend
+cd mbtile_pipeline
+make serve
 
 # مرحله 3: اجرای Nginx Gateway
 cd ../map_gateway
 docker compose up -d --build
 
 **چرا این ترتیب مهم است؟**
-- TileServer شبکه `map_services_net` را ایجاد می‌کند
-- Nginx به این شبکه متصل می‌شود
 - اگر شبکه وجود نداشته باشد: `docker network create map_services_net`
+- Nginx باید به سرویس tile backend و assetهای منتشرشده دسترسی داشته باشد
 
 ### فلوی انتشار استایل (Style Publishing)
 **چرا نیاز است؟**
-- استایل‌های خام در `tileserver/styles/server_local` شامل URL های `mbtiles://{name}` هستند
-- این URL ها فقط توسط TileServer قابل resolve هستند
-- در hybrid mode، کلاینت نیاز به URL های استاتیک دارد
+- استایل‌ها در `map_assets/styles/base` تولید می‌شوند و sourceهای vector tile به endpointهای Martin (`/osm` و `/custom`) اشاره می‌کنند
+- کلاینت نیاز به URL های HTTP برای style، sprite، font و tile endpointها دارد
 
-**اسکریپت `publish_hybrid_assets.py` چه کاری انجام می‌دهد؟**
-1. استایل‌های JSON را به `map_gateway/data/tileserver/styles/v1/` می‌نویسد
-2. URL ها را بازنویسی می‌کند:
+**اسکریپت `style_convertor.py` چه کاری انجام می‌دهد؟**
+1. استایل‌های JSON را به `map_gateway/data/map_assets/styles/v1/` می‌نویسد
+2. URL ها را تنظیم می‌کند:
    - `glyphs` → `/fonts/{fontstack}/{range}.pbf`
    - `sprite` → `/sprite/v1/sprite`
-   - `source.url` از `mbtiles://{name}` → `/data/name.json`
-3. sprite ها را به `map_gateway/data/tileserver/sprite/v1/` کپی می‌کند
-4. فونت‌ها را به `map_gateway/data/tileserver/fonts/` کپی می‌کند
+   - sourceهای OSM → `/osm/{z}/{x}/{y}`
+   - sourceهای custom → `/custom/{z}/{x}/{y}`
+3. sprite ها را به `map_gateway/data/map_assets/sprite/v1/` کپی می‌کند
+4. فونت‌ها را به `map_gateway/data/map_assets/fonts/` کپی می‌کند
 5. کاتالوگ استایل‌ها را تولید می‌کند: `styles/v1/styles.json`
 
 **دیپلوی بعد از تغییر استایل:**
 bash
-cd tileserver
-python3 scripts/publish_hybrid_assets.py
-cd ../map_gateway
+python3 map_assets/styles/base/style_convertor.py
+cd map_gateway
 docker compose restart nginx
 
 **اگر فایل‌های `nginx/` تغییر کردند:**
@@ -205,7 +198,7 @@ docker compose up -d --build
 
 ### B) ⚡ تحلیل پرفورمنس (Performance Analysis)
 
-#### TileServer:
+#### Martin / Tile Backend:
 - استراتژی caching تایل‌ها
 - pre-rendering vs on-demand rendering
 - بهینه‌سازی memory برای font/sprite loading
@@ -313,10 +306,9 @@ yaml
 
 5. Service deployment (به ترتیب):
    - PostgreSQL (اگر وجود دارد)
-   - TileServer:
-     - کپی Dockerfile و configs
-     - اجرای `publish_hybrid_assets.py`
-     - Build و start container
+   - Martin / MBTile Pipeline:
+     - کپی configها و فایل‌های mbtiles
+     - اجرای `make serve`
      - Health check
    - GraphHopper:
      - کپی configs و data
@@ -360,7 +352,7 @@ ansible/
 ├── roles/
 │   ├── common/                  # System prep
 │   ├── docker/                  # Docker installation
-│   ├── tileserver/
+│   ├── mbtile_pipeline/
 │   ├── graphhopper/
 │   ├── nginx_gateway/
 │   └── monitoring/

@@ -1,6 +1,6 @@
 {
-  "id": "day_1_admin",
-  "name": "day_1_admin",
+  "id": "day_1_public",
+  "name": "day_1_public",
   "draft": false,
   "owner": "viuna",
   "glyphs": "{fontstack}/{range}.pbf",
@@ -233,12 +233,12 @@
       "source": "terrain",
       "paint": {
         "hillshade-exaggeration": 0.2,
-    "hillshade-shadow-color": "rgba(74, 74, 74, 0.25)",
-    "hillshade-highlight-color": "rgba(255, 255, 255, 0.25)",
+        "hillshade-shadow-color": "rgba(74, 74, 74, 0.25)",
+        "hillshade-highlight-color": "rgba(255, 255, 255, 0.25)",
         "hillshade-illumination-direction": 315
       },
       "minzoom": 4,
-      "maxzoom": 9
+      "maxzoom": 8
     },
     {
       "id": "river-stroke",
@@ -10238,39 +10238,6 @@
       "source-layer": "station"
     },
     {
-      "id": "violation_camera_point",
-      "type": "circle",
-      "paint": {
-        "circle-blur": [
-          "step",
-          [
-            "zoom"
-          ],
-          0.0,
-          9,
-          0.4
-        ],
-        "circle-color": "_violation_camera_circle_color_",
-        "circle-radius": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          6,
-          1,
-          9,
-          3
-        ]
-      },
-      "source": "static_complication",
-      "source-layer": "violation_camera",
-      "minzoom": 8,
-      "maxzoom": 10
-    },
-    {
       "id": "complex_service_point",
       "type": "circle",
       "paint": {
@@ -10368,36 +10335,6 @@
       "source-layer": "station",
       "minzoom": 8,
       "maxzoom": 10
-    },
-    {
-      "id": "violation_camera-icon",
-      "type": "symbol",
-      "paint": {},
-      "layout": {
-        "icon-size": {
-          "stops": [
-            [
-              9,
-              0.05
-            ],
-            [
-              16,
-              0.06
-            ],
-            [
-              22,
-              0.07
-            ]
-          ]
-        },
-        "icon-image": "security-camera.png",
-        "icon-anchor": "bottom",
-        "symbol-placement": "point"
-      },
-      "source": "static_complication",
-      "source-layer": "violation_camera",
-      "minzoom": 10.01,
-      "maxzoom": 22
     },
     {
       "id": "complex_service-icon",
@@ -10544,28 +10481,76 @@
       "source": "static_complication",
       "minzoom": 10,
       "source-layer": "station"
+    },
+    {
+      "id": "points-heat",
+      "type": "heatmap",
+      "source": "static_complication",
+      "paint": {
+        "heatmap-intensity": 1,
+        "heatmap-radius": 15,
+        "heatmap-color": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "heatmap-density"
+          ],
+          0,
+          "rgba(0,0,255,0)",
+          0.5,
+          "rgb(0,255,0)",
+          1,
+          "rgb(255,0,0)"
+        ]
+      }
     }
   ],
   "sources": {
     "static_road": {
-      "url": "mbtiles://{static_road}",
+      "name": "osm roads",
       "type": "vector",
-      "maxzoom": 18
-    },
-    "static_complication": {
-      "url": "mbtiles://{static_complication}",
-      "type": "vector",
-      "maxzoom": 18
-    },
-    "static_admin_division": {
-      "url": "mbtiles://{static_admin_division}",
-      "type": "vector",
-      "maxzoom": 18
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
     },
     "static_landuse": {
-      "url": "mbtiles://{static_landuse}",
+      "name": "osm landuse and water",
       "type": "vector",
-      "maxzoom": 18
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_admin_division": {
+      "name": "osm admin divisions",
+      "type": "vector",
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_complication": {
+      "name": "custom layers",
+      "type": "vector",
+      "tiles": [
+        "/custom/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
     }
   }
 }

@@ -1,0 +1,60 @@
+{
+  "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
+  "sprite": "__BASE_URL__/sprite/v1/sprite",
+  "sources": {
+    "static_road": {
+      "name": "osm roads",
+      "type": "vector",
+      "tiles": [
+        "__BASE_URL__/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_landuse": {
+      "name": "osm landuse and water",
+      "type": "vector",
+      "tiles": [
+        "__BASE_URL__/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_admin_division": {
+      "name": "osm admin divisions",
+      "type": "vector",
+      "tiles": [
+        "__BASE_URL__/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_complication": {
+      "name": "custom layers",
+      "type": "vector",
+      "tiles": [
+        "__BASE_URL__/custom/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "terrain": {
+      "type": "raster-dem",
+      "tiles": [
+        "__BASE_URL__/terrain_tiles/{z}/{x}/{y}.png"
+      ],
+      "tileSize": 256,
+      "encoding": "mapbox",
+      "maxzoom": 10,
+      "minzoom": 4
+    }
+  }
+}

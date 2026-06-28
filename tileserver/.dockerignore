@@ -1,6 +1,0 @@
-# Keep build context small; runtime mounts the whole directory via compose.
-IR-489m-20201118topo/
-hybrid_dist/
-*.zip
-.git
-.gitignore

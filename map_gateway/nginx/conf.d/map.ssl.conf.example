@@ -11,7 +11,7 @@
 # 6) In map_gateway/docker-compose.yml add "443:443" and the tls volume on nginx.
 # 7) Rebuild/restart nginx; nginx -t && reload.
 #
-# Upstream tileserver_upstream must be defined in conf.d/00-upstreams.conf.
+# Upstream tile_backend_upstream must be defined in conf.d/00-upstreams.conf.
 
 # --- Port 80: health + redirect to HTTPS ---
 server {
@@ -71,34 +71,8 @@ server {
         try_files $uri =404;
     }
 
-    location /data/ {
-        proxy_pass http://tileserver_upstream/data/;
-        include /etc/nginx/snippets/proxy-tileserver.conf;
-    }
-
-    location /tiles/ {
-        proxy_pass http://tileserver_upstream/tiles/;
-        include /etc/nginx/snippets/proxy-tileserver.conf;
-    }
-
-    location /styles.json {
-        proxy_pass http://tileserver_upstream/styles.json;
-        include /etc/nginx/snippets/proxy-tileserver.conf;
-    }
-
-    location /styles/legacy/ {
-        proxy_pass http://tileserver_upstream/styles/;
-        include /etc/nginx/snippets/proxy-tileserver.conf;
-    }
-
-    # Optional: second TileServer — define tileserver_alt_upstream in 00-upstreams.conf first.
-    # location /tileserver/ {
-    #     proxy_pass http://tileserver_alt_upstream/;
-    #     include /etc/nginx/snippets/proxy-tileserver.conf;
-    # }
-
     location / {
-        proxy_pass http://tileserver_upstream/;
-        include /etc/nginx/snippets/proxy-tileserver.conf;
+        proxy_pass http://tile_backend_upstream/;
+        include /etc/nginx/snippets/proxy-tile-backend.conf;
     }
 }

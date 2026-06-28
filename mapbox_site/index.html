@@ -147,23 +147,10 @@
                     const legacyStyles = extractStyleNames(legacyPayload);
                     if (legacyStyles.length) {
                         setStyleOptions(legacyStyles, previous);
-                        setStatus("Loaded style list from legacy tileserver API.", false);
+                        setStatus("Loaded style list from legacy style API.", false);
                         return true;
                     }
                 }
-
-                const localConfigRes = await fetch("/tileserver/config.json", { cache: "no-store" });
-                if (!localConfigRes.ok) {
-                    throw new Error("HTTP " + localConfigRes.status);
-                }
-                const localConfig = await localConfigRes.json();
-                const styleNames = extractStyleNames(localConfig);
-                if (!styleNames.length) {
-                    throw new Error("No styles found in local config");
-                }
-                setStyleOptions(styleNames, previous);
-                setStatus("Tileserver style list unavailable; loaded styles from local config.", false);
-                return true;
             } catch (fallbackError) {
                 setStyleOptions([config.styleName], config.styleName);
                 setStatus("Style list load warning: " + error.message + " | Fallback failed: " + fallbackError.message, true);

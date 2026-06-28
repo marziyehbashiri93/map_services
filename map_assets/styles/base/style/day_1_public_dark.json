@@ -12,6 +12,10 @@
     "duration": 300.0
   },
   "sprite": "sprite",
+  "terrain": {
+    "source": "terrain",
+    "exaggeration": 0.6
+  },
   "layers": [
     {
       "id": "background",
@@ -222,6 +226,19 @@
       "maxzoom": 22.1,
       "minzoom": 6.5,
       "source-layer": "landuse"
+    },
+    {
+      "id": "iran-hillshade",
+      "type": "hillshade",
+      "source": "terrain",
+      "paint": {
+        "hillshade-exaggeration": 0.2,
+        "hillshade-shadow-color": "rgba(74, 74, 74, 0.25)",
+        "hillshade-highlight-color": "rgba(255, 255, 255, 0.25)",
+        "hillshade-illumination-direction": 315
+      },
+      "minzoom": 4,
+      "maxzoom": 9
     },
     {
       "id": "river-stroke",
@@ -9827,9 +9844,7 @@
       "id": "village-label",
       "type": "symbol",
       "paint": {
-        "text-color": "_admin_minor_label_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 0.8
+        "text-color": "_admin_minor_label_color_"
       },
       "filter": [
         "any",
@@ -9892,9 +9907,7 @@
       "id": "town-label",
       "type": "symbol",
       "paint": {
-        "text-color": "_admin_minor_label_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.0
+        "text-color": "_admin_minor_label_color_"
       },
       "filter": [
         "==",
@@ -9932,9 +9945,7 @@
       "id": "cities-label",
       "type": "symbol",
       "paint": {
-        "text-color": "_admin_major_label_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.1
+        "text-color": "_admin_major_label_color_"
       },
       "filter": [
         "any",
@@ -10002,9 +10013,7 @@
           1.0,
           13.0,
           0.4
-        ],
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.0
+        ]
       },
       "filter": [
         "==",
@@ -10084,9 +10093,7 @@
           0.8,
           14.5,
           0.5
-        ],
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.0
+        ]
       },
       "filter": [
         "==",
@@ -10138,9 +10145,7 @@
       "id": "capitals-label",
       "type": "symbol",
       "paint": {
-        "text-color": "_admin_major_label_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.5
+        "text-color": "_admin_major_label_color_"
       },
       "filter": [
         "match",
@@ -10191,9 +10196,7 @@
       "id": "capitals-label2",
       "type": "symbol",
       "paint": {
-        "text-color": "_admin_major_label_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.5
+        "text-color": "_admin_major_label_color_"
       },
       "layout": {
         "text-max-width": 6.0,
@@ -10337,9 +10340,7 @@
       "id": "complex_service-icon",
       "type": "symbol",
       "paint": {
-        "text-color": "_complex_service_circle_color_",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 1.5
+        "text-color": "_complex_service_circle_color_"
       },
       "layout": {
         "icon-size": {
@@ -10419,9 +10420,7 @@
       "id": "station-icon",
       "type": "symbol",
       "paint": {
-        "text-color": "_station_font_color_",
-        "text-halo-color": "#FFF",
-        "text-halo-width": 0.8
+        "text-color": "_station_font_color_"
       },
       "layout": {
         "icon-size": {
@@ -10486,24 +10485,48 @@
   ],
   "sources": {
     "static_road": {
-      "url": "mbtiles://{static_road}",
+      "name": "osm roads",
       "type": "vector",
-      "maxzoom": 18
-    },
-    "static_complication": {
-      "url": "mbtiles://{static_complication}",
-      "type": "vector",
-      "maxzoom": 18
-    },
-    "static_admin_division": {
-      "url": "mbtiles://{static_admin_division}",
-      "type": "vector",
-      "maxzoom": 18
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
     },
     "static_landuse": {
-      "url": "mbtiles://{static_landuse}",
+      "name": "osm landuse and water",
       "type": "vector",
-      "maxzoom": 18
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_admin_division": {
+      "name": "osm admin divisions",
+      "type": "vector",
+      "tiles": [
+        "/osm/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
+    },
+    "static_complication": {
+      "name": "custom layers",
+      "type": "vector",
+      "tiles": [
+        "/custom/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
     }
   }
 }
