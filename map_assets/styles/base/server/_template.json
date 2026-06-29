@@ -1,18 +1,7 @@
 {
   "glyphs": "__BASE_URL__/fonts/{fontstack}/{range}.pbf",
-  "sprite": "__BASE_URL__/sprite/v1/sprite",
+  "sprite": "__BASE_URL__/sprite/v2/sprite",
   "sources": {
-    "osm": {
-      "name": "osm layers",
-      "type": "vector",
-      "tiles": [
-        "__BASE_URL__/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
     "custom": {
       "name": "custom layers",
       "type": "vector",
@@ -21,7 +10,7 @@
       ],
       "scheme": "xyz",
       "minzoom": 0,
-      "maxzoom": 14,
+      "maxzoom": 15,
       "attribution": "Viuna Attribution"
     },
     "terrain": {
@@ -33,6 +22,17 @@
       "encoding": "mapbox",
       "maxzoom": 10,
       "minzoom": 4
+    },
+    "base": {
+      "name": "base layers",
+      "type": "vector",
+      "tiles": [
+        "__BASE_URL__/base/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 15,
+      "attribution": "Viuna Attribution"
     }
   }
 }

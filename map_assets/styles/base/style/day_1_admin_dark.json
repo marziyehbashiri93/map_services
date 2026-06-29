@@ -31,7 +31,7 @@
         "fill-color": "_landuse_water_color_",
         "fill-opacity": 0.8
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 1,
       "source-layer": "sea"
@@ -50,7 +50,7 @@
         ],
         "city"
       ],
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 1.0,
       "source-layer": "admin_divisions_polygon"
@@ -77,19 +77,34 @@
       "filter": [
         "in",
         [
-          "get",
-          "landuse_type"
+          "coalesce",
+          [
+            "get",
+            "landuse"
+          ],
+          [
+            "get",
+            "leisure"
+          ],
+          [
+            "get",
+            "natural"
+          ],
+          [
+            "get",
+            "water"
+          ],
+          ""
         ],
         [
           "literal",
           [
             "wood",
-            "forest",
-            "resevior"
+            "forest"
           ]
         ]
       ],
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 4.0,
       "source-layer": "landuse"
@@ -111,25 +126,46 @@
           0.3,
           8.0,
           0.5,
-          22.0,
+          15.0,
           0.5
         ]
       },
       "filter": [
-        "match",
+        "in",
         [
-          "get",
-          "landuse_type"
+          "coalesce",
+          [
+            "get",
+            "landuse"
+          ],
+          [
+            "get",
+            "leisure"
+          ],
+          [
+            "get",
+            "natural"
+          ],
+          [
+            "get",
+            "water"
+          ],
+          ""
         ],
         [
-          "sea",
-          "bay",
-          "lake"
-        ],
-        true,
-        false
+          "literal",
+          [
+            "water",
+            "lake",
+            "reservoir",
+            "river",
+            "canal",
+            "pond",
+            "oxbow"
+          ]
+        ]
       ],
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 4.5,
       "source-layer": "landuse"
@@ -156,8 +192,24 @@
       "filter": [
         "in",
         [
-          "get",
-          "landuse_type"
+          "coalesce",
+          [
+            "get",
+            "landuse"
+          ],
+          [
+            "get",
+            "leisure"
+          ],
+          [
+            "get",
+            "natural"
+          ],
+          [
+            "get",
+            "water"
+          ],
+          ""
         ],
         [
           "literal",
@@ -165,16 +217,24 @@
             "playground",
             "park",
             "garden",
-            "fitness_station",
-            "dog_park",
-            "vineyard",
+            "golf_course",
+            "sports_centre",
+            "stadium",
+            "nature_reserve",
+            "pitch",
+            "track",
             "orchard",
             "farmland",
-            "recreation_ground"
+            "farmyard",
+            "meadow",
+            "grass",
+            "grassland",
+            "recreation_ground",
+            "village_green"
           ]
         ]
       ],
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.0,
       "source-layer": "landuse"
@@ -196,33 +256,47 @@
           0.3,
           8.0,
           0.5,
-          22.0,
+          15.0,
           0.5
         ]
       },
       "filter": [
         "in",
         [
-          "get",
-          "landuse_type"
+          "coalesce",
+          [
+            "get",
+            "landuse"
+          ],
+          [
+            "get",
+            "leisure"
+          ],
+          [
+            "get",
+            "natural"
+          ],
+          [
+            "get",
+            "water"
+          ],
+          ""
         ],
         [
           "literal",
           [
-            "river",
-            "stream",
-            "oxbow",
-            "stream_pool",
-            "canal",
-            "ditch",
-            "agoon",
+            "water",
+            "wetland",
+            "lake",
             "reservoir",
-            "fountain",
-            "water"
+            "river",
+            "canal",
+            "pond",
+            "oxbow"
           ]
         ]
       ],
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 6.5,
       "source-layer": "landuse"
@@ -265,12 +339,8 @@
               5.0
             ],
             [
-              16.0,
-              8.0
-            ],
-            [
-              18.0,
-              10.0
+              15.0,
+              6.5
             ]
           ]
         },
@@ -286,7 +356,7 @@
           0.3,
           8.0,
           0.5,
-          22.0,
+          15.0,
           0.5
         ]
       },
@@ -294,7 +364,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 7.0,
       "source-layer": "river"
@@ -312,12 +382,8 @@
           [
             "zoom"
           ],
-          16.0,
-          2.0,
-          18.0,
-          4.0,
-          20.0,
-          6.0
+          15.0,
+          2.0
         ],
         "line-opacity": [
           "interpolate",
@@ -356,7 +422,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -374,12 +440,8 @@
           [
             "zoom"
           ],
-          16.0,
-          2.0,
-          18.0,
-          4.0,
-          20.0,
-          6.0
+          15.0,
+          2.0
         ],
         "line-opacity": [
           "interpolate",
@@ -422,7 +484,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -440,12 +502,8 @@
           [
             "zoom"
           ],
-          16.0,
-          3.0,
-          18.0,
-          5.5,
-          20.0,
-          8.0
+          15.0,
+          3.0
         ],
         "line-opacity": [
           "interpolate",
@@ -484,7 +542,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -507,13 +565,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -566,7 +618,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -589,13 +641,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -641,7 +687,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -664,13 +710,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          9.0,
-          18.0,
-          18.0,
-          20.0,
-          25.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -712,7 +752,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -736,12 +776,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -793,7 +829,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -817,12 +853,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -867,7 +899,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -891,12 +923,8 @@
           2.0,
           13.0,
           5.0,
-          16.0,
-          12.0,
-          18.0,
-          23.0,
-          20.0,
-          35.0
+          15.0,
+          9.666666666666666
         ],
         "line-opacity": [
           "interpolate",
@@ -937,7 +965,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -967,12 +995,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1037,7 +1061,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1067,12 +1091,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1130,7 +1150,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1160,12 +1180,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1225,7 +1241,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1255,12 +1271,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1331,7 +1343,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1361,12 +1373,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1430,7 +1438,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1460,12 +1468,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1525,7 +1529,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1555,12 +1559,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1631,7 +1631,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1661,12 +1661,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1730,7 +1726,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1760,12 +1756,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -1825,7 +1817,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -1855,13 +1847,7 @@
           14.0,
           1.0,
           15.0,
-          4.0,
-          16.0,
-          5.0,
-          18.0,
-          10.0,
-          20.0,
-          15.0
+          4.0
         ]
       },
       "filter": [
@@ -1880,7 +1866,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -1911,12 +1897,8 @@
           1.0,
           13.0,
           2.0,
-          16.0,
-          7.0,
-          18.0,
-          16.0,
-          20.0,
-          25.0
+          15.0,
+          5.333333333333333
         ]
       },
       "filter": [
@@ -1934,7 +1916,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -1973,12 +1955,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2025,7 +2003,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2064,12 +2042,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2116,7 +2090,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2155,12 +2129,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2207,7 +2177,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2230,13 +2200,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -2289,7 +2253,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2312,13 +2276,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -2364,7 +2322,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2387,13 +2345,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          9.0,
-          18.0,
-          18.0,
-          20.0,
-          25.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -2435,7 +2387,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -2459,12 +2411,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -2516,7 +2464,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2540,12 +2488,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -2590,7 +2534,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2614,12 +2558,8 @@
           2.0,
           13.0,
           5.0,
-          16.0,
-          12.0,
-          18.0,
-          23.0,
-          20.0,
-          35.0
+          15.0,
+          9.666666666666666
         ],
         "line-opacity": [
           "interpolate",
@@ -2660,7 +2600,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -2690,12 +2630,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2766,7 +2702,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2796,12 +2732,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2865,7 +2797,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2895,12 +2827,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -2960,7 +2888,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -2990,12 +2918,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3066,7 +2990,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3096,12 +3020,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3165,7 +3085,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3195,12 +3115,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3260,7 +3176,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3290,12 +3206,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3366,7 +3278,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3396,12 +3308,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3465,7 +3373,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3495,12 +3403,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3560,7 +3464,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3573,16 +3477,8 @@
         "line-width": {
           "stops": [
             [
-              16.0,
+              15.0,
               1.0
-            ],
-            [
-              18.0,
-              1.5
-            ],
-            [
-              20.0,
-              2.0
             ]
           ]
         },
@@ -3608,7 +3504,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_other"
@@ -3621,16 +3517,8 @@
         "line-width": {
           "stops": [
             [
-              16.0,
+              15.0,
               1.0
-            ],
-            [
-              18.0,
-              1.5
-            ],
-            [
-              20.0,
-              2.0
             ]
           ]
         },
@@ -3664,7 +3552,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_footway"
@@ -3694,13 +3582,7 @@
           14.0,
           1.0,
           15.0,
-          4.0,
-          16.0,
-          5.0,
-          18.0,
-          10.0,
-          20.0,
-          15.0
+          4.0
         ]
       },
       "filter": [
@@ -3719,7 +3601,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -3750,12 +3632,8 @@
           1.0,
           13.0,
           2.0,
-          16.0,
-          7.0,
-          18.0,
-          16.0,
-          20.0,
-          25.0
+          15.0,
+          5.333333333333333
         ]
       },
       "filter": [
@@ -3773,7 +3651,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -3812,12 +3690,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3864,7 +3738,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3903,12 +3777,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -3955,7 +3825,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -3994,12 +3864,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4052,7 +3918,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4075,13 +3941,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -4134,7 +3994,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4157,13 +4017,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -4209,7 +4063,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4232,13 +4086,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          9.0,
-          18.0,
-          18.0,
-          20.0,
-          25.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -4280,7 +4128,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -4304,12 +4152,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -4361,7 +4205,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4385,12 +4229,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -4435,7 +4275,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4459,12 +4299,8 @@
           2.0,
           13.0,
           5.0,
-          16.0,
-          12.0,
-          18.0,
-          23.0,
-          20.0,
-          35.0
+          15.0,
+          9.666666666666666
         ],
         "line-opacity": [
           "interpolate",
@@ -4505,7 +4341,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -4535,12 +4371,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4605,7 +4437,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4635,12 +4467,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4698,7 +4526,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4728,12 +4556,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4787,7 +4611,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4817,12 +4641,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4887,7 +4707,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -4917,12 +4737,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -4980,7 +4796,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5010,12 +4826,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5069,7 +4881,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5099,12 +4911,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5169,7 +4977,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5199,12 +5007,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5262,7 +5066,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5292,12 +5096,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5351,7 +5151,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5381,13 +5181,7 @@
           14.0,
           1.0,
           15.0,
-          4.0,
-          16.0,
-          5.0,
-          18.0,
-          10.0,
-          20.0,
-          15.0
+          4.0
         ]
       },
       "filter": [
@@ -5406,7 +5200,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -5437,12 +5231,8 @@
           1.0,
           13.0,
           2.0,
-          16.0,
-          7.0,
-          18.0,
-          16.0,
-          20.0,
-          25.0
+          15.0,
+          5.333333333333333
         ]
       },
       "filter": [
@@ -5460,7 +5250,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -5499,12 +5289,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5557,7 +5343,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5596,12 +5382,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5654,7 +5436,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5693,12 +5475,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -5745,7 +5523,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -5768,13 +5546,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -5827,7 +5599,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -5850,13 +5622,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -5902,7 +5668,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -5925,13 +5691,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          9.0,
-          18.0,
-          18.0,
-          20.0,
-          25.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -5973,7 +5733,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -5997,12 +5757,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -6054,7 +5810,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6078,12 +5834,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -6128,7 +5880,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6152,12 +5904,8 @@
           2.0,
           13.0,
           5.0,
-          16.0,
-          12.0,
-          18.0,
-          23.0,
-          20.0,
-          35.0
+          15.0,
+          9.666666666666666
         ],
         "line-opacity": [
           "interpolate",
@@ -6198,7 +5946,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -6228,12 +5976,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6298,7 +6042,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6328,12 +6072,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6391,7 +6131,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6421,12 +6161,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6480,7 +6216,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6510,12 +6246,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6580,7 +6312,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6610,12 +6342,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6673,7 +6401,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6703,12 +6431,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6762,7 +6486,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6792,12 +6516,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6862,7 +6582,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6892,12 +6612,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -6955,7 +6671,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -6985,12 +6701,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -7044,7 +6756,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7074,13 +6786,7 @@
           14.0,
           1.0,
           15.0,
-          4.0,
-          16.0,
-          5.0,
-          18.0,
-          10.0,
-          20.0,
-          15.0
+          4.0
         ]
       },
       "filter": [
@@ -7099,7 +6805,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -7130,12 +6836,8 @@
           1.0,
           13.0,
           2.0,
-          16.0,
-          7.0,
-          18.0,
-          16.0,
-          20.0,
-          25.0
+          15.0,
+          5.333333333333333
         ]
       },
       "filter": [
@@ -7153,7 +6855,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -7192,12 +6894,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -7250,7 +6948,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7289,12 +6987,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -7347,7 +7041,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7386,12 +7080,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -7444,7 +7134,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -7467,13 +7157,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -7526,7 +7210,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7549,13 +7233,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          7.0,
-          18.0,
-          14.0,
-          20.0,
-          20.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -7601,7 +7279,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7624,13 +7302,7 @@
           14.0,
           1.0,
           15.0,
-          7.0,
-          16.0,
-          9.0,
-          18.0,
-          18.0,
-          20.0,
-          25.0
+          7.0
         ],
         "line-opacity": [
           "interpolate",
@@ -7672,7 +7344,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 13.0,
       "source-layer": "road_minor"
@@ -7696,12 +7368,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -7753,7 +7421,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7777,12 +7445,8 @@
           1.0,
           13.0,
           4.0,
-          16.0,
-          9.0,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          7.333333333333333
         ],
         "line-opacity": [
           "interpolate",
@@ -7827,7 +7491,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7851,12 +7515,8 @@
           2.0,
           13.0,
           5.0,
-          16.0,
-          12.0,
-          18.0,
-          23.0,
-          20.0,
-          35.0
+          15.0,
+          9.666666666666666
         ],
         "line-opacity": [
           "interpolate",
@@ -7897,7 +7557,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 11.0,
       "source-layer": "road_intermediate"
@@ -7927,12 +7587,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -7997,7 +7653,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8027,12 +7683,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8090,7 +7742,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8120,12 +7772,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8179,7 +7827,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8209,12 +7857,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8279,7 +7923,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8309,12 +7953,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8372,7 +8012,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8402,12 +8042,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8461,7 +8097,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8491,12 +8127,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8561,7 +8193,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8591,12 +8223,8 @@
           3.0,
           14.0,
           5.0,
-          16.0,
-          10.0,
-          18.0,
-          22.0,
-          20.0,
-          35.0
+          15.0,
+          7.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8654,7 +8282,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8684,12 +8312,8 @@
           4.0,
           14.0,
           7.0,
-          16.0,
-          12.0,
-          18.0,
-          28.0,
-          20.0,
-          40.0
+          15.0,
+          9.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8743,7 +8367,7 @@
       "layout": {
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8773,13 +8397,7 @@
           14.0,
           1.0,
           15.0,
-          4.0,
-          16.0,
-          5.0,
-          18.0,
-          10.0,
-          20.0,
-          15.0
+          4.0
         ]
       },
       "filter": [
@@ -8798,7 +8416,7 @@
         "line-join": "round",
         "visibility": "visible"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.3,
       "source-layer": "road_minor"
@@ -8829,12 +8447,8 @@
           1.0,
           13.0,
           2.0,
-          16.0,
-          7.0,
-          18.0,
-          16.0,
-          20.0,
-          25.0
+          15.0,
+          5.333333333333333
         ]
       },
       "filter": [
@@ -8852,7 +8466,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 12.3,
       "source-layer": "road_intermediate"
@@ -8891,12 +8505,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -8949,7 +8559,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -8988,12 +8598,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -9046,7 +8652,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -9085,12 +8691,8 @@
           2.5,
           14.0,
           3.5,
-          16.0,
-          7.5,
-          18.0,
-          20.0,
-          20.0,
-          30.0
+          15.0,
+          5.5
         ],
         "line-opacity": [
           "interpolate",
@@ -9143,7 +8745,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 5,
       "source-layer": "road_major"
@@ -9156,16 +8758,8 @@
         "line-width": {
           "stops": [
             [
-              16.0,
+              15.0,
               2.0
-            ],
-            [
-              18.0,
-              3.0
-            ],
-            [
-              20.0,
-              4.0
             ]
           ]
         },
@@ -9206,7 +8800,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 14.0,
       "source-layer": "road_footway"
@@ -9219,16 +8813,8 @@
         "line-width": {
           "stops": [
             [
-              16.0,
+              15.0,
               1.0
-            ],
-            [
-              18.0,
-              1.5
-            ],
-            [
-              20.0,
-              2.0
             ]
           ]
         },
@@ -9273,7 +8859,7 @@
         "line-cap": "round",
         "line-join": "round"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 22.1,
       "minzoom": 15.0,
       "source-layer": "road_footway"
@@ -9293,12 +8879,8 @@
         "text-size": {
           "stops": [
             [
-              16.0,
+              15.0,
               8.0
-            ],
-            [
-              17.0,
-              13.0
             ]
           ]
         },
@@ -9315,11 +8897,13 @@
           ]
         ],
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
-      "minzoom": 16.0,
+      "source": "base",
+      "minzoom": 15.0,
       "source-layer": "road_other"
     },
     {
@@ -9337,12 +8921,8 @@
         "text-size": {
           "stops": [
             [
-              16.0,
+              15.0,
               8.0
-            ],
-            [
-              17.0,
-              13.0
             ]
           ]
         },
@@ -9359,11 +8939,13 @@
           ]
         ],
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
-      "minzoom": 16.0,
+      "source": "base",
+      "minzoom": 15.0,
       "source-layer": "road_footway"
     },
     {
@@ -9384,14 +8966,6 @@
             [
               15.0,
               0.01
-            ],
-            [
-              17.0,
-              0.025
-            ],
-            [
-              18.0,
-              0.03
             ]
           ]
         },
@@ -9410,8 +8984,8 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "osm",
-      "minzoom": 16.0,
+      "source": "base",
+      "minzoom": 15.0,
       "source-layer": "road_minor"
     },
     {
@@ -9431,10 +9005,6 @@
             [
               15.0,
               10.0
-            ],
-            [
-              17.0,
-              13.0
             ]
           ]
         },
@@ -9451,11 +9021,13 @@
           ]
         ],
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
-      "minzoom": 15.3,
+      "source": "base",
+      "minzoom": 15.0,
       "source-layer": "road_minor"
     },
     {
@@ -9476,14 +9048,6 @@
             [
               15.0,
               0.01
-            ],
-            [
-              17.0,
-              0.025
-            ],
-            [
-              18.0,
-              0.03
             ]
           ]
         },
@@ -9502,7 +9066,7 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "osm",
+      "source": "base",
       "minzoom": 15.0,
       "source-layer": "road_intermediate"
     },
@@ -9529,8 +9093,8 @@
               11.0
             ],
             [
-              17.0,
-              14.0
+              15.0,
+              12.0
             ]
           ]
         },
@@ -9547,10 +9111,12 @@
           ]
         ],
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
+      "source": "base",
       "minzoom": 13.2,
       "source-layer": "road_intermediate"
     },
@@ -9572,14 +9138,6 @@
             [
               15.0,
               0.01
-            ],
-            [
-              17.0,
-              0.025
-            ],
-            [
-              18.0,
-              0.03
             ]
           ]
         },
@@ -9598,7 +9156,7 @@
         ],
         "symbol-placement": "line"
       },
-      "source": "osm",
+      "source": "base",
       "minzoom": 15.0,
       "source-layer": "road_major"
     },
@@ -9654,10 +9212,12 @@
           ]
         ],
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 12.3,
       "minzoom": 11.0,
       "source-layer": "road_major"
@@ -9698,8 +9258,8 @@
               13.0
             ],
             [
-              17.0,
-              15.5
+              15.0,
+              13.833333333333334
             ]
           ]
         },
@@ -9717,10 +9277,12 @@
         ],
         "symbol-spacing": 500,
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
+      "source": "base",
       "minzoom": 12.3,
       "source-layer": "road_major"
     },
@@ -9762,8 +9324,8 @@
               13.5
             ],
             [
-              17.0,
-              16.0
+              15.0,
+              14.333333333333334
             ]
           ]
         },
@@ -9781,10 +9343,12 @@
         ],
         "symbol-spacing": 500,
         "symbol-placement": "line",
-        "text-pitch-alignment": "viewport",
-        "text-rotation-alignment": "map"
+        "text-pitch-alignment": "map",
+        "text-rotation-alignment": "map",
+        "symbol-avoid-edges": true,
+        "text-keep-upright": true
       },
-      "source": "osm",
+      "source": "base",
       "minzoom": 12.3,
       "source-layer": "road_major"
     },
@@ -9837,7 +9401,7 @@
           3
         ]
       },
-      "source": "osm",
+      "source": "base",
       "source-layer": "province"
     },
     {
@@ -9893,12 +9457,12 @@
           ],
           8.0,
           20.0,
-          16.0,
-          5.0
+          15.0,
+          6.875
         ],
         "text-max-width": 7.0
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 16.0,
       "minzoom": 9.5,
       "source-layer": "admin_divisions_point_minor"
@@ -9936,7 +9500,7 @@
         "text-field": "{name}",
         "text-anchor": "center"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 15.0,
       "minzoom": 8.0,
       "source-layer": "admin_divisions_point_minor"
@@ -9946,6 +9510,7 @@
       "type": "symbol",
       "paint": {
         "text-color": "_admin_major_label_color_"
+
       },
       "filter": [
         "any",
@@ -9991,7 +9556,7 @@
         "text-field": "{name}",
         "text-anchor": "center"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 14.0,
       "minzoom": 6.5,
       "source-layer": "admin_divisions_point_major"
@@ -10069,7 +9634,7 @@
         ],
         "symbol-placement": "point"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 13.0,
       "minzoom": 10.5,
       "source-layer": "admin_divisions_point_minor"
@@ -10136,7 +9701,7 @@
         ],
         "symbol-placement": "point"
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 14.5,
       "minzoom": 12.0,
       "source-layer": "admin_divisions_point_minor"
@@ -10187,7 +9752,7 @@
         "symbol-placement": "point",
         "text-allow-overlap": true
       },
-      "source": "osm",
+      "source": "base",
       "maxzoom": 10.5,
       "minzoom": 6,
       "source-layer": "admin_divisions_point_major"
@@ -10381,18 +9946,16 @@
               0.05
             ],
             [
-              16,
-              0.06
-            ],
-            [
-              22,
-              0.07
+              15.0,
+              0.058571428571428566
             ]
           ]
         },
         "icon-image": "security-camera.png",
         "icon-anchor": "bottom",
-        "symbol-placement": "point"
+        "symbol-placement": "point",
+        "icon-pitch-alignment": "viewport",
+        "icon-rotation-alignment": "viewport"
       },
       "source": "custom",
       "source-layer": "violation_camera",
@@ -10413,8 +9976,8 @@
               0.05
             ],
             [
-              22,
-              0.07
+              15.0,
+              0.05923076923076924
             ]
           ]
         },
@@ -10431,18 +9994,21 @@
               10
             ],
             [
-              22,
-              12
+              15.0,
+              10.833333333333334
             ]
           ]
         },
         "text-field": "{axis_name}",
-        "text-anchor": "center",
+        "text-anchor": "top",
         "text-offset": [
           0.0,
-          2.0
+          0.8
         ],
-        "symbol-placement": "point"
+        "symbol-placement": "point",
+        "icon-pitch-alignment": "viewport",
+        "icon-rotation-alignment": "viewport",
+        "text-optional": true
       },
       "source": "custom",
       "source-layer": "complex_service",
@@ -10461,18 +10027,16 @@
               0.04
             ],
             [
-              16,
-              0.06
-            ],
-            [
-              22,
-              0.07
+              15.0,
+              0.05714285714285714
             ]
           ]
         },
         "icon-image": "policeman.png",
         "icon-anchor": "bottom",
-        "symbol-placement": "point"
+        "symbol-placement": "point",
+        "icon-pitch-alignment": "viewport",
+        "icon-rotation-alignment": "viewport"
       },
       "source": "custom",
       "source-layer": "police",
@@ -10493,12 +10057,8 @@
               0.04
             ],
             [
-              16,
-              0.06
-            ],
-            [
-              22,
-              0.07
+              15.0,
+              0.05714285714285714
             ]
           ]
         },
@@ -10521,7 +10081,7 @@
           ]
         },
         "text-field": "{name}",
-        "text-anchor": "center",
+        "text-anchor": "top",
         "text-padding": [
           "interpolate",
           [
@@ -10532,14 +10092,17 @@
           ],
           8.0,
           1.0,
-          16.0,
-          100.0
+          15.0,
+          87.625
         ],
         "text-max-width": 6.0,
         "text-offset": [
           0.0,
-          1.0
-        ]
+          0.8
+        ],
+        "icon-pitch-alignment": "viewport",
+        "icon-rotation-alignment": "viewport",
+        "text-optional": true
       },
       "source": "custom",
       "minzoom": 10,
@@ -10547,17 +10110,6 @@
     }
   ],
   "sources": {
-    "osm": {
-      "name": "osm layers",
-      "type": "vector",
-      "tiles": [
-        "/osm/{z}/{x}/{y}"
-      ],
-      "scheme": "xyz",
-      "minzoom": 0,
-      "maxzoom": 14,
-      "attribution": "Viuna Attribution"
-    },
     "custom": {
       "name": "custom layers",
       "type": "vector",
@@ -10578,6 +10130,17 @@
       "encoding": "mapbox",
       "maxzoom": 10,
       "minzoom": 4
+    },
+    "base": {
+      "name": "base layers",
+      "type": "vector",
+      "tiles": [
+        "/base/{z}/{x}/{y}"
+      ],
+      "scheme": "xyz",
+      "minzoom": 0,
+      "maxzoom": 14,
+      "attribution": "Viuna Attribution"
     }
   }
 }

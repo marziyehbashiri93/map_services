@@ -12,6 +12,7 @@ class StyleConverter:
 
     STYLE_VARIANTS = ("public", "admin")
     SERVER_TEMPLATE_FILE = "_template.json"
+    SPRITE_VERSION = "v2"
 
     def __init__(self):
         """Set all filesystem paths required for style generation."""
@@ -166,10 +167,10 @@ class StyleConverter:
     def _publish_gateway_assets(self, style_entries):
         """Copy sprites and fonts to the gateway and write the styles.json catalog."""
         gateway_styles_v1 = self.gateway_assets_dir / "styles" / "v1"
-        gateway_sprite_v1 = self.gateway_assets_dir / "sprite" / "v1"
+        gateway_sprite_version_dir = self.gateway_assets_dir / "sprite" / self.SPRITE_VERSION
         gateway_fonts = self.gateway_assets_dir / "fonts"
 
-        gateway_sprite_v1.mkdir(parents=True, exist_ok=True)
+        gateway_sprite_version_dir.mkdir(parents=True, exist_ok=True)
         gateway_fonts.mkdir(parents=True, exist_ok=True)
         for font_path in gateway_fonts.iterdir():
             if font_path.is_dir():
@@ -180,7 +181,7 @@ class StyleConverter:
         for filename in ("sprite.json", "sprite@2x.json", "sprite.png", "sprite@2x.png"):
             src = self.sprites_dir / filename
             if src.exists():
-                shutil.copy2(src, gateway_sprite_v1 / filename)
+                shutil.copy2(src, gateway_sprite_version_dir / filename)
 
         if self.fonts_dir.is_dir():
             shutil.copytree(self.fonts_dir, gateway_fonts, dirs_exist_ok=True)
