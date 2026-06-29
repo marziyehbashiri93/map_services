@@ -10,47 +10,39 @@
   "bus.png": {
     "x": 389,
     "y": 0,
-    "width": 1024,
-    "height": 1024,
-    "pixelRatio": 1,
-    "visible": true
-  },
-  "bus1.png": {
-    "x": 1413,
-    "y": 0,
-    "width": 1024,
+    "width": 791,
     "height": 1024,
     "pixelRatio": 1,
     "visible": true
   },
   "carbon--circle-filled.png": {
-    "x": 2437,
+    "x": 1180,
     "y": 0,
-    "width": 1024,
+    "width": 1013,
     "height": 1024,
     "pixelRatio": 1,
     "visible": true
   },
   "policeman.png": {
-    "x": 3461,
+    "x": 2193,
     "y": 0,
-    "width": 1024,
+    "width": 767,
     "height": 1024,
     "pixelRatio": 1,
     "visible": true
   },
   "rest-area.png": {
-    "x": 4485,
+    "x": 2960,
     "y": 0,
-    "width": 1024,
+    "width": 782,
     "height": 1024,
     "pixelRatio": 1,
     "visible": true
   },
   "security-camera.png": {
-    "x": 5509,
+    "x": 3742,
     "y": 0,
-    "width": 1024,
+    "width": 766,
     "height": 1024,
     "pixelRatio": 1,
     "visible": true
