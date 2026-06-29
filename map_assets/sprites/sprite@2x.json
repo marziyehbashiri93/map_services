@@ -15,7 +15,7 @@
     "pixelRatio": 2,
     "visible": true
   },
-  "carbon--circle-filled.png": {
+  "bus1.png": {
     "x": 1802,
     "y": 0,
     "width": 1024,
@@ -23,7 +23,7 @@
     "pixelRatio": 2,
     "visible": true
   },
-  "policeman.png": {
+  "carbon--circle-filled.png": {
     "x": 2826,
     "y": 0,
     "width": 1024,
@@ -31,19 +31,27 @@
     "pixelRatio": 2,
     "visible": true
   },
-  "rest-area.png": {
+  "policeman.png": {
     "x": 3850,
     "y": 0,
-    "width": 984,
+    "width": 1024,
+    "height": 1024,
+    "pixelRatio": 2,
+    "visible": true
+  },
+  "rest-area.png": {
+    "x": 4874,
+    "y": 0,
+    "width": 1024,
     "height": 1024,
     "pixelRatio": 2,
     "visible": true
   },
   "security-camera.png": {
-    "x": 4834,
+    "x": 5898,
     "y": 0,
-    "width": 644,
-    "height": 942,
+    "width": 1024,
+    "height": 1024,
     "pixelRatio": 2,
     "visible": true
   }

@@ -4,7 +4,7 @@ from PIL import Image
 
 
 ROOT_DIR = Path(__file__).resolve().parent
-ICON_DIR = ROOT_DIR / "icon"
+ICON_DIR = ROOT_DIR / "icon_v3"
 OUTPUTS = (
     {"name": "sprite", "scale": 1.0, "pixel_ratio": 1},
     {"name": "sprite@2x", "scale": 2.0, "pixel_ratio": 2},
