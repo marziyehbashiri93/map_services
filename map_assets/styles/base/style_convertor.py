@@ -11,7 +11,8 @@ class StyleConverter:
     """Convert tokenized base styles into server-specific style JSON files."""
 
     STYLE_VARIANTS = ("public", "admin")
-    SERVER_TEMPLATE_FILE = "_template.json"
+    SOURCE_ENDPOINTS_TEMPLATE_FILE = "source_endpoints_template.json"
+    BASE_URLS_FILE = "base_urls.json"
     SPRITE_VERSION = "v2"
     PUBLIC_EXCLUDED_LAYER_IDS = {
         "violation_camera_point",
@@ -21,9 +22,10 @@ class StyleConverter:
     def __init__(self):
         """Set all filesystem paths required for style generation."""
         self.base_dir = pathlib.Path(__file__).resolve().parent
-        self.token_dir = self.base_dir.joinpath("token")
+        self.tokens_dir = self.base_dir.joinpath("tokens")
+        self.token_dir = self.tokens_dir.joinpath("color_tokens")
         self.style_dir = self.base_dir.joinpath("style")
-        self.server_dir = self.base_dir.joinpath("server")
+        self.server_config_dir = self.base_dir.joinpath("server_configs")
         self.output_style_dir = self.base_dir.parent
         self.assets_dir = self.base_dir.parents[1]
         self.gateway_assets_dir = self.assets_dir.parent / "map_gateway" / "data" / "map_assets"
@@ -71,6 +73,13 @@ class StyleConverter:
             token_groups.setdefault(token_name, {})[token_variant or "default"] = token_path
         return token_groups
 
+    def get_shared_tokens(self):
+        """Load shared style tokens that are merged into every theme token set."""
+        shared_token_path = self.tokens_dir.joinpath("shared_tokens.json")
+        if not shared_token_path.exists():
+            return {}
+        return self.flatten_tokens(self.read_json(shared_token_path))
+
     def get_style_templates(self):
         """Group style template files by logical template name and variant."""
         template_groups = {}
@@ -88,20 +97,17 @@ class StyleConverter:
         return template_groups
 
     def get_server_configs(self):
-        """Load all server config files except the shared template file."""
-        configs = {}
-        for config_path in sorted(self.server_dir.glob("*.json")):
-            if config_path.name == self.SERVER_TEMPLATE_FILE:
-                continue
-            config_name = config_path.stem
-            configs[config_name] = self.read_json(config_path)
-        return configs
+        """Load all named server base URL configs from a single JSON file."""
+        config_path = self.server_config_dir.joinpath(self.BASE_URLS_FILE)
+        if not config_path.exists():
+            raise RuntimeError(f"Server base URL config not found: {config_path}")
+        return self.read_json(config_path)
 
     def get_server_template(self):
-        """Load the shared server template used for placeholder replacement."""
-        template_path = self.server_dir.joinpath(self.SERVER_TEMPLATE_FILE)
+        """Load the shared source/sprite/glyph endpoint template."""
+        template_path = self.server_config_dir.joinpath(self.SOURCE_ENDPOINTS_TEMPLATE_FILE)
         if not template_path.exists():
-            raise RuntimeError(f"Server template not found: {template_path}")
+            raise RuntimeError(f"Source endpoints template not found: {template_path}")
         return self.read_json(template_path)
 
     @staticmethod
@@ -114,16 +120,56 @@ class StyleConverter:
         return next(iter(group_paths.values()))
 
     @staticmethod
-    def replace_tokens_in_style(style_data, token_data):
-        """Replace token placeholders in layer paint values with real values."""
-        token_keys = tuple(token_data.keys())
-        for layer in style_data.get('layers', []):
-            if 'paint' in layer:
-                for k, v in layer['paint'].items():
-                    if isinstance(v, list):
-                        layer['paint'][k] = [token_data[i] if i in token_keys else i for i in v]
-                    elif v in token_keys:
-                        layer['paint'][k] = token_data[v]
+    def flatten_tokens(token_data):
+        """Return all placeholder-style token keys from nested token sections."""
+        flattened = {}
+
+        def collect(value):
+            if not isinstance(value, dict):
+                return
+            for key, item in value.items():
+                if key.startswith("_") and key.endswith("_"):
+                    flattened[key] = item
+                elif isinstance(item, dict):
+                    collect(item)
+
+        collect(token_data)
+        return flattened
+
+    @classmethod
+    def resolve_token_aliases(cls, token_data):
+        """Resolve tokens whose values reference other token keys."""
+        token_data = copy.deepcopy(token_data)
+
+        def resolve(value, stack):
+            if isinstance(value, str) and value in token_data:
+                if value in stack:
+                    chain = " -> ".join((*stack, value))
+                    raise RuntimeError(f"Circular style token reference: {chain}")
+                return resolve(token_data[value], (*stack, value))
+            if isinstance(value, dict):
+                return {k: resolve(v, stack) for k, v in value.items()}
+            if isinstance(value, list):
+                return [resolve(item, stack) for item in value]
+            return value
+
+        return {key: resolve(value, (key,)) for key, value in token_data.items()}
+
+    @classmethod
+    def replace_tokens_in_style(cls, style_data, token_data):
+        """Recursively replace token placeholders anywhere in a style object."""
+        token_data = cls.resolve_token_aliases(cls.flatten_tokens(token_data))
+
+        def replace(value):
+            if isinstance(value, dict):
+                return {k: replace(v) for k, v in value.items()}
+            if isinstance(value, list):
+                return [replace(item) for item in value]
+            if isinstance(value, str) and value in token_data:
+                return copy.deepcopy(token_data[value])
+            return value
+
+        return replace(style_data)
 
     def apply_server_config(self, style_data, server_config):
         """Inject server-specific sources, sprite and glyph endpoints."""
@@ -206,6 +252,7 @@ class StyleConverter:
 
     def convert(self):
         """Generate server style JSON files from token/style/template combinations."""
+        shared_tokens = self.get_shared_tokens()
         token_groups = self.get_token_groups()
         template_groups = self.get_style_templates()
         server_template = self.get_server_template()
@@ -250,10 +297,10 @@ class StyleConverter:
 
                 token_path = self.resolve_variant_data(token_group, variant)
                 style_path = self.resolve_variant_data(template_group, variant)
-                token_data = self.read_json(token_path)
+                token_data = {**shared_tokens, **self.flatten_tokens(self.read_json(token_path))}
                 style_data = self.read_json(style_path)
 
-                self.replace_tokens_in_style(style_data, token_data)
+                style_data = self.replace_tokens_in_style(style_data, token_data)
                 style_name = self.sanitize_style_name(f"{token_name}_{variant}")
                 self.apply_style_identity(style_data, style_name)
                 self.apply_style_variant(style_data, variant)

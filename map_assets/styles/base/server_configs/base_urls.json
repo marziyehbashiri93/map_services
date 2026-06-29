@@ -1,0 +1,15 @@
+{
+  "local": {
+    "base_url": ""
+  },
+  "nginx": {
+    "output_to_gateway": true,
+    "base_url": "http://127.0.0.1:80"
+  },
+  "rahdari": {
+    "base_url": "http://5.201.178.229:10580"
+  },
+  "viuna": {
+    "base_url": "http://5.201.178.229:10580"
+  }
+}
