@@ -8965,12 +8965,12 @@
           "stops": [
             [
               15.0,
-              0.01
+              0.045
             ]
           ]
         },
         "icon-image": "arrow-right.png",
-        "symbol-spacing": 200.0,
+        "symbol-spacing": 120.0,
         "symbol-sort-key": [
           "-",
           10.0,
@@ -8982,7 +8982,10 @@
             ]
           ]
         ],
-        "symbol-placement": "line"
+        "symbol-placement": "line",
+        "icon-pitch-alignment": "map",
+        "icon-rotation-alignment": "map",
+        "symbol-avoid-edges": true
       },
       "source": "base",
       "minzoom": 15.0,
@@ -9047,12 +9050,12 @@
           "stops": [
             [
               15.0,
-              0.01
+              0.045
             ]
           ]
         },
         "icon-image": "arrow-right.png",
-        "symbol-spacing": 200.0,
+        "symbol-spacing": 120.0,
         "symbol-sort-key": [
           "-",
           10.0,
@@ -9064,7 +9067,10 @@
             ]
           ]
         ],
-        "symbol-placement": "line"
+        "symbol-placement": "line",
+        "icon-pitch-alignment": "map",
+        "icon-rotation-alignment": "map",
+        "symbol-avoid-edges": true
       },
       "source": "base",
       "minzoom": 15.0,
@@ -9137,12 +9143,12 @@
           "stops": [
             [
               15.0,
-              0.01
+              0.045
             ]
           ]
         },
         "icon-image": "arrow-right.png",
-        "symbol-spacing": 200.0,
+        "symbol-spacing": 160.0,
         "symbol-sort-key": [
           "-",
           10.0,
@@ -9154,7 +9160,10 @@
             ]
           ]
         ],
-        "symbol-placement": "line"
+        "symbol-placement": "line",
+        "icon-pitch-alignment": "map",
+        "icon-rotation-alignment": "map",
+        "symbol-avoid-edges": true
       },
       "source": "base",
       "minzoom": 15.0,
@@ -10117,7 +10126,7 @@
       ],
       "scheme": "xyz",
       "minzoom": 0,
-      "maxzoom": 14,
+      "maxzoom": 15,
       "attribution": "Viuna Attribution"
     },
     "terrain": {
@@ -10138,7 +10147,7 @@
       ],
       "scheme": "xyz",
       "minzoom": 0,
-      "maxzoom": 14,
+      "maxzoom": 16,
       "attribution": "Viuna Attribution"
     }
   }
