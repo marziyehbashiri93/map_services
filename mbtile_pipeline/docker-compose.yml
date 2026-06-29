@@ -24,7 +24,7 @@ services:
       context: ./custom
     volumes:
       - ./custom/config.yml:/app/config.yml:ro
-      - ../map_assets/styles/base/style/day_1_admin_light.json:/style.json:ro
+      - ../map_assets/styles/base/style/base_style.json:/style.json:ro
       - ./custom/data:/data
       - ./data:/output
     environment:

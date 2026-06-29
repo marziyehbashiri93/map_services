@@ -48,7 +48,7 @@ docker network inspect map_services_net >/dev/null 2>&1 || docker network create
 ls -lh data/iran.osm.pbf        # حدود ۲۲۷ مگابایت
 
 # ۵) فایل style موجود باشد (برای بهینه‌سازی custom استفاده می‌شود)
-ls ../map_assets/styles/base/style/day_1_admin_light.json
+ls ../map_assets/styles/base/style/base_style.json
 
 # ۶) حداقل ۶ گیگابایت RAM آزاد برای Planetiler
 free -h

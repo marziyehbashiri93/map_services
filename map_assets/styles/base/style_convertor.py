@@ -13,6 +13,10 @@ class StyleConverter:
     STYLE_VARIANTS = ("public", "admin")
     SERVER_TEMPLATE_FILE = "_template.json"
     SPRITE_VERSION = "v2"
+    PUBLIC_EXCLUDED_LAYER_IDS = {
+        "violation_camera_point",
+        "violation_camera-icon",
+    }
 
     def __init__(self):
         """Set all filesystem paths required for style generation."""
@@ -72,7 +76,7 @@ class StyleConverter:
         template_groups = {}
         for style_path in sorted(self.style_dir.rglob("*.json")):
             template_name, template_variant = self.split_name_and_variant(style_path)
-            if template_variant not in self.STYLE_VARIANTS:
+            if template_variant is not None and template_variant not in self.STYLE_VARIANTS:
                 continue
 
             relative_parent = style_path.relative_to(self.style_dir).parent
@@ -80,7 +84,7 @@ class StyleConverter:
                 group_key = template_name
             else:
                 group_key = f"{relative_parent.as_posix().replace('/', '_')}_{template_name}"
-            template_groups.setdefault(group_key, {})[template_variant] = style_path
+            template_groups.setdefault(group_key, {})[template_variant or "default"] = style_path
         return template_groups
 
     def get_server_configs(self):
@@ -132,6 +136,16 @@ class StyleConverter:
         """Set style `id` and `name` fields to a stable generated value."""
         style_data["id"] = style_name
         style_data["name"] = style_name
+
+    @classmethod
+    def apply_style_variant(cls, style_data, variant):
+        """Apply audience-specific layer rules after token replacement."""
+        if variant != "public":
+            return
+        style_data["layers"] = [
+            layer for layer in style_data.get("layers", [])
+            if layer.get("id") not in cls.PUBLIC_EXCLUDED_LAYER_IDS
+        ]
 
     @staticmethod
     def replace_placeholders(data, replacements):
@@ -231,17 +245,18 @@ class StyleConverter:
             template_group = template_groups[template_name]
 
             for variant in self.STYLE_VARIANTS:
-                if variant not in template_group:
+                if variant not in template_group and "default" not in template_group:
                     continue
 
                 token_path = self.resolve_variant_data(token_group, variant)
-                style_path = template_group[variant]
+                style_path = self.resolve_variant_data(template_group, variant)
                 token_data = self.read_json(token_path)
                 style_data = self.read_json(style_path)
 
                 self.replace_tokens_in_style(style_data, token_data)
                 style_name = self.sanitize_style_name(f"{token_name}_{variant}")
                 self.apply_style_identity(style_data, style_name)
+                self.apply_style_variant(style_data, variant)
 
                 for config_name, server_config in server_configs.items():
                     server_style_data = copy.deepcopy(style_data)
