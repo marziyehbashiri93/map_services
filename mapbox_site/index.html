@@ -10,7 +10,7 @@
         body { margin: 0; }
         #toolbar {
             display: grid;
-            grid-template-columns: repeat(3, minmax(160px, 1fr));
+            grid-template-columns: repeat(4, minmax(160px, 1fr));
             gap: 8px;
             align-items: end;
             padding: 10px;
@@ -35,6 +35,10 @@
         <select id="styleName"></select>
     </div>
     <div>
+        <label for="zoomLevel">Zoom</label>
+        <input id="zoomLevel" type="number" min="0" max="24" step="0.1">
+    </div>
+    <div>
         <button id="applyBtn" type="button">Load / Reload</button>
     </div>
     <div id="status">در حال آماده‌سازی نقشه...</div>
@@ -54,6 +58,7 @@
     const controls = {
         baseUrl: document.getElementById("baseUrl"),
         styleName: document.getElementById("styleName"),
+        zoomLevel: document.getElementById("zoomLevel"),
         applyBtn: document.getElementById("applyBtn"),
         status: document.getElementById("status")
     };
@@ -160,6 +165,7 @@
     }
 
     controls.baseUrl.value = config.baseUrl;
+    controls.zoomLevel.value = config.zoom;
     setStyleOptions([config.styleName], config.styleName);
 
     if (typeof maplibregl === "undefined") {
@@ -229,6 +235,10 @@
 
         map.addControl(new maplibregl.NavigationControl(), "top-left");
 
+        map.on("zoom", () => {
+            controls.zoomLevel.value = map.getZoom().toFixed(1);
+        });
+
         map.on("style.load", () => {
             setStatus("Style loaded: " + vectorStyleUrl(), false);
         });
@@ -243,6 +253,11 @@
 
     controls.applyBtn.addEventListener("click", async () => {
         config.baseUrl = controls.baseUrl.value.trim();
+        const nextZoom = Number.parseFloat(controls.zoomLevel.value);
+        if (Number.isFinite(nextZoom)) {
+            config.zoom = Math.max(0, Math.min(24, nextZoom));
+            controls.zoomLevel.value = config.zoom;
+        }
         await loadStyleOptions();
         config.styleName = controls.styleName.value.trim();
 
@@ -257,7 +272,22 @@
         }
 
         setStatus("Reloading map style...", false);
+        map.setZoom(config.zoom);
         map.setStyle(vectorStyleUrl());
+    });
+
+    controls.zoomLevel.addEventListener("change", () => {
+        const nextZoom = Number.parseFloat(controls.zoomLevel.value);
+        if (!Number.isFinite(nextZoom)) {
+            controls.zoomLevel.value = map ? map.getZoom().toFixed(1) : config.zoom;
+            return;
+        }
+
+        config.zoom = Math.max(0, Math.min(24, nextZoom));
+        controls.zoomLevel.value = config.zoom;
+        if (map) {
+            map.setZoom(config.zoom);
+        }
     });
 </script>
 </body>
