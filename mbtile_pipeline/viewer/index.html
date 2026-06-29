@@ -80,14 +80,14 @@
       style: {
         version: 8,
         sources: {
-          osm:    { type: "vector", url: `${MARTIN}/osm` },
+          base:   { type: "vector", url: `${MARTIN}/base` },
           custom: { type: "vector", url: `${MARTIN}/custom` }
         },
         layers: [
           { id: "bg", type: "background", paint: { "background-color": "#f7f7f5" } },
 
           // ── landuse (polygon) ──
-          { id: "landuse", type: "fill", source: "osm", "source-layer": "landuse",
+          { id: "landuse", type: "fill", source: "base", "source-layer": "landuse",
             paint: {
               "fill-color": [
                 "match",
@@ -110,37 +110,37 @@
             } },
 
           // ── admin boundaries (polygon) ──
-          { id: "admin_divisions_polygon_fill", type: "fill", source: "osm", "source-layer": "admin_divisions_polygon",
+          { id: "admin_divisions_polygon_fill", type: "fill", source: "base", "source-layer": "admin_divisions_polygon",
             paint: { "fill-color": "#fff3e0", "fill-opacity": 0.25 } },
-          { id: "admin_divisions_polygon_line", type: "line", source: "osm", "source-layer": "admin_divisions_polygon",
+          { id: "admin_divisions_polygon_line", type: "line", source: "base", "source-layer": "admin_divisions_polygon",
             paint: { "line-color": "#ff9800", "line-width": 1.2, "line-dasharray": [3, 2] } },
 
           // ── river (polygon + line) ──
-          { id: "river_fill", type: "fill", source: "osm", "source-layer": "river",
+          { id: "river_fill", type: "fill", source: "base", "source-layer": "river",
             filter: ["in", ["geometry-type"], ["literal", ["Polygon", "MultiPolygon"]]],
             paint: { "fill-color": "#64b5f6", "fill-opacity": 0.7 } },
-          { id: "river_line", type: "line", source: "osm", "source-layer": "river",
+          { id: "river_line", type: "line", source: "base", "source-layer": "river",
             filter: ["in", ["geometry-type"], ["literal", ["LineString", "MultiLineString"]]],
             paint: { "line-color": "#42a5f5", "line-width": 1.5 } },
 
           // ── roads ──
-          { id: "road_minor", type: "line", source: "osm", "source-layer": "road_minor",
+          { id: "road_minor", type: "line", source: "base", "source-layer": "road_minor",
             paint: { "line-color": "#aaa", "line-width": 0.7 } },
-          { id: "road_footway", type: "line", source: "osm", "source-layer": "road_footway",
+          { id: "road_footway", type: "line", source: "base", "source-layer": "road_footway",
             layout: { visibility: "none" },
             paint: { "line-color": "#ccc", "line-width": 0.5, "line-dasharray": [2, 2] } },
-          { id: "road_other", type: "line", source: "osm", "source-layer": "road_other",
+          { id: "road_other", type: "line", source: "base", "source-layer": "road_other",
             layout: { visibility: "none" },
             paint: { "line-color": "#ddd", "line-width": 0.5 } },
-          { id: "roads", type: "line", source: "osm", "source-layer": "road_major",
+          { id: "roads", type: "line", source: "base", "source-layer": "road_major",
             paint: { "line-color": "#555", "line-width": 1.8 } },
-          { id: "roads2", type: "line", source: "osm", "source-layer": "road_intermediate",
+          { id: "roads2", type: "line", source: "base", "source-layer": "road_intermediate",
             paint: { "line-color": "#888", "line-width": 1.0 } },
 
           // ── admin place labels (points) ──
-          { id: "admin_divisions_point_major", type: "circle", source: "osm", "source-layer": "admin_divisions_point_major",
+          { id: "admin_divisions_point_major", type: "circle", source: "base", "source-layer": "admin_divisions_point_major",
             paint: { "circle-radius": 5, "circle-color": "#3949ab", "circle-stroke-width": 1.5, "circle-stroke-color": "#fff" } },
-          { id: "admin_divisions_point_minor", type: "circle", source: "osm", "source-layer": "admin_divisions_point_minor",
+          { id: "admin_divisions_point_minor", type: "circle", source: "base", "source-layer": "admin_divisions_point_minor",
             layout: { visibility: "none" },
             paint: { "circle-radius": 3, "circle-color": "#5c6bc0", "circle-stroke-width": 1, "circle-stroke-color": "#fff" } },
 

@@ -1,6 +1,6 @@
 listen_addresses: "0.0.0.0:3000"
 
-# Auto-discovers all .mbtiles files in /data (osm.mbtiles, custom.mbtiles)
+# Auto-discovers all .mbtiles files in /data (base.mbtiles, custom.mbtiles)
 mbtiles:
   paths:
     - /data

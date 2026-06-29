@@ -1,6 +1,6 @@
 services:
 
-  # ── Step 1: Build osm.mbtiles from iran.osm.pbf using Planetiler ──────────
+  # ── Step 1: Build base.mbtiles from iran.osm.pbf using Planetiler ─────────
   osm-build:
     image: ghcr.io/onthegomap/planetiler:latest
     environment:
@@ -12,8 +12,8 @@ services:
     command:
       - generate-custom
       - --schema=/data/profile.yml
-      - --output=/output/osm.mbtiles
-      - --maxzoom=14
+      - --output=/output/base.mbtiles
+      - --maxzoom=15
       - --force
 
   # ── Step 2: Build custom.mbtiles from PostGIS via Tippecanoe ──────────────

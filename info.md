@@ -2,8 +2,8 @@
 
 پروژه مپ سرویس یک پروژه شامل تمام نیازمندی ها برای لود و مسیریابی در نقشه است.هدف این پروژه تبدیل فایل pbf به یک نقشه زیبا و قابل فهم برای کابر است.
 
-1.مسیر فعلی ساخت tile در پوشه `mbtile_pipeline` قرار دارد. فایل OSM PBF مستقیماً با Planetiler به `osm.mbtiles` تبدیل می‌شود و داده‌های شخصی از PostGIS با Tippecanoe به `custom.mbtiles` تبدیل می‌شوند.
-2.سرویس Martin داخل `mbtile_pipeline` خروجی‌های `osm.mbtiles` و `custom.mbtiles` را سرو می‌کند.
+1.مسیر فعلی ساخت tile در پوشه `mbtile_pipeline` قرار دارد. فایل OSM PBF مستقیماً با Planetiler به `base.mbtiles` تبدیل می‌شود و داده‌های شخصی از PostGIS با Tippecanoe به `custom.mbtiles` تبدیل می‌شوند.
+2.سرویس Martin داخل `mbtile_pipeline` خروجی‌های `base.mbtiles` و `custom.mbtiles` را سرو می‌کند.
 3.سرویس تایل سرور (پوشه تایل سرور)جهت نمایش نقشه و تایل کردن ان چندین نیازمندی دارد:
 الف)فونت:به صورت استاتیک و بدون تغییر داخل فولدر font
 ب)استایل:استایل ها داخل فولدر استایل هستند.برای اینکه به توان به صورت داینامیک و با صرف کمترین زمان استایل جدید تولید شود؛داخل پوشه base استایل اولیه و توکن های رنگی و ادرس سرور ها قرار داده شده است.سپس توسط اسکریپت style_convertor  به فایل استایل کامل و قابل قبول برای مپ باکس تبدیل میشود.
@@ -29,18 +29,18 @@
 پروژه از **معماری Microservices** استفاده می‌کند و شامل این کامپوننت‌های اصلی است:
 
 #### A) **mbtile_pipeline / OSM build** — OSM Tile Generation
-- وظیفه: خواندن فایل OSM PBF و تولید `osm.mbtiles` با Planetiler
+- وظیفه: خواندن فایل OSM PBF و تولید `base.mbtiles` با Planetiler
 - استفاده از `mbtile_pipeline/osm/profile.yml` برای تعریف لایه‌ها و فیلدهای OSM
 - این مسیر دیگر برای OSM به import واسط داخل PostgreSQL وابسته نیست
 
 #### B) **mbtile_pipeline / Custom build** — Custom Tile Generation
 - وظیفه: خواندن داده‌های شخصی از PostGIS و تولید `custom.mbtiles`
-- خروجی: فایل‌های `osm.mbtiles` و `custom.mbtiles` در `mbtile_pipeline/data/`
+- خروجی: فایل‌های `base.mbtiles` و `custom.mbtiles` در `mbtile_pipeline/data/`
 - این مسیر لایه‌ها را خودکار کشف می‌کند و فقط فیلدهای استفاده‌شده در style را داخل tile نگه می‌دارد
 
 #### C) **Martin + Map Assets** — Core Tile and Asset Service
 - **پورت Martin:** 3000
-- **وظیفه Martin:** سرو کردن `osm.mbtiles` و `custom.mbtiles` از `mbtile_pipeline/data/`
+- **وظیفه Martin:** سرو کردن `base.mbtiles` و `custom.mbtiles` از `mbtile_pipeline/data/`
 - **فایل‌های asset:**
   - **Font:** فایل‌های فونت استاتیک در `map_assets/fonts/`
   - **Style:**
@@ -142,7 +142,7 @@ docker compose up -d --build
 2. URL ها را تنظیم می‌کند:
    - `glyphs` → `/fonts/{fontstack}/{range}.pbf`
    - `sprite` → `/sprite/v1/sprite`
-   - sourceهای OSM → `/osm/{z}/{x}/{y}`
+   - sourceهای OSM → `/base/{z}/{x}/{y}`
    - sourceهای custom → `/custom/{z}/{x}/{y}`
 3. sprite ها را به `map_gateway/data/map_assets/sprite/v1/` کپی می‌کند
 4. فونت‌ها را به `map_gateway/data/map_assets/fonts/` کپی می‌کند

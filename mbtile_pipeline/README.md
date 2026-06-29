@@ -9,7 +9,7 @@
 ## ۱. نگاه کلی به معماری
 
 ```
- iran.osm.pbf ──► Planetiler ──────────────► data/osm.mbtiles
+ iran.osm.pbf ──► Planetiler ──────────────► data/base.mbtiles
                                                      │
  PostGIS (viuna_map / public) ──► build.py ──► data/custom.mbtiles
         (+ style JSON برای انتخاب فیلدها)            │
@@ -24,7 +24,7 @@
 
 | فایل | منبع | ابزار | محتوا |
 |------|------|------|-------|
-| `osm.mbtiles` | `iran.osm.pbf` | Planetiler | جاده، رودخانه، کاربری زمین، مرز اداری |
+| `base.mbtiles` | `iran.osm.pbf` | Planetiler | جاده، رودخانه، کاربری زمین، مرز اداری |
 | `custom.mbtiles` | PostGIS | ogr2ogr + Tippecanoe | دوربین، پلیس، مجتمع خدماتی، ایستگاه، برچسب |
 
 Martin هر دو فایل را از روی دیسک می‌خواند و روی پورت `3000` سرویس می‌دهد.
@@ -86,7 +86,7 @@ dbname=os.environ['DB_NAME'],user=os.environ['DB_USER'],password=os.environ['DB_
 ## ۴. اجرای کامل (مسیر معمول)
 
 ```bash
-make all      # ساخت osm.mbtiles و سپس custom.mbtiles
+make all      # ساخت base.mbtiles و سپس custom.mbtiles
 make serve    # راه‌اندازی Martin روی پورت 3000
 ```
 
@@ -97,12 +97,12 @@ make build-osm      # ۱۰ تا ۳۰ دقیقه (Planetiler)
 make build-custom   # چند ثانیه (PostGIS → Tippecanoe)
 make serve          # راه‌اندازی سرور tile
 make stop           # خاموش کردن Martin
-make clean          # حذف osm.mbtiles و custom.mbtiles
+make clean          # حذف base.mbtiles و custom.mbtiles
 ```
 
 ---
 
-## ۵. لایه‌های OSM (`osm.mbtiles`)
+## ۵. لایه‌های OSM (`base.mbtiles`)
 
 تعریف لایه‌ها در `osm/profile.yml` است. اگر خواستید لایه یا فیلدی اضافه/کم کنید، فقط همین فایل را ویرایش کنید و دوباره `make build-osm` بزنید.
 
@@ -138,11 +138,11 @@ make clean          # حذف osm.mbtiles و custom.mbtiles
 
 | لایه (جدول) | نوع | زوم | فیلدهای نگه‌داشته | منبع DB |
 |------|-----|-----|------|------|
-| `complex_service` | POINT | 6–14 | `axis_name` | `axisname` |
-| `police` | POINT | 6–14 | — (فقط نقطه) | — |
-| `label_object` | MULTIPOINT | 3–14 | `name` | `name` |
-| `station` | MULTIPOINT | 6–14 | `name` | `name` |
-| `violation_camera` | MULTIPOINT | 6–14 | — (فقط نقطه) | — |
+| `complex_service` | POINT | 6–15 | `axis_name` | `axisname` |
+| `police` | POINT | 6–15 | — (فقط نقطه) | — |
+| `label_object` | MULTIPOINT | 3–15 | `name` | `name` |
+| `station` | MULTIPOINT | 6–15 | `name` | `name` |
+| `violation_camera` | MULTIPOINT | 6–15 | — (فقط نقطه) | — |
 
 > **اصل بهینه‌سازی:** هر property که در style رندر نشود از tile حذف می‌شود تا حجم خروجی کمینه شود. مثلاً جدول `complex_service` ۵۵ ستون دارد ولی فقط `axis_name` در tile می‌ماند.
 
@@ -153,7 +153,7 @@ make clean          # حذف osm.mbtiles و custom.mbtiles
 ```yaml
 defaults:
   minzoom: 6
-  maxzoom: 14          # بیشتر از این لازم نیست؛ overzoom سمت کلاینت انجام می‌شود
+  maxzoom: 15          # بعد از این overzoom سمت کلاینت انجام می‌شود
 
 layers:
   complex_service:
@@ -225,7 +225,7 @@ curl -s -o /dev/null -w "%{http_code}\n" http://localhost:3000/custom/6/40/26   
 GET /catalog                 لیست همه منابع
 GET /osm                     TileJSON لایه OSM
 GET /custom                  TileJSON لایه‌های custom
-GET /osm/{z}/{x}/{y}         tile وکتور OSM
+GET /base/{z}/{x}/{y}         tile وکتور OSM
 GET /custom/{z}/{x}/{y}      tile وکتور custom
 ```
 
@@ -270,7 +270,7 @@ docker compose restart martin
 
 ```
 mbtile_pipeline/
-├── data/                    # خروجی‌ها (osm.mbtiles، custom.mbtiles) — در git نیست
+├── data/                    # خروجی‌ها (base.mbtiles، custom.mbtiles) — در git نیست
 │   └── iran.osm.pbf         # ورودی OSM
 ├── osm/
 │   └── profile.yml          # تعریف لایه‌های OSM (Planetiler)
@@ -305,10 +305,10 @@ mbtile_pipeline/
   - `custom/build.py` → `resolve_columns()` و `SELECT` انتخابی در `export_geojson()`
   - `custom/build.py` → `build_layer_tiles()`: برای فیلدهای لازم `-y <field>` و اگر هیچ فیلدی لازم نباشد `-X` (حذف کامل خصوصیات)
 
-**۲. cap زوم روی ۱۴**
-هر سطح زوم بیشتر، تعداد tile را ~۴ برابر می‌کند. ساخت تا z14 متوقف می‌شود و کلاینت با overzoom تا z22 نمایش می‌دهد (برای نقطه‌ها بدون افت کیفیت).
+**۲. cap زوم روی ۱۵**
+هر سطح زوم بیشتر، تعداد tile را ~۴ برابر می‌کند. ساخت تا z15 متوقف می‌شود و کلاینت بعد از آن با overzoom نمایش می‌دهد. style نیز بعد از z15 رشد ضخامت و اندازه را clamp می‌کند تا overzoom نقشه را شلوغ نکند.
 
-- محل در کد: `custom/config.yml` → `defaults.maxzoom: 14` (و per-layer)؛ اعمال در `build.py` با `-z {maxzoom}`
+- محل در کد: `custom/config.yml` → `defaults.maxzoom: 15` (و per-layer)؛ اعمال در `build.py` با `-z {maxzoom}`
 
 **۳. حذف `--no-tile-size-limit`**
 نسخهٔ قدیمی این پرچم را داشت که سقف ~۵۰۰KB هر tile را برمی‌داشت و tileها را حجیم می‌کرد. این پرچم **حذف شده** و به‌جایش `--drop-densest-as-needed` گذاشته شده تا فقط در نقاط شلوغ (زوم پایین) متراکم‌ترین featureها کنار گذاشته شوند.
@@ -339,5 +339,5 @@ mbtile_pipeline/
 | Martin | سرویس‌دهی Vector Tile |
 
 - فرمت tile: MVT — فشرده‌سازی: gzip
-- حداکثر زوم ساخت: ۱۴ (overzoom تا ۲۲ سمت کلاینت)
+- حداکثر زوم ساخت: ۱۵ (overzoom بعد از آن سمت کلاینت)
 - محدوده: ایران (`44.32, 24.76, 63.28, 39.64`)

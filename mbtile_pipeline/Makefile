@@ -1,6 +1,6 @@
 .PHONY: build-osm build-custom serve stop all clean viewer help
 
-## Build osm.mbtiles from iran.osm.pbf using Planetiler
+## Build base.mbtiles from iran.osm.pbf using Planetiler
 build-osm:
 	docker compose run --rm osm-build
 
@@ -27,7 +27,7 @@ all: build-osm build-custom
 
 ## Remove output tiles
 clean:
-	rm -f data/osm.mbtiles data/custom.mbtiles
+	rm -f data/base.mbtiles data/custom.mbtiles
 
 help:
 	@grep -E '^##' Makefile | sed 's/## //'
