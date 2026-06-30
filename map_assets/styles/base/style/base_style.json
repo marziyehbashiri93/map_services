@@ -24,19 +24,7 @@
         "background-color": "_background_color_"
       }
     },
-    {
-      "id": "sea",
-      "type": "fill",
-      "paint": {
-        "fill-color": "_landuse_water_color_",
-        "fill-opacity": 0.8
-      },
-      "source": "base",
-      "maxzoom": 22.1,
-      "minzoom": 1,
-      "source-layer": "sea"
-    },
-    {
+        {
       "id": "cities-fill",
       "type": "fill",
       "paint": {
@@ -45,15 +33,18 @@
       "filter": [
         "==",
         [
-          "get",
-          "place_level"
+          "to-number",
+          [
+            "get",
+            "admin_level"
+          ]
         ],
-        "city"
+        7
       ],
-      "source": "base",
+      "source": "custom",
       "maxzoom": 22.1,
       "minzoom": 1.0,
-      "source-layer": "admin_divisions_polygon"
+      "source-layer": "city"
     },
     {
       "id": "landuse-green-1",
@@ -100,7 +91,8 @@
           "literal",
           [
             "wood",
-            "forest"
+            "forest",
+            "nature_reserve"
           ]
         ]
       ],
@@ -206,7 +198,6 @@
             "golf_course",
             "sports_centre",
             "stadium",
-            "nature_reserve",
             "pitch",
             "track",
             "orchard",
@@ -283,7 +274,7 @@
         "hillshade-highlight-color": "rgba(255, 255, 255, 0.25)",
         "hillshade-illumination-direction": 315
       },
-      "minzoom": 4,
+      "minzoom": 1,
       "maxzoom": 9
     },
     {
@@ -6422,26 +6413,41 @@
       "source-layer": "road_labels"
     },
     {
-      "id": "province_outline",
+      "id": "world_borders_shadow",
       "type": "line",
-      "minzoom": 3,
+      "source": "custom",
+      "source-layer": "world_borders",
+      "minzoom": 0,
+      "maxzoom": 22.1,
       "layout": {
-        "line-join": "bevel"
+        "line-join": "round",
+        "line-cap": "round"
       },
       "paint": {
-        "line-color": "_province_outline_",
+        "line-color": "_world_border_shadow_",
         "line-width": [
           "interpolate",
           [
-            "linear"
+            "exponential",
+            1.2
           ],
           [
             "zoom"
           ],
-          7,
+          1,
           0.8,
-          12,
-          2
+          3,
+          1.0,
+          5,
+          1.3,
+          7,
+          1.7,
+          10,
+          2.2,
+          14,
+          2.8,
+          18,
+          3.3
         ],
         "line-opacity": [
           "interpolate",
@@ -6451,12 +6457,56 @@
           [
             "zoom"
           ],
-          3,
-          0.1,
-          8,
-          0.5
+          1,
+          0.08,
+          5,
+          0.12,
+          10,
+          0.18,
+          18,
+          0.24
         ],
-        "line-blur": [
+        "line-blur": 0.35
+      }
+    },
+    {
+      "id": "world_borders",
+      "type": "line",
+      "source": "custom",
+      "source-layer": "world_borders",
+      "minzoom": 0,
+      "maxzoom": 22.1,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "_world_border_color_",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.2
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.3,
+          3,
+          0.5,
+          5,
+          0.8,
+          7,
+          1.1,
+          10,
+          1.5,
+          14,
+          2.0,
+          18,
+          2.5
+        ],
+        "line-opacity": [
           "interpolate",
           [
             "linear"
@@ -6464,14 +6514,42 @@
           [
             "zoom"
           ],
-          3,
-          0,
-          8,
-          3
+          1,
+          0.25,
+          5,
+          0.45,
+          10,
+          0.70,
+          18,
+          0.90
         ]
-      },
-      "source": "base",
-      "source-layer": "province"
+      }
+    },
+    {
+      "id": "world_water",
+      "type": "fill",
+      "source": "custom",
+      "source-layer": "world_water",
+      "minzoom": 0,
+      "maxzoom": 22.1,
+      "paint": {
+        "fill-color": "_world_water_color_",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0.90,
+          5,
+          0.95,
+          10,
+          1.00
+        ]
+      }
     },
     {
       "id": "village-label",
@@ -6484,18 +6562,24 @@
         [
           "==",
           [
-            "get",
-            "place_level"
+            "to-number",
+            [
+              "get",
+              "place_level"
+            ]
           ],
-          "village"
+          6
         ],
         [
           "==",
           [
-            "get",
-            "place_level"
+            "to-number",
+            [
+              "get",
+              "place_level"
+            ]
           ],
-          "hamlet"
+          7
         ]
       ],
       "layout": {
@@ -6545,10 +6629,13 @@
       "filter": [
         "==",
         [
-          "get",
-          "place_level"
+          "to-number",
+          [
+            "get",
+            "place_level"
+          ]
         ],
-        "town"
+        5
       ],
       "layout": {
         "text-font": [
@@ -6581,29 +6668,15 @@
         "text-color": "_admin_major_label_color_"
       },
       "filter": [
-        "any",
+        "==",
         [
-          "==",
+          "to-number",
           [
-            "string",
-            [
-              "get",
-              "place_level"
-            ]
-          ],
-          "city"
+            "get",
+            "place_level"
+          ]
         ],
-        [
-          "==",
-          [
-            "string",
-            [
-              "get",
-              "place_level"
-            ]
-          ],
-          "island"
-        ]
+        4
       ],
       "layout": {
         "text-font": [
@@ -6651,10 +6724,13 @@
       "filter": [
         "==",
         [
-          "get",
-          "place_level"
+          "to-number",
+          [
+            "get",
+            "place_level"
+          ]
         ],
-        "suburb"
+        8
       ],
       "layout": {
         "text-font": [
@@ -6731,10 +6807,13 @@
       "filter": [
         "==",
         [
-          "get",
-          "place_level"
+          "to-number",
+          [
+            "get",
+            "place_level"
+          ]
         ],
-        "neighbourhood"
+        8
       ],
       "layout": {
         "text-font": [
@@ -6857,10 +6936,49 @@
       "source-layer": "label_object"
     },
     {
+      "id": "city",
+      "type": "symbol",
+      "paint": {
+        "text-color": "_admin_major_label_color_",
+        "text-halo-color": "_road_label_halo_color_",
+        "text-halo-width": 0.8
+      },
+      "layout": {
+        "text-max-width": "_text_max_width_",
+        "text-font": [
+          "IRANYekanWebFnMedium"
+        ],
+        "text-size": {
+          "stops": [
+            [
+              3.0,
+              10.0
+            ],
+            [
+              8.0,
+              14.0
+            ],
+            [
+              12.0,
+              17.0
+            ]
+          ]
+        },
+        "text-field": "{name}",
+        "text-anchor": "center",
+        "symbol-placement": "point",
+        "text-allow-overlap": true
+      },
+      "source": "custom",
+      "maxzoom": 22,
+      "minzoom": 3,
+      "source-layer": "city"
+    },
+    {
       "id": "station",
       "type": "fill",
       "paint": {
-        "fill-color": "_station_color_",
+        "fill-color": "_station_circle_color_",
         "fill-opacity": 0.2
       },
       "source": "custom",
@@ -6912,7 +7030,7 @@
       "type": "circle",
       "paint": {
         "circle-blur": "_poi_circle_blur_",
-        "circle-color": "_station_color_",
+        "circle-color": "_station_circle_color_",
         "circle-radius": "_circle_radius_"
       },
       "source": "custom",
@@ -6940,7 +7058,7 @@
       "id": "complex_service-icon",
       "type": "symbol",
       "paint": {
-        "text-color": "_complex_service_circle_color_"
+        "text-color": "_complex_service_font_color_"
       },
       "layout": {
         "icon-size": "_rest_area_icon_size_",
