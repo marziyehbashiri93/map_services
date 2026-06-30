@@ -38,6 +38,10 @@ layers:
     minzoom: 3
     maxzoom: 15
 
+  city:
+    minzoom: 3
+    maxzoom: 15
+
   violation_camera:
     minzoom: 6
     maxzoom: 15
@@ -55,4 +59,12 @@ layers:
 
   station:
     minzoom: 6
+    maxzoom: 15
+
+  world_water:
+    minzoom: 0
+    maxzoom: 15
+
+  world_borders:
+    minzoom: 0
     maxzoom: 15
