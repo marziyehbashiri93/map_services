@@ -24,7 +24,7 @@
         "background-color": "_background_color_"
       }
     },
-        {
+    {
       "id": "cities-fill",
       "type": "fill",
       "paint": {
@@ -6413,145 +6413,6 @@
       "source-layer": "road_labels"
     },
     {
-      "id": "world_borders_shadow",
-      "type": "line",
-      "source": "custom",
-      "source-layer": "world_borders",
-      "minzoom": 0,
-      "maxzoom": 22.1,
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "_world_border_shadow_",
-        "line-width": [
-          "interpolate",
-          [
-            "exponential",
-            1.2
-          ],
-          [
-            "zoom"
-          ],
-          1,
-          0.8,
-          3,
-          1.0,
-          5,
-          1.3,
-          7,
-          1.7,
-          10,
-          2.2,
-          14,
-          2.8,
-          18,
-          3.3
-        ],
-        "line-opacity": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          1,
-          0.08,
-          5,
-          0.12,
-          10,
-          0.18,
-          18,
-          0.24
-        ],
-        "line-blur": 0.35
-      }
-    },
-    {
-      "id": "world_borders",
-      "type": "line",
-      "source": "custom",
-      "source-layer": "world_borders",
-      "minzoom": 0,
-      "maxzoom": 22.1,
-      "layout": {
-        "line-join": "round",
-        "line-cap": "round"
-      },
-      "paint": {
-        "line-color": "_world_border_color_",
-        "line-width": [
-          "interpolate",
-          [
-            "exponential",
-            1.2
-          ],
-          [
-            "zoom"
-          ],
-          1,
-          0.3,
-          3,
-          0.5,
-          5,
-          0.8,
-          7,
-          1.1,
-          10,
-          1.5,
-          14,
-          2.0,
-          18,
-          2.5
-        ],
-        "line-opacity": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          1,
-          0.25,
-          5,
-          0.45,
-          10,
-          0.70,
-          18,
-          0.90
-        ]
-      }
-    },
-    {
-      "id": "world_water",
-      "type": "fill",
-      "source": "custom",
-      "source-layer": "world_water",
-      "minzoom": 0,
-      "maxzoom": 22.1,
-      "paint": {
-        "fill-color": "_world_water_color_",
-        "fill-opacity": [
-          "interpolate",
-          [
-            "linear"
-          ],
-          [
-            "zoom"
-          ],
-          0,
-          0.90,
-          5,
-          0.95,
-          10,
-          1.00
-        ]
-      }
-    },
-    {
       "id": "village-label",
       "type": "symbol",
       "paint": {
@@ -7146,6 +7007,145 @@
       "source": "custom",
       "minzoom": 10,
       "source-layer": "station"
+    },
+    {
+      "id": "world_borders_shadow",
+      "type": "line",
+      "source": "custom",
+      "source-layer": "world_borders",
+      "minzoom": 0,
+      "maxzoom": 22.1,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "_world_border_shadow_",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.2
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.8,
+          3,
+          1.0,
+          5,
+          1.3,
+          7,
+          1.7,
+          10,
+          2.2,
+          14,
+          2.8,
+          18,
+          3.3
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.08,
+          5,
+          0.12,
+          10,
+          0.18,
+          18,
+          0.24
+        ],
+        "line-blur": 0.35
+      }
+    },
+    {
+      "id": "world_borders",
+      "type": "line",
+      "source": "custom",
+      "source-layer": "world_borders",
+      "minzoom": 0,
+      "maxzoom": 22.1,
+      "layout": {
+        "line-join": "round",
+        "line-cap": "round"
+      },
+      "paint": {
+        "line-color": "_world_border_color_",
+        "line-width": [
+          "interpolate",
+          [
+            "exponential",
+            1.2
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.3,
+          3,
+          0.5,
+          5,
+          0.8,
+          7,
+          1.1,
+          10,
+          1.5,
+          14,
+          2.0,
+          18,
+          2.5
+        ],
+        "line-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          1,
+          0.25,
+          5,
+          0.45,
+          10,
+          0.70,
+          18,
+          0.90
+        ]
+      }
+    },
+    {
+      "id": "world_water",
+      "type": "fill",
+      "source": "custom",
+      "source-layer": "world_water",
+      "minzoom": 0,
+      "maxzoom": 22.1,
+      "paint": {
+        "fill-color": "_world_water_color_",
+        "fill-opacity": [
+          "interpolate",
+          [
+            "linear"
+          ],
+          [
+            "zoom"
+          ],
+          0,
+          0.90,
+          5,
+          0.95,
+          10,
+          1.00
+        ]
+      }
     }
   ],
   "sources": {}
