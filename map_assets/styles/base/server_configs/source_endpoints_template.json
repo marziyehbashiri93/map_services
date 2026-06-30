@@ -16,7 +16,7 @@
     "terrain": {
       "type": "raster-dem",
       "tiles": [
-        "__BASE_URL__/terrain_tiles/{z}/{x}/{y}.png"
+        "__BASE_URL__/terrain_tiles/{z}/{x}/{y}.webp"
       ],
       "tileSize": 256,
       "encoding": "mapbox",

@@ -21,8 +21,10 @@ import urllib.error
 BBOX = (40.0, 22.0, 65.0, 42.0)          # min_lon, min_lat, max_lon, max_lat
 ZOOM_MIN = 1
 ZOOM_MAX = 10
-OUTPUT_DIR = Path(__file__).parent / "tiles"
-BASE_URL = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
+OUTPUT_DIR = Path(__file__).parent / "tiles3"
+# BASE_URL="https://api.maptiler.com/tiles/terrain-rgb-v2/{z}/{x}/{y}.webp?key=hS7ZlwFSXHwy5UqFiwCx&mtsid=58814493-fa0d-48ff-8ab7-fca0e914c9a2"
+BASE_URL="https://api.maptiler.com/tiles/hillshade/{z}/{x}/{y}.webp?key=hS7ZlwFSXHwy5UqFiwCx&mtsid=58814493-fa0d-48ff-8ab7-fca0e914c9a2"
+# BASE_URL = "https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png"
 MAX_WORKERS = 8
 MAX_RETRIES = 3
 RETRY_DELAY = 2   # seconds between retries
@@ -65,7 +67,7 @@ def tiles_for_bbox(min_lon, min_lat, max_lon, max_lat, zoom_min, zoom_max):
 # ---------------------------------------------------------------------------
 def download_tile(z: int, x: int, y: int) -> tuple[bool, str]:
     url = BASE_URL.format(z=z, x=x, y=y)
-    path = OUTPUT_DIR / str(z) / str(x) / f"{y}.png"
+    path = OUTPUT_DIR / str(z) / str(x) / f"{y}.webp"
 
     if path.exists():
         return True, "skip"

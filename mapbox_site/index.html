@@ -54,6 +54,10 @@
         center: [51.393428, 35.726271],
         zoom: 5
     };
+    const iranBounds = [
+        [25.0, 5.0],
+        [85.0, 55.0]
+    ];
 
     const controls = {
         baseUrl: document.getElementById("baseUrl"),
@@ -225,7 +229,8 @@
                 container: "map",
                 style: vectorStyleUrl(),
                 center: config.center,
-                zoom: config.zoom
+                zoom: config.zoom,
+                maxBounds: iranBounds
             });
         } catch (error) {
             setStatus("Failed to initialize WebGL. مرورگر را با WebGL/Hardware Acceleration اجرا کنید.", true);
